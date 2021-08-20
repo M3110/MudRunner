@@ -11,8 +11,6 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "etc", "etc", "{1D42FD49-8A5
 		etc\README.md = etc\README.md
 	EndProjectSection
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "bibliography", "bibliography", "{A447E959-B1B0-481C-AD73-F245805B8936}"
-EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SuspensionAnalysis.Application", "src\SuspensionAnalysis.Application\SuspensionAnalysis.Application.csproj", "{938A5500-92DA-4227-9F94-ECADAB4AC8A4}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SuspensionAnalysis.Core", "src\SuspensionAnalysis.Core\SuspensionAnalysis.Core.csproj", "{E008F1F2-8540-459A-9AFD-352AB58377A8}"
@@ -21,7 +19,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SuspensionAnalysis.DataCont
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "test", "test", "{BB746C43-59E4-4904-9865-17E88F220E46}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SuspensionAnalysis.UnitTest", "test\SuspensionAnalysis.UnitTest\SuspensionAnalysis.UnitTest.csproj", "{150F3C8A-22E1-4B06-ABE8-A0E6AD6C35C9}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SuspensionAnalysis.UnitTest", "test\SuspensionAnalysis.UnitTest\SuspensionAnalysis.UnitTest.csproj", "{150F3C8A-22E1-4B06-ABE8-A0E6AD6C35C9}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

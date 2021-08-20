@@ -8,6 +8,8 @@ namespace SuspensionAnalysis.Core.Mapper
     /// <summary>
     /// It is responsible to map an object to another.
     /// </summary>
+    // TODO: Mover métodos para classe de extensão.
+    // Por que? Mover a responsabilidade de conversão de dados deve ser da propria classe e nao de uma classe terceira.
     public class MappingResolver : IMappingResolver
     {
         /// <summary>

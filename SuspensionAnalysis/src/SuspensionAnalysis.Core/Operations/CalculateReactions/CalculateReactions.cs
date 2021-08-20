@@ -63,13 +63,13 @@ namespace SuspensionAnalysis.Core.Operations.CalculateReactions
             catch (DivideByZeroException ex)
             {
                 response.SetInternalServerError(OperationErrorCode.InternalServerError,
-                    $"Occurred error while inversing displacement matrix. It happens because exists some error in suspension geometry. '{ex.Message}'.");
+                    $"Occurred error while inversing displacement matrix. It happens because exists some error in suspension geometry. '{ex}'.");
 
                 return Task.FromResult(response);
             }
             catch (Exception ex)
             {
-                response.SetInternalServerError(OperationErrorCode.InternalServerError, $"Ocurred error while calculating result. '{ex.Message}'.");
+                response.SetInternalServerError(OperationErrorCode.InternalServerError, $"Ocurred error while calculating result. '{ex}'.");
 
                 return Task.FromResult(response);
             }
