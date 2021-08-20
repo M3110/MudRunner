@@ -47,6 +47,6 @@ namespace SuspensionAnalysis.Core.Operations.RunAnalysis
         /// <param name="shouldRound"></param>
         /// <param name="decimals"></param>
         /// <returns></returns>
-        Task<SuspensionWishboneAnalysisResult> GenerateSuspensionAArmResultAsync(CoreModels.SuspensionWishbone<TProfile> component, bool shouldRound, int decimals = 0);
+        Task<SuspensionWishboneAnalysisResult> GenerateSuspensionWishboneResultAsync(CoreModels.SuspensionWishbone<TProfile> component, bool shouldRound, int decimals = 0);
     }
 }

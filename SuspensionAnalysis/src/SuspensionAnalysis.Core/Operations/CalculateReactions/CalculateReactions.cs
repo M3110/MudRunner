@@ -129,10 +129,10 @@ namespace SuspensionAnalysis.Core.Operations.CalculateReactions
             Vector3D u5 = suspensionSystem.ShockAbsorber.NormalizedDirection;
             Vector3D u6 = suspensionSystem.TieRod.NormalizedDirection;
 
-            Vector3D r1 = Vector3D.Create(origin, suspensionSystem.LowerWishbone.WishboneFrontPivot);
-            Vector3D r2 = Vector3D.Create(origin, suspensionSystem.LowerWishbone.WishboneRearPivot);
-            Vector3D r3 = Vector3D.Create(origin, suspensionSystem.UpperWishbone.WishboneFrontPivot);
-            Vector3D r4 = Vector3D.Create(origin, suspensionSystem.UpperWishbone.WishboneRearPivot);
+            Vector3D r1 = Vector3D.Create(origin, suspensionSystem.LowerWishbone.FrontPivot);
+            Vector3D r2 = Vector3D.Create(origin, suspensionSystem.LowerWishbone.RearPivot);
+            Vector3D r3 = Vector3D.Create(origin, suspensionSystem.UpperWishbone.FrontPivot);
+            Vector3D r4 = Vector3D.Create(origin, suspensionSystem.UpperWishbone.RearPivot);
             Vector3D r5 = Vector3D.Create(origin, suspensionSystem.ShockAbsorber.PivotPoint);
             Vector3D r6 = Vector3D.Create(origin, suspensionSystem.TieRod.PivotPoint);
 

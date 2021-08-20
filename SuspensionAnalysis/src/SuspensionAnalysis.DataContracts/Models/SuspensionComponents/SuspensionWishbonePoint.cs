@@ -10,19 +10,19 @@ namespace SuspensionAnalysis.DataContracts.Models.SuspensionComponents
         /// <summary>
         /// The point of fastening with steering knuckle.
         /// </summary>
-        public string WishboneOuterBallJoint { get; set; }
+        public string OuterBallJoint { get; set; }
 
         /// <summary>
         /// The pivot point.
         /// This geometry has two pivot point.
         /// </summary>
-        public string WishboneFrontPivot { get; set; }
+        public string FrontPivot { get; set; }
 
         /// <summary>
         /// The pivot point.
         /// This geometry has two pivot point.
         /// </summary>
-        public string WishboneRearPivot { get; set; }
+        public string RearPivot { get; set; }
 
         /// <summary>
         /// This method creates a <see cref="SuspensionWishbonePoint"/> based on <see cref="SuspensionWishbone{TProfile}"/>.
@@ -35,9 +35,9 @@ namespace SuspensionAnalysis.DataContracts.Models.SuspensionComponents
         {
             return new SuspensionWishbonePoint
             {
-                WishboneOuterBallJoint = suspensionWishbone.WishboneOuterBallJoint,
-                WishboneFrontPivot = suspensionWishbone.WishboneFrontPivot,
-                WishboneRearPivot = suspensionWishbone.WishboneRearPivot
+                OuterBallJoint = suspensionWishbone.OuterBallJoint,
+                FrontPivot = suspensionWishbone.FrontPivot,
+                RearPivot = suspensionWishbone.RearPivot
             };
         }
     }

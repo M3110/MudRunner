@@ -31,9 +31,9 @@ namespace SuspensionAnalysis.UnitTest.Helper.DataContracts
                         Diameter = 25.4e-3,
                         Thickness = 0.9e-3
                     },
-                    WishboneOuterBallJoint = "-0.012,0.685,0.150",
-                    WishboneFrontPivot = "0.250,0.350,0.150",
-                    WishboneRearPivot = "-0.100,0.350,0.130"
+                    OuterBallJoint = "-0.012,0.685,0.150",
+                    FrontPivot = "0.250,0.350,0.150",
+                    RearPivot = "-0.100,0.350,0.130"
                 },
                 UpperWishbone = new SuspensionWishbone<CircularProfile>
                 {
@@ -42,9 +42,9 @@ namespace SuspensionAnalysis.UnitTest.Helper.DataContracts
                         Diameter = 25.4e-3,
                         Thickness = 0.9e-3
                     },
-                    WishboneOuterBallJoint = "0.012,0.660,0.410",
-                    WishboneFrontPivot = "0.200,0.450,0.362",
-                    WishboneRearPivot = "-0.080,0.450,0.362"
+                    OuterBallJoint = "0.012,0.660,0.410",
+                    FrontPivot = "0.200,0.450,0.362",
+                    RearPivot = "-0.080,0.450,0.362"
                 },
                 TieRod = new TieRod<CircularProfile>
                 {
@@ -81,9 +81,9 @@ namespace SuspensionAnalysis.UnitTest.Helper.DataContracts
                         Width = 10e-3,
                         Thickness = 1e-3
                     },
-                    WishboneOuterBallJoint = "-0.012,0.685,0.150",
-                    WishboneFrontPivot = "0.250,0.350,0.150",
-                    WishboneRearPivot = "-0.100,0.350,0.130"
+                    OuterBallJoint = "-0.012,0.685,0.150",
+                    FrontPivot = "0.250,0.350,0.150",
+                    RearPivot = "-0.100,0.350,0.130"
                 },
                 UpperWishbone = new SuspensionWishbone<RectangularProfile>
                 {
@@ -93,9 +93,9 @@ namespace SuspensionAnalysis.UnitTest.Helper.DataContracts
                         Width = 10e-3,
                         Thickness = 1e-3
                     },
-                    WishboneOuterBallJoint = "0.012,0.660,0.410",
-                    WishboneFrontPivot = "0.200,0.450,0.362",
-                    WishboneRearPivot = "-0.080,0.450,0.362"
+                    OuterBallJoint = "0.012,0.660,0.410",
+                    FrontPivot = "0.200,0.450,0.362",
+                    RearPivot = "-0.080,0.450,0.362"
                 },
                 TieRod = new TieRod<RectangularProfile>
                 {

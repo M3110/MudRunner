@@ -27,15 +27,15 @@ namespace SuspensionAnalysis.UnitTest.Helper
                 },
                 LowerWishbone = new SuspensionWishbone
                 {
-                    WishboneOuterBallJoint = new Point3D { X = -0.012, Y = 0.685, Z = 0.150 },
-                    WishboneFrontPivot = new Point3D { X = -0.100, Y = 0.350, Z = 0.130 },
-                    WishboneRearPivot = new Point3D { X = 0.250, Y = 0.350, Z = 0.150 }
+                    OuterBallJoint = new Point3D { X = -0.012, Y = 0.685, Z = 0.150 },
+                    FrontPivot = new Point3D { X = -0.100, Y = 0.350, Z = 0.130 },
+                    RearPivot = new Point3D { X = 0.250, Y = 0.350, Z = 0.150 }
                 },
                 UpperWishbone = new SuspensionWishbone
                 {
-                    WishboneOuterBallJoint = new Point3D { X = 0.012, Y = 0.660, Z = 0.410 },
-                    WishboneFrontPivot = new Point3D { X = -0.080, Y = 0.450, Z = 0.362 },
-                    WishboneRearPivot = new Point3D { X = 0.200, Y = 0.450, Z = 0.362 }
+                    OuterBallJoint = new Point3D { X = 0.012, Y = 0.660, Z = 0.410 },
+                    FrontPivot = new Point3D { X = -0.080, Y = 0.450, Z = 0.362 },
+                    RearPivot = new Point3D { X = 0.200, Y = 0.450, Z = 0.362 }
                 },
                 TieRod = new TieRod
                 {
@@ -60,15 +60,15 @@ namespace SuspensionAnalysis.UnitTest.Helper
                 },
                 LowerWishbone = new SuspensionWishbonePoint
                 {
-                    WishboneOuterBallJoint = "-0.012,0.685,0.150",
-                    WishboneFrontPivot = "-0.100,0.350,0.130",
-                    WishboneRearPivot = "0.250,0.350,0.150"
+                    OuterBallJoint = "-0.012,0.685,0.150",
+                    FrontPivot = "-0.100,0.350,0.130",
+                    RearPivot = "0.250,0.350,0.150"
                 },
                 UpperWishbone = new SuspensionWishbonePoint
                 {
-                    WishboneOuterBallJoint = "0.012,0.660,0.410",
-                    WishboneFrontPivot = "-0.080,0.450,0.362",
-                    WishboneRearPivot = "0.200,0.450,0.362"
+                    OuterBallJoint = "0.012,0.660,0.410",
+                    FrontPivot = "-0.080,0.450,0.362",
+                    RearPivot = "0.200,0.450,0.362"
                 },
                 TieRod = new TieRodPoint
                 {
