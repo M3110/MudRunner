@@ -12,7 +12,10 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
  - Renamed pivotPoint1 to wishboneFrontPivot in all application.
  - Renamed pivotPoint2 to wishboneRearPivot in all application.
  - Renamed knucklePoint to wishboneOuterBallJoint in all application. 
-
+ - Framework from netstadantart2.1 from net5.0.
+ - Package Newtonsoft.Json to 13.0.1.
+ - Package Swashbuckle.AspNetCore to 6.1.5.
+ - Package Swashbuckle.AspNetCore.Newtonsoft to 6.1.5.
 
 ## [1.0.0] - 2021-04-20
 ### Added
