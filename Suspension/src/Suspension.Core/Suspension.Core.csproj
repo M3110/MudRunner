@@ -21,7 +21,7 @@
 	</ItemGroup>
 
 	<ItemGroup>
-		<ProjectReference Include="..\SuspensionAnalysis.DataContracts\SuspensionAnalysis.DataContracts.csproj" />
+	  <ProjectReference Include="..\Suspension.DataContracts\Suspension.DataContracts.csproj" />
 	</ItemGroup>
 
 </Project>
