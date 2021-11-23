@@ -81,7 +81,7 @@ namespace SuspensionAnalysis.Core.Operations.CalculateStearingKnuckleReactions
         {
             var response = new CalculateSteeringKnuckleReactionsResponse();
 
-            CalculateReactionsResponseData suspensionSystemEfforts = null;
+            CalculateReactionsResponseData suspensionSystemEfforts;
             if (request.CalculateReactionsResponseData != null)
             {
                 suspensionSystemEfforts = request.CalculateReactionsResponseData;
