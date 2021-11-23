@@ -19,6 +19,11 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
  - Moved operation RunStaticAnalysis to folder 'RunAnalysis/Static'.
  - OperationBase to use invariant culture.
 
+## [1.0.1] - 2021-11-23
+### Changed
+ - Renamed SuspensionAnalysis to Suspension.
+ - Moved files CHANGELOG.MD and README.MD to main folder.
+
 ## [1.0.0] - 2021-04-20
 ### Added
  - First version of the program.
