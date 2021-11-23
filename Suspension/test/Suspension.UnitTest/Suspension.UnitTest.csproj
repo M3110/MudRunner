@@ -21,15 +21,15 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\src\SuspensionAnalysis.Core\SuspensionAnalysis.Core.csproj" />
-    <ProjectReference Include="..\..\src\SuspensionAnalysis.DataContracts\SuspensionAnalysis.DataContracts.csproj" />
-  </ItemGroup>
-
-  <ItemGroup>
     <Folder Include="Core\ExtensionMethods\" />
     <Folder Include="Core\GeometricProperties\CircularProfile\" />
     <Folder Include="Core\GeometricProperties\RectangularProfile\" />
     <Folder Include="Core\Mapper\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\src\Suspension.Core\Suspension.Core.csproj" />
+    <ProjectReference Include="..\..\src\Suspension.DataContracts\Suspension.DataContracts.csproj" />
   </ItemGroup>
 
 </Project>
