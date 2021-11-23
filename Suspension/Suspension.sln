@@ -21,6 +21,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Suspension.Core", "src\Susp
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Suspension.DataContracts", "src\Suspension.DataContracts\Suspension.DataContracts.csproj", "{4352F73F-77EA-4D8E-8E8D-6B2B16039A68}"
 EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Suspension.UnitTest", "test\Suspension.UnitTest\Suspension.UnitTest.csproj", "{DFC289F7-F416-42C5-A2E8-55E0382735BC}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -39,6 +41,10 @@ Global
 		{4352F73F-77EA-4D8E-8E8D-6B2B16039A68}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{4352F73F-77EA-4D8E-8E8D-6B2B16039A68}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{4352F73F-77EA-4D8E-8E8D-6B2B16039A68}.Release|Any CPU.Build.0 = Release|Any CPU
+		{DFC289F7-F416-42C5-A2E8-55E0382735BC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DFC289F7-F416-42C5-A2E8-55E0382735BC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DFC289F7-F416-42C5-A2E8-55E0382735BC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DFC289F7-F416-42C5-A2E8-55E0382735BC}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -47,6 +53,7 @@ Global
 		{3A433472-0C97-45F3-ABAD-F90F94F4DDA0} = {3476D0AD-86B3-4B52-BD42-F9D19CE01E13}
 		{71079089-C522-4748-B37B-755759B0B8BA} = {3476D0AD-86B3-4B52-BD42-F9D19CE01E13}
 		{4352F73F-77EA-4D8E-8E8D-6B2B16039A68} = {3476D0AD-86B3-4B52-BD42-F9D19CE01E13}
+		{DFC289F7-F416-42C5-A2E8-55E0382735BC} = {BB746C43-59E4-4904-9865-17E88F220E46}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {801B0F5F-7AE3-43D0-90C9-02686F698605}
