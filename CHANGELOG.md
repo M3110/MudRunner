@@ -4,6 +4,10 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
+## UNRELEASED
+### Changed
+ - Point3D to receive the point as string at milimeters instead of meters.
+
 ## [1.0.1] - 2021-11-23
 ### Changed
  - Renamed SuspensionAnalysis to Suspension.

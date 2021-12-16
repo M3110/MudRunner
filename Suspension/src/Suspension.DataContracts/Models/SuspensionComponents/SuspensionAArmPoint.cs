@@ -8,18 +8,18 @@ namespace SuspensionAnalysis.DataContracts.Models.SuspensionComponents
     public class SuspensionAArmPoint
     {
         /// <summary>
-        /// The poitn of fastening with steering knuckle.
+        /// The point of fastening with steering knuckle in milimeters (mm).
         /// </summary>
         public string KnucklePoint { get; set; }
 
         /// <summary>
-        /// The pivot point.
+        /// The pivot point in milimeters (mm).
         /// This geometry has two pivot point.
         /// </summary>
         public string PivotPoint1 { get; set; }
 
         /// <summary>
-        /// The pivot point.
+        /// The pivot point in milimeters (mm).
         /// This geometry has two pivot point.
         /// </summary>
         public string PivotPoint2 { get; set; }
