@@ -1,0 +1,43 @@
+{
+  "success": true,
+  "httpStatusCode": "OK",
+  "errors": [],
+  "data": {
+    "analisysFailed": false,
+    "safetyFactor": 18.26,
+    "shockAbsorber": {
+      "absolutValue": 13897.38,
+      "x": -3093.73,
+      "y": 5103.43,
+      "z": -12550.74
+    },
+    "suspensionAArmUpperResult": {
+      "criticalBucklingForce1": 113373.91,
+      "criticalBucklingForce2": 207673.41,
+      "appliedForce1": 4136.6,
+      "appliedForce2": 1722.95,
+      "bucklingSafetyFactor": 27.41,
+      "equivalentStress": 19.15,
+      "stressSafetyFactor": 18.28,
+      "safetyFactor": 18.28
+    },
+    "suspensionAArmLowerResult": {
+      "criticalBucklingForce1": 102983.73,
+      "criticalBucklingForce2": 205166.53,
+      "appliedForce1": -4140.18,
+      "appliedForce2": -9880.99,
+      "bucklingSafetyFactor": 20.76,
+      "equivalentStress": -19.16,
+      "stressSafetyFactor": 18.26,
+      "safetyFactor": 18.26
+    },
+    "tieRod": {
+      "criticalBucklingForce": 277275.35,
+      "appliedForce": 2241.01,
+      "equivalentStress": 10.37,
+      "stressSafetyFactor": 33.74,
+      "bucklingSafetyFactor": 123.73,
+      "safetyFactor": 33.74
+    }
+  }
+}

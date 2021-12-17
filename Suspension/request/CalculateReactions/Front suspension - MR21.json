@@ -1,0 +1,24 @@
+{
+  "shouldRoundResults": true,
+  "numberOfDecimalsToRound": 0,
+  "origin": "4092.50,665,46.4",
+  "appliedForce": "0,0,10585",
+  "shockAbsorber": {
+    "pivotPoint": "4143.80,295,616.08",
+    "fasteningPoint": "4087.19,515.89,272.55"
+  },
+  "suspensionAArmUpper": {
+    "knucklePoint": "4110.04,520.56,412.57",
+    "pivotPoint1": "3874.85,295,538.10",
+    "pivotPoint2": "4290,295,450.39"
+  },
+  "suspensionAArmLower": {
+    "knucklePoint": " 4082.43,577,255.98",
+    "pivotPoint1": "3874.85,295,342.22",
+    "pivotPoint2": "4290,295,342.22"
+  },
+  "tieRod": {
+    "pivotPoint": "4019.41,295,415.34",
+    "fasteningPoint": "4039.52,559.89,335.45"
+  }
+}
