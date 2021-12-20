@@ -1,43 +1,60 @@
 {
-  "success": true,
-  "httpStatusCode": "OK",
-  "errors": [],
   "data": {
     "analisysFailed": false,
-    "safetyFactor": 18.26,
-    "shockAbsorber": {
-      "absolutValue": 13897.38,
-      "x": -3093.73,
-      "y": 5103.43,
-      "z": -12550.74
+    "safetyFactor": 9.13,
+    "shockAbsorberResult": {
+      "absolutValue": 11643.07,
+      "x": -2591.89,
+      "y": 4275.6,
+      "z": -10514.87
     },
     "suspensionAArmUpperResult": {
-      "criticalBucklingForce1": 113373.91,
-      "criticalBucklingForce2": 207673.41,
-      "appliedForce1": 4136.6,
-      "appliedForce2": 1722.95,
-      "bucklingSafetyFactor": 27.41,
-      "equivalentStress": 19.15,
-      "stressSafetyFactor": 18.28,
-      "safetyFactor": 18.28
+      "safetyFactor": 21.82,
+      "stressSafetyFactor": 21.82,
+      "bucklingSafetyFactor": 32.71,
+      "firstSegment": {
+        "safetyFactor": 21.82,
+        "appliedForce": 3465.6,
+        "bucklingSafetyFactor": 32.71,
+        "equivalentStress": 16.04,
+        "stressSafetyFactor": 21.82
+      },
+      "secondSegment": {
+        "safetyFactor": 52.38,
+        "appliedForce": 1443.47,
+        "bucklingSafetyFactor": 143.87,
+        "equivalentStress": 6.68,
+        "stressSafetyFactor": 52.38
+      }
     },
     "suspensionAArmLowerResult": {
-      "criticalBucklingForce1": 102983.73,
-      "criticalBucklingForce2": 205166.53,
-      "appliedForce1": -4140.18,
-      "appliedForce2": -9880.99,
-      "bucklingSafetyFactor": 20.76,
-      "equivalentStress": -19.16,
-      "stressSafetyFactor": 18.26,
-      "safetyFactor": 18.26
+      "safetyFactor": 9.13,
+      "stressSafetyFactor": 9.13,
+      "bucklingSafetyFactor": 24.78,
+      "firstSegment": {
+        "safetyFactor": 21.8,
+        "appliedForce": -3468.6,
+        "bucklingSafetyFactor": 29.69,
+        "equivalentStress": -16.06,
+        "stressSafetyFactor": 21.8
+      },
+      "secondSegment": {
+        "safetyFactor": 9.13,
+        "appliedForce": -8278.19,
+        "bucklingSafetyFactor": 24.78,
+        "equivalentStress": -38.32,
+        "stressSafetyFactor": 9.13
+      }
     },
-    "tieRod": {
-      "criticalBucklingForce": 277275.35,
-      "appliedForce": 2241.01,
-      "equivalentStress": 10.37,
-      "stressSafetyFactor": 33.74,
-      "bucklingSafetyFactor": 123.73,
-      "safetyFactor": 33.74
+    "tieRodResult": {
+      "safetyFactor": 40.27,
+      "appliedForce": 1877.49,
+      "bucklingSafetyFactor": 147.68,
+      "equivalentStress": 8.69,
+      "stressSafetyFactor": 40.27
     }
-  }
+  },
+  "success": true,
+  "httpStatusCode": "OK",
+  "errors": []
 }
