@@ -7,7 +7,7 @@
   "fatigueStressConcentrationFactor": 1,
   "fatigueLimit": 255,
   "fatigueLimitFraction": 0.9,
-  "isRotativeSection": true,
+  "isRotativeSection": false,
   "reliability": "NinetyNinePointNine",
   "surfaceFinish": "ColdRolled",
   "origin": "5492.50,600,46.4",

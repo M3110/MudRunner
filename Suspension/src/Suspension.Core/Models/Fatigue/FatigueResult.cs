@@ -29,6 +29,6 @@
         /// <summary>
         /// Dimensionless.
         /// </summary>
-        public double NumberOfCicles { get; set; }
+        public double NumberOfCycles { get; set; }
     }
 }

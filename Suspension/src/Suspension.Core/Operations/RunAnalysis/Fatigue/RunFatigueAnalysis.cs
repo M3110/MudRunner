@@ -51,40 +51,40 @@ namespace Suspension.Core.Operations.RunAnalysis.Fatigue
             // Step 2 - Generate the result and maps to response.
             List<Task> tasks = new();
 
-            tasks.Add(Task.Run(async () =>
-            {
+            //tasks.Add(Task.Run(async () =>
+            //{
                 response.Data.ShockAbsorberResult = await GenerateShockAbsorberResultAsync(
                     runMaximumStaticAnalysisResponseData.ShockAbsorberResult,
                     runMinimumStaticAnalysisResponseData.ShockAbsorberResult,
                     request.ShouldRoundResults, request.NumberOfDecimalsToRound.GetValueOrDefault()).ConfigureAwait(false);
-            }));
+            //}));
 
-            tasks.Add(Task.Run(async () =>
-            {
+            //tasks.Add(Task.Run(async () =>
+            //{
                 response.Data.SuspensionAArmLowerResult = await GenerateSuspensionAArmResultAsync(
                     // It is necessary to inform the profile aside for it be used correctly according to the component.
                     request, request.SuspensionAArmLower.Profile,
                     runMaximumStaticAnalysisResponseData.SuspensionAArmLowerResult,
                     runMinimumStaticAnalysisResponseData.SuspensionAArmLowerResult).ConfigureAwait(false);
-            }));
+            //}));
 
-            tasks.Add(Task.Run(async () =>
-            {
+            //tasks.Add(Task.Run(async () =>
+            //{
                 response.Data.SuspensionAArmUpperResult = await GenerateSuspensionAArmResultAsync(
                     // It is necessary to inform the profile aside for it be used correctly according to the component.
                     request, request.SuspensionAArmUpper.Profile,
                     runMaximumStaticAnalysisResponseData.SuspensionAArmUpperResult,
                     runMinimumStaticAnalysisResponseData.SuspensionAArmUpperResult).ConfigureAwait(false);
-            }));
+            //}));
 
-            tasks.Add(Task.Run(async () =>
-            {
+            //tasks.Add(Task.Run(async () =>
+            //{
                 response.Data.TieRodResult = await GenerateSingleComponentResultAsync(
                     // It is necessary to inform the profile aside for it be used correctly according to the component.
                     request, request.TieRod.Profile,
                     runMaximumStaticAnalysisResponseData.TieRodResult,
                     runMinimumStaticAnalysisResponseData.TieRodResult);
-            }));
+            //}));
 
             await Task.WhenAll(tasks);
 
@@ -230,12 +230,12 @@ namespace Suspension.Core.Operations.RunAnalysis.Fatigue
             // Step iii - Maps the result for SingleComponentFatigueAnalysisResult.
             SingleComponentFatigueAnalysisResult result = new()
             {
-                AppliedForce = Math.Max(singleComponentMaximumResult.AppliedForce, singleComponentMinimumResult.AppliedForce),
-                BucklingSafetyFactor = Math.Min(singleComponentMaximumResult.BucklingSafetyFactor, singleComponentMinimumResult.BucklingSafetyFactor),
-                EquivalentStress = Math.Max(singleComponentMaximumResult.EquivalentStress, singleComponentMinimumResult.EquivalentStress),
-                StressSafetyFactor = Math.Min(singleComponentMaximumResult.StressSafetyFactor, singleComponentMinimumResult.StressSafetyFactor),
+                AppliedForce = GetAbsoluteMaximum(singleComponentMaximumResult.AppliedForce, singleComponentMinimumResult.AppliedForce),
+                BucklingSafetyFactor = GetAbsoluteMinimum(singleComponentMaximumResult.BucklingSafetyFactor, singleComponentMinimumResult.BucklingSafetyFactor),
+                EquivalentStress = GetAbsoluteMaximum(singleComponentMaximumResult.EquivalentStress, singleComponentMinimumResult.EquivalentStress),
+                StressSafetyFactor = GetAbsoluteMinimum(singleComponentMaximumResult.StressSafetyFactor, singleComponentMinimumResult.StressSafetyFactor),
                 FatigueEquivalentStress = fatigueResult.EquivalentStress,
-                FatigueNumberOfCicles = fatigueResult.NumberOfCicles,
+                FatigueNumberOfCycles = fatigueResult.NumberOfCycles,
                 FatigueSafetyFactor = fatigueResult.SafetyFactor
             };
 
@@ -247,11 +247,33 @@ namespace Suspension.Core.Operations.RunAnalysis.Fatigue
                 result.EquivalentStress = Math.Round(result.EquivalentStress, request.NumberOfDecimalsToRound.GetValueOrDefault());
                 result.StressSafetyFactor = Math.Round(result.StressSafetyFactor, request.NumberOfDecimalsToRound.GetValueOrDefault());
                 result.FatigueEquivalentStress = Math.Round(result.FatigueEquivalentStress, request.NumberOfDecimalsToRound.GetValueOrDefault());
-                result.FatigueNumberOfCicles = Math.Round(result.FatigueNumberOfCicles, request.NumberOfDecimalsToRound.GetValueOrDefault());
+                result.FatigueNumberOfCycles = Math.Round(result.FatigueNumberOfCycles, request.NumberOfDecimalsToRound.GetValueOrDefault());
                 result.FatigueSafetyFactor = Math.Round(result.FatigueSafetyFactor, request.NumberOfDecimalsToRound.GetValueOrDefault());
             }
 
             return Task.FromResult(result);
+        }
+
+        /// <summary>
+        /// This method gets the absolute minimum between two values.
+        /// </summary>
+        /// <param name="value1"></param>
+        /// <param name="value2"></param>
+        /// <returns></returns>
+        private double GetAbsoluteMinimum(double value1, double value2)
+        {
+            return Math.Abs(value1) > Math.Abs(value2) ? value2 : value1;
+        }
+
+        /// <summary>
+        /// This method gets the absolute maximum between two values.
+        /// </summary>
+        /// <param name="value1"></param>
+        /// <param name="value2"></param>
+        /// <returns></returns>
+        private double GetAbsoluteMaximum(double value1, double value2)
+        {
+            return Math.Abs(value1) > Math.Abs(value2) ? value1 : value2;
         }
     }
 }

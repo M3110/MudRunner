@@ -1,0 +1,89 @@
+{
+  "data": {
+    "analisysFailed": true,
+    "safetyFactor": 0,
+    "shockAbsorberResult": {
+      "meanForce": {
+        "absolutValue": 0,
+        "x": 0,
+        "y": 0,
+        "z": 0
+      },
+      "forceAmplitude": {
+        "absolutValue": 0,
+        "x": 0,
+        "y": 0,
+        "z": 0
+      }
+    },
+    "suspensionAArmUpperResult": {
+      "fatigueSafetyFactor": 0,
+      "fatigueNumberOfCicles": 0,
+      "safetyFactor": 0,
+      "stressSafetyFactor": 0,
+      "bucklingSafetyFactor": 0,
+      "firstSegment": {
+        "safetyFactor": 0,
+        "fatigueEquivalentStress": 0,
+        "fatigueSafetyFactor": 0,
+        "fatigueNumberOfCicles": 0,
+        "appliedForce": 0,
+        "bucklingSafetyFactor": 0,
+        "equivalentStress": 0,
+        "stressSafetyFactor": 0
+      },
+      "secondSegment": {
+        "safetyFactor": 0,
+        "fatigueEquivalentStress": 0,
+        "fatigueSafetyFactor": 0,
+        "fatigueNumberOfCicles": 0,
+        "appliedForce": 0,
+        "bucklingSafetyFactor": 0,
+        "equivalentStress": 0,
+        "stressSafetyFactor": 0
+      }
+    },
+    "suspensionAArmLowerResult": {
+      "fatigueSafetyFactor": 0,
+      "fatigueNumberOfCicles": 0,
+      "safetyFactor": 0,
+      "stressSafetyFactor": 0,
+      "bucklingSafetyFactor": 0,
+      "firstSegment": {
+        "safetyFactor": 0,
+        "fatigueEquivalentStress": 0,
+        "fatigueSafetyFactor": 0,
+        "fatigueNumberOfCicles": 0,
+        "appliedForce": 0,
+        "bucklingSafetyFactor": 0,
+        "equivalentStress": 0,
+        "stressSafetyFactor": 0
+      },
+      "secondSegment": {
+        "safetyFactor": 0,
+        "fatigueEquivalentStress": 0,
+        "fatigueSafetyFactor": 0,
+        "fatigueNumberOfCicles": 0,
+        "appliedForce": 0,
+        "bucklingSafetyFactor": 0,
+        "equivalentStress": 0,
+        "stressSafetyFactor": 0
+      }
+    },
+    "tieRodResult": {
+      "safetyFactor": 0,
+      "fatigueEquivalentStress": 0,
+      "fatigueSafetyFactor": 0,
+      "fatigueNumberOfCicles": 0,
+      "appliedForce": 0,
+      "bucklingSafetyFactor": 0,
+      "equivalentStress": 0,
+      "stressSafetyFactor": 0
+    }
+  },
+  "success": true,
+  "httpStatusCode": "Continue",
+  "errors": [
+    "string"
+  ]
+}

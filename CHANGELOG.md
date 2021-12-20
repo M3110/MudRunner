@@ -7,6 +7,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 ## UNRELEASED
 ### Added
  - Fatigue constitutive equations and operation.
+ - Methods 'Abs', 'Sum' and 'Subtract' to class Force.
 ### Changed
  - Renamed RunAnalysis operation to RunStaticAnalysis and refactored it.
  - Point3D to receive the point as string at milimeters instead of meters.

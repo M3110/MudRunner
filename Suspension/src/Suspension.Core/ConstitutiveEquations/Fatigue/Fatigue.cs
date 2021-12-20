@@ -24,14 +24,15 @@ namespace Suspension.Core.ConstitutiveEquations.Fatigue
             double modifiedFatigueStress = CalculateModifiedFatigueStress(input);
 
             double a = Math.Pow(input.FatigueLimitFraction * input.TensileStress, 2) / modifiedFatigueStress;
-            double b = (-1 / 3) * Math.Log10(input.FatigueLimitFraction * input.TensileStress / modifiedFatigueStress);
+            double b = -Math.Log10(input.FatigueLimitFraction * input.TensileStress / modifiedFatigueStress) / 3;
+            double numberOfCycles = Math.Pow(equivalentStress / a, 1 / b);
 
             return new()
             {
                 StressAmplitude = stressAmplitude,
                 MeanStress = meanStress,
                 EquivalentStress = equivalentStress,
-                NumberOfCicles = Math.Pow(equivalentStress / a, 1 / b),
+                NumberOfCycles = numberOfCycles > 1e6 ? 1e6 : numberOfCycles,
                 SafetyFactor = Math.Pow(stressAmplitude / modifiedFatigueStress + meanStress / input.TensileStress, -1)
             };
         }

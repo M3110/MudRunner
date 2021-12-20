@@ -27,9 +27,9 @@ namespace Suspension.DataContracts.RunAnalysis.Fatigue
         public double FatigueSafetyFactor { get; set; }
 
         /// <summary>
-        /// The number of cicles at fatigue analysis.
+        /// The number of cycles at fatigue analysis.
         /// Dimensionless.
         /// </summary>
-        public double FatigueNumberOfCicles { get; set; }
+        public double FatigueNumberOfCycles { get; set; }
     }
 }

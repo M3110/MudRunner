@@ -1,0 +1,87 @@
+{
+  "data": {
+    "analisysFailed": false,
+    "safetyFactor": 2.93,
+    "shockAbsorberResult": {
+      "meanForce": {
+        "absolutValue": 6320.45,
+        "x": -1407.01,
+        "y": 2321.01,
+        "z": -5708
+      },
+      "forceAmplitude": {
+        "absolutValue": 5322.62,
+        "x": 1184.88,
+        "y": 1954.59,
+        "z": 4806.87
+      }
+    },
+    "suspensionAArmUpperResult": {
+      "fatigueSafetyFactor": 4.55,
+      "fatigueNumberOfCycles": 1000000,
+      "safetyFactor": 4.55,
+      "stressSafetyFactor": 7,
+      "bucklingSafetyFactor": 9.27,
+      "firstSegment": {
+        "safetyFactor": 4.55,
+        "fatigueEquivalentStress": 24.54,
+        "fatigueSafetyFactor": 4.55,
+        "fatigueNumberOfCycles": 1000000,
+        "appliedForce": 3465.6,
+        "bucklingSafetyFactor": 9.27,
+        "equivalentStress": 50.03,
+        "stressSafetyFactor": 7
+      },
+      "secondSegment": {
+        "safetyFactor": 10.92,
+        "fatigueEquivalentStress": 9.8,
+        "fatigueSafetyFactor": 10.92,
+        "fatigueNumberOfCycles": 1000000,
+        "appliedForce": 1443.47,
+        "bucklingSafetyFactor": 40.75,
+        "equivalentStress": 20.84,
+        "stressSafetyFactor": 16.8
+      }
+    },
+    "suspensionAArmLowerResult": {
+      "fatigueSafetyFactor": 4.98,
+      "fatigueNumberOfCycles": 1000000,
+      "safetyFactor": 2.93,
+      "stressSafetyFactor": 2.93,
+      "bucklingSafetyFactor": 7.02,
+      "firstSegment": {
+        "safetyFactor": 6.99,
+        "fatigueEquivalentStress": 21.43,
+        "fatigueSafetyFactor": 11.88,
+        "fatigueNumberOfCycles": 1000000,
+        "appliedForce": -3468.6,
+        "bucklingSafetyFactor": 8.41,
+        "equivalentStress": -50.07,
+        "stressSafetyFactor": 6.99
+      },
+      "secondSegment": {
+        "safetyFactor": 2.93,
+        "fatigueEquivalentStress": 47.01,
+        "fatigueSafetyFactor": 4.98,
+        "fatigueNumberOfCycles": 1000000,
+        "appliedForce": -8278.19,
+        "bucklingSafetyFactor": 7.02,
+        "equivalentStress": -119.5,
+        "stressSafetyFactor": 2.93
+      }
+    },
+    "tieRodResult": {
+      "safetyFactor": 8.39,
+      "fatigueEquivalentStress": 12.86,
+      "fatigueSafetyFactor": 8.39,
+      "fatigueNumberOfCycles": 1000000,
+      "appliedForce": 1877.49,
+      "bucklingSafetyFactor": 41.83,
+      "equivalentStress": 27.1,
+      "stressSafetyFactor": 12.91
+    }
+  },
+  "success": true,
+  "httpStatusCode": "OK",
+  "errors": []
+}

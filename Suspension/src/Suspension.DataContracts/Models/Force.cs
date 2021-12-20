@@ -97,6 +97,21 @@ namespace Suspension.DataContracts.Models
         }
 
         /// <summary>
+        /// This method returns a new force with the ablsolute value of each axis.
+        /// </summary>
+        /// <returns></returns>
+        public Force Abs()
+        {
+            return new()
+            {
+                X = Math.Abs(this.X),
+                Y = Math.Abs(this.Y),
+                Z = Math.Abs(this.Z),
+                AbsolutValue = this.AbsolutValue
+            };
+        }
+
+        /// <summary>
         /// This method creates the <see cref="Force"/> based on the absolut value and the normalized direction.
         /// </summary>
         /// <param name="absolutValue"></param>
@@ -110,20 +125,6 @@ namespace Suspension.DataContracts.Models
                 X = absolutValue * normalizedDirection.X,
                 Y = absolutValue * normalizedDirection.Y,
                 Z = absolutValue * normalizedDirection.Z
-            };
-        }
-
-        /// <summary>
-        /// This method returns a new force with the ablsolute value of each axis.
-        /// </summary>
-        /// <returns></returns>
-        public Force Abs()
-        {
-            return new()
-            {
-                X = Math.Abs(this.X),
-                Y = Math.Abs(this.Y),
-                Z = Math.Abs(this.Z)
             };
         }
 

@@ -16,6 +16,6 @@ namespace Suspension.DataContracts.RunAnalysis.Fatigue
         /// <summary>
         /// Dimensionless.
         /// </summary>
-        public double FatigueNumberOfCicles => Math.Min(FirstSegment.FatigueNumberOfCicles, SecondSegment.FatigueNumberOfCicles);
+        public double FatigueNumberOfCycles => Math.Min(FirstSegment.FatigueNumberOfCycles, SecondSegment.FatigueNumberOfCycles);
     }
 }
