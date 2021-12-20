@@ -1,6 +1,6 @@
-﻿using DataContract = SuspensionAnalysis.DataContracts.Models.Profiles;
+﻿using DataContract = Suspension.DataContracts.Models.Profiles;
 
-namespace SuspensionAnalysis.Core.GeometricProperties.RectangularProfile
+namespace Suspension.Core.GeometricProperties.RectangularProfile
 {
     /// <summary>
     /// It is responsible to calculate the geometric properties to rectangular profile.

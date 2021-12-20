@@ -1,0 +1,44 @@
+{
+  "shouldRoundResults": true,
+  "numberOfDecimalsToRound": 2,
+  "material": "Steel1020",
+  "maximumAppliedForce": "0,0,5892",
+  "minimumAppliedForce": "0,0,506",
+  "fatigueStressConcentrationFactor": 1,
+  "fatigueLimit": 255,
+  "fatigueLimitFraction": 0.9,
+  "isRotativeSection": true,
+  "reliability": "NinetyNinePointNine",
+  "surfaceFinish": "ColdRolled",
+  "origin": "4092.50,665,46.4",
+  "shockAbsorber": {
+    "pivotPoint": "4143.80,295,616.08",
+    "fasteningPoint": "4087.19,515.89,272.55"
+  },
+  "suspensionAArmUpper": {
+    "profile": {
+      "diameter": 28.6,
+      "thickness": 2.65
+    },
+    "knucklePoint": "4110.04,520.56,412.57",
+    "pivotPoint1": "3874.85,295,538.10",
+    "pivotPoint2": "4290,295,450.39"
+  },
+  "suspensionAArmLower": {
+    "profile": {
+      "diameter": 28.6,
+      "thickness": 2.65
+    },
+    "knucklePoint": " 4082.43,577,255.98",
+    "pivotPoint1": "3874.85,295,342.22",
+    "pivotPoint2": "4290,295,342.22"
+  },
+  "tieRod": {
+    "profile": {
+      "diameter": 28.6,
+      "thickness": 2.65
+    },
+	"pivotPoint": "4019.41,295,415.34",
+    "fasteningPoint": "4039.52,559.89,335.45"
+  }
+}

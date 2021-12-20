@@ -1,6 +1,6 @@
-﻿using SuspensionAnalysis.DataContracts.Models.Profiles;
+﻿using Suspension.DataContracts.Models.Profiles;
 
-namespace SuspensionAnalysis.Core.Models.SuspensionComponents
+namespace Suspension.Core.Models.SuspensionComponents
 {
     /// <summary>
     /// It represents the suspension system.

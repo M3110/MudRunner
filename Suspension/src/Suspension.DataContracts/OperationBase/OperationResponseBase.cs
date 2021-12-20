@@ -1,22 +1,20 @@
 ﻿using System.Collections.Generic;
 using System.Net;
 
-namespace SuspensionAnalysis.DataContracts.OperationBase
+namespace Suspension.DataContracts.OperationBase
 {
     /// <summary>
     /// It represents the response content for all operations.
     /// </summary>
     /// <typeparam name="TResponseData"></typeparam>
-    public class OperationResponseBase<TResponseData>
-        where TResponseData : OperationResponseData, new()
+    public class OperationResponseBase
     {
         /// <summary>
         /// Class constructor.
         /// </summary>
         public OperationResponseBase()
         {
-            this.Errors = new List<OperationError>();
-            this.Data = new TResponseData();
+            this.Errors = new List<string>();
         }
 
         /// <summary>
@@ -32,19 +30,14 @@ namespace SuspensionAnalysis.DataContracts.OperationBase
         /// <summary>
         /// The list of errors.
         /// </summary>
-        public List<OperationError> Errors { get; protected set; }
+        public List<string> Errors { get; protected set; }
 
-        /// <summary>
-        /// It represents the 'data' content of all operation response.
-        /// </summary>
-        public TResponseData Data { get; set; }
-        
         /// <summary>
         /// This method adds errors on list of errors.
         /// </summary>
         /// <param name="errors"></param>
         /// <param name="httpStatusCode"></param>
-        public void AddErrors(List<OperationError> errors, HttpStatusCode httpStatusCode = HttpStatusCode.BadRequest)
+        public void AddErrors(List<string> errors, HttpStatusCode httpStatusCode = HttpStatusCode.BadRequest)
         {
             this.Errors.AddRange(errors);
             this.HttpStatusCode = httpStatusCode;
@@ -69,36 +62,35 @@ namespace SuspensionAnalysis.DataContracts.OperationBase
         /// <summary>
         /// This method sets Success to false and the HttpStatusCode to 400 (BadRequest).
         /// </summary>
-        /// <param name="errorMessage"></param>
-        public void SetBadRequestError(string errorCode = null, string errorMessage = null) => this.SetError(HttpStatusCode.BadRequest, errorCode, errorMessage);
+        /// <param name="error"></param>
+        public void SetBadRequestError(string error = null) => this.SetError(HttpStatusCode.BadRequest, error);
 
         /// <summary>
         /// This method sets Success to false and the HttpStatusCode to 401 (Unauthorized).
         /// </summary>
-        /// <param name="errorMessage"></param>
-        public void SetUnauthorizedError(string errorCode = null, string errorMessage = null) => this.SetError(HttpStatusCode.Unauthorized, errorCode, errorMessage);
+        /// <param name="error"></param>
+        public void SetUnauthorizedError(string error = null) => this.SetError(HttpStatusCode.Unauthorized, error);
 
         /// <summary>
         /// This method sets Success to false and the HttpStatusCode to 500 (InternalServerError).
         /// </summary>
-        /// <param name="errorMessage"></param>
-        public void SetInternalServerError(string errorCode = null, string errorMessage = null) => this.SetError(HttpStatusCode.InternalServerError, errorCode, errorMessage);
+        /// <param name="error"></param>
+        public void SetInternalServerError(string error = null) => this.SetError(HttpStatusCode.InternalServerError, error);
 
         /// <summary>
         /// This method sets Success to false and the HttpStatusCode to 501 (NotImplemented).
         /// </summary>
-        /// <param name="errorMessage"></param>
-        public void SetNotImplementedError(string errorCode = null, string errorMessage = null) => this.SetError(HttpStatusCode.NotImplemented, errorCode, errorMessage);
+        /// <param name="error"></param>
+        public void SetNotImplementedError(string error = null) => this.SetError(HttpStatusCode.NotImplemented, error);
 
         /// <summary>
         /// This method adds error on list of errors.
         /// </summary>
-        /// <param name="errorCode"></param>
-        /// <param name="errorMessage"></param>
+        /// <param name="error"></param>
         /// <param name="httpStatusCode"></param>
-        protected void AddError(string errorCode, string errorMessage, HttpStatusCode httpStatusCode = HttpStatusCode.BadRequest)
+        protected void AddError(string error, HttpStatusCode httpStatusCode = HttpStatusCode.BadRequest)
         {
-            this.Errors.Add(new OperationError(errorCode, errorMessage));
+            this.Errors.Add(error);
             this.HttpStatusCode = httpStatusCode;
             this.Success = false;
         }
@@ -117,14 +109,36 @@ namespace SuspensionAnalysis.DataContracts.OperationBase
         /// This method sets Success to false.
         /// </summary>
         /// <param name="httpStatusCode"></param>
-        /// <param name="errorMessage"></param>
-        protected void SetError(HttpStatusCode httpStatusCode, string errorCode = null, string errorMessage = null)
+        /// <param name="error"></param>
+        protected void SetError(HttpStatusCode httpStatusCode, string error = null)
         {
-            if (errorMessage != null)
-                this.Errors.Add(new OperationError(errorCode, errorMessage));
+            if (error != null)
+                this.Errors.Add(error);
 
             this.HttpStatusCode = httpStatusCode;
             this.Success = false;
         }
+    }
+
+    /// <summary>
+    /// It represents the response content for all operations.
+    /// </summary>
+    /// <typeparam name="TResponseData"></typeparam>
+    public class OperationResponseBase<TResponseData> : OperationResponseBase
+        where TResponseData : OperationResponseData, new()
+    {
+        /// <summary>
+        /// Class constructor.
+        /// </summary>
+        public OperationResponseBase()
+        {
+            this.Errors = new List<string>();
+            this.Data = new TResponseData();
+        }
+
+        /// <summary>
+        /// It represents the 'data' content of all operation response.
+        /// </summary>
+        public TResponseData Data { get; set; }
     }
 }

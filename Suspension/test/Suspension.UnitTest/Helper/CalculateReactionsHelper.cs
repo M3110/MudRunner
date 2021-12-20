@@ -1,10 +1,10 @@
-﻿using SuspensionAnalysis.Core.Models.SuspensionComponents;
-using SuspensionAnalysis.DataContracts.CalculateReactions;
-using SuspensionAnalysis.DataContracts.Models;
-using SuspensionAnalysis.DataContracts.Models.SuspensionComponents;
-using ShockAbsorber = SuspensionAnalysis.Core.Models.SuspensionComponents.ShockAbsorber;
+﻿using Suspension.Core.Models.SuspensionComponents;
+using Suspension.DataContracts.CalculateReactions;
+using Suspension.DataContracts.Models;
+using Suspension.DataContracts.Models.SuspensionComponents;
+using ShockAbsorber = Suspension.Core.Models.SuspensionComponents.ShockAbsorber;
 
-namespace SuspensionAnalysis.UnitTest.Helper
+namespace Suspension.UnitTest.Helper
 {
     /// <summary>
     /// It contains method and properties to help testing the CalculateReactions operation.

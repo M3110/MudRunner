@@ -1,7 +1,7 @@
-﻿using SuspensionAnalysis.DataContracts.Models;
-using DataContract = SuspensionAnalysis.DataContracts.Models.SuspensionComponents;
+﻿using Suspension.DataContracts.Models;
+using DataContract = Suspension.DataContracts.Models.SuspensionComponents;
 
-namespace SuspensionAnalysis.Core.Models.SuspensionComponents
+namespace Suspension.Core.Models.SuspensionComponents
 {
     /// <summary>
     /// It represents the shock absorber.

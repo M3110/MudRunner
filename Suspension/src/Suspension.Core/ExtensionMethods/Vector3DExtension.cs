@@ -1,6 +1,6 @@
-﻿using SuspensionAnalysis.DataContracts.Models;
+﻿using Suspension.DataContracts.Models;
 
-namespace SuspensionAnalysis.Core.ExtensionMethods
+namespace Suspension.Core.ExtensionMethods
 {
     /// <summary>
     /// It contains the extension methods to Vector3D.

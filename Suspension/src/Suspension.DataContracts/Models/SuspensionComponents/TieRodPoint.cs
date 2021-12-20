@@ -1,6 +1,6 @@
-﻿using SuspensionAnalysis.DataContracts.Models.Profiles;
+﻿using Suspension.DataContracts.Models.Profiles;
 
-namespace SuspensionAnalysis.DataContracts.Models.SuspensionComponents
+namespace Suspension.DataContracts.Models.SuspensionComponents
 {
     /// <summary>
     /// It represents the points of tie rod.

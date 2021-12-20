@@ -1,19 +1,17 @@
-﻿using SuspensionAnalysis.DataContracts.OperationBase;
+﻿using Suspension.DataContracts.OperationBase;
 using System;
 using System.Threading.Tasks;
 
-namespace SuspensionAnalysis.Core.Operations.Base
+namespace Suspension.Core.Operations.Base
 {
     /// <summary>
     /// It represents the base for all operations in the application.
     /// </summary>
     /// <typeparam name="TRequest"></typeparam>
     /// <typeparam name="TResponse"></typeparam>
-    /// <typeparam name="TResponseData"></typeparam>
-    public abstract class OperationBase<TRequest, TResponse, TResponseData> : IOperationBase<TRequest, TResponse, TResponseData>
+    public abstract class OperationBase<TRequest, TResponse> : IOperationBase<TRequest, TResponse>
         where TRequest : OperationRequestBase
-        where TResponse : OperationResponseBase<TResponseData>, new()
-        where TResponseData : OperationResponseData, new()
+        where TResponse : OperationResponseBase, new()
     {
         /// <summary>
         /// Asynchronously, this method processes the operation.
@@ -34,7 +32,7 @@ namespace SuspensionAnalysis.Core.Operations.Base
 
             if (request == null)
             {
-                response.SetBadRequestError(OperationErrorCode.RequestValidationError, "Request cannot be null");
+                response.SetBadRequestError("Request cannot be null");
             }
 
             return Task.FromResult(response);
@@ -64,8 +62,7 @@ namespace SuspensionAnalysis.Core.Operations.Base
             }
             catch (Exception ex)
             {
-                response.Data = new TResponseData();
-                response.SetInternalServerError(OperationErrorCode.InternalServerError, $"{ex.Message}");
+                response.SetInternalServerError($"{ex}");
             }
 
             return response;

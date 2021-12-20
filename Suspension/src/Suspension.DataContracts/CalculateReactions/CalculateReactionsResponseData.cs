@@ -1,7 +1,7 @@
-﻿using SuspensionAnalysis.DataContracts.Models;
-using SuspensionAnalysis.DataContracts.OperationBase;
+﻿using Suspension.DataContracts.Models;
+using Suspension.DataContracts.OperationBase;
 
-namespace SuspensionAnalysis.DataContracts.CalculateReactions
+namespace Suspension.DataContracts.CalculateReactions
 {
     /// <summary>
     /// It represents the 'data' content of operation CalculateReactions response.

@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace SuspensionAnalysis.DataContracts.Models
+namespace Suspension.DataContracts.Models
 {
     /// <summary>
     /// It represents the force.
@@ -45,6 +45,58 @@ namespace SuspensionAnalysis.DataContracts.Models
         }
 
         /// <summary>
+        /// This method sums two forces.
+        /// </summary>
+        /// <param name="force"></param>
+        /// <returns></returns>
+        public Force Sum(Force force)
+        {
+            Force result = new()
+            {
+                X = this.X + force.X,
+                Y = this.Y + force.Y,
+                Z = this.Z + force.Z
+            };
+            result.AbsolutValue = CalculateAbsolutValue(result);
+
+            return result;
+        }
+
+        /// <summary>
+        /// This method subtracts two forces.
+        /// </summary>
+        /// <param name="force"></param>
+        /// <returns></returns>
+        public Force Subtract(Force force)
+        {
+            Force result = new()
+            {
+                X = this.X - force.X,
+                Y = this.Y - force.Y,
+                Z = this.Z - force.Z
+            };
+            result.AbsolutValue = CalculateAbsolutValue(result);
+
+            return result;
+        }
+
+        /// <summary>
+        /// This method subtracts two forces.
+        /// </summary>
+        /// <param name="force"></param>
+        /// <returns></returns>
+        public Force Divide(int value)
+        {
+            return new()
+            {
+                AbsolutValue = this.AbsolutValue / value,
+                X = this.X / value,
+                Y = this.Y / value,
+                Z = this.Z / value
+            };
+        }
+
+        /// <summary>
         /// This method creates the <see cref="Force"/> based on the absolut value and the normalized direction.
         /// </summary>
         /// <param name="absolutValue"></param>
@@ -59,6 +111,30 @@ namespace SuspensionAnalysis.DataContracts.Models
                 Y = absolutValue * normalizedDirection.Y,
                 Z = absolutValue * normalizedDirection.Z
             };
+        }
+
+        /// <summary>
+        /// This method returns a new force with the ablsolute value of each axis.
+        /// </summary>
+        /// <returns></returns>
+        public Force Abs()
+        {
+            return new()
+            {
+                X = Math.Abs(this.X),
+                Y = Math.Abs(this.Y),
+                Z = Math.Abs(this.Z)
+            };
+        }
+
+        /// <summary>
+        /// This method calculates the absolut value based on axis x, y and z.
+        /// </summary>
+        /// <param name="force"></param>
+        /// <returns></returns>
+        private double CalculateAbsolutValue(Force force)
+        {
+            return Math.Sqrt(Math.Pow(force.X, 2) + Math.Pow(force.Y, 2) + Math.Pow(force.Z, 2));
         }
     }
 }

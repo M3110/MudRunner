@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Linq;
 
-namespace SuspensionAnalysis.Core.ExtensionMethods
+namespace Suspension.Core.ExtensionMethods
 {
     /// <summary>
     /// It contains extension methods to arrays.

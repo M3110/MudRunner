@@ -1,4 +1,4 @@
-﻿namespace SuspensionAnalysis.DataContracts.Models.SuspensionComponents
+﻿namespace Suspension.DataContracts.Models.SuspensionComponents
 {
     /// <summary>
     /// It represents the shock absorber.

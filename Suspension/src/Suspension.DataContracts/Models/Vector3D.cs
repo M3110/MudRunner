@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 
-namespace SuspensionAnalysis.DataContracts.Models
+namespace Suspension.DataContracts.Models
 {
     /// <summary>
     /// It represents a vector with 3 dimensions: x, y and z.

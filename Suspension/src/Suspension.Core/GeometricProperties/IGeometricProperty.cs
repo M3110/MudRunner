@@ -1,6 +1,6 @@
-﻿using SuspensionAnalysis.DataContracts.Models.Profiles;
+﻿using Suspension.DataContracts.Models.Profiles;
 
-namespace SuspensionAnalysis.Core.GeometricProperties
+namespace Suspension.Core.GeometricProperties
 {
     /// <summary>
     /// It is responsible to calculate the geometric properties to a profile.
@@ -11,6 +11,7 @@ namespace SuspensionAnalysis.Core.GeometricProperties
     {
         /// <summary>
         /// This method calculates the area.
+        /// Unit: mm² (millimeters squared). 
         /// </summary>
         /// <param name="profile"></param>
         /// <returns></returns>
@@ -18,6 +19,7 @@ namespace SuspensionAnalysis.Core.GeometricProperties
 
         /// <summary>
         /// This method calculates the moment of inertia.
+        /// Unit: mm^4 (milimeters raised by four).
         /// </summary>
         /// <param name="profile"></param>
         /// <returns></returns>
