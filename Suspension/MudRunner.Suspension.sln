@@ -7,17 +7,18 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{3476D0AD-86B
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "etc", "etc", "{1D42FD49-8A5C-4912-868D-664F1260FC20}"
 	ProjectSection(SolutionItems) = preProject
-		..\CHANGELOG.md = ..\CHANGELOG.md
-		..\README.md = ..\README.md
+		CHANGELOG.md = CHANGELOG.md
+		Directory.Build.props = Directory.Build.props
+		README.md = README.md
 	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "test", "test", "{BB746C43-59E4-4904-9865-17E88F220E46}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Suspension.Application", "src\Suspension.Application\Suspension.Application.csproj", "{3A433472-0C97-45F3-ABAD-F90F94F4DDA0}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MudRunner.Suspension.Application", "src\Suspension.Application\MudRunner.Suspension.Application.csproj", "{3A433472-0C97-45F3-ABAD-F90F94F4DDA0}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Suspension.Core", "src\Suspension.Core\Suspension.Core.csproj", "{71079089-C522-4748-B37B-755759B0B8BA}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MudRunner.Suspension.Core", "src\Suspension.Core\MudRunner.Suspension.Core.csproj", "{71079089-C522-4748-B37B-755759B0B8BA}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Suspension.DataContracts", "src\Suspension.DataContracts\Suspension.DataContracts.csproj", "{4352F73F-77EA-4D8E-8E8D-6B2B16039A68}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MudRunner.Suspension.DataContracts", "src\Suspension.DataContracts\MudRunner.Suspension.DataContracts.csproj", "{4352F73F-77EA-4D8E-8E8D-6B2B16039A68}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Suspension.UnitTest", "test\Suspension.UnitTest\Suspension.UnitTest.csproj", "{DFC289F7-F416-42C5-A2E8-55E0382735BC}"
 EndProject

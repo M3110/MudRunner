@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project>
+  <PropertyGroup>
+    <!-- Product information -->
+    <Product>MudRunner.Suspension</Product>
+    <AssemblyTitle>Mud Runner - Suspension</AssemblyTitle>
+    <Description>Application responsible to execute routines evolving the suspension system.</Description>
+    <Company>MudRunner</Company>
+    <Copyright>MudRunner - Copyright © 2021</Copyright>
+    <NeutralLanguage>en-us</NeutralLanguage>
+    <RepositoryType>git</RepositoryType>
+    <RepositoryUrl>https://github.com/M3110/MudRunner</RepositoryUrl>
+    <VersionPrefix>1.0.0</VersionPrefix>
+
+    <!-- Setup initial variables if not defined. -->
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <ProjectRootDir Condition=" '$(ProjectRootDir)' == '' ">$(MSBuildThisFileDirectory)</ProjectRootDir>
+    <NuGetPackagesRootDir Condition=" '$(NuGetPackagesRootDir)' == '' ">$(UserProfile)\.nuget\packages\</NuGetPackagesRootDir>
+
+    <!-- Path definitions. -->
+    <BaseIntermediateOutputPath>$(MSBuildThisFileDirectory)\build\tmp\$(MSBuildProjectName)</BaseIntermediateOutputPath>
+    <IntermediateOutputPath>$(BaseIntermediateOutputPath)</IntermediateOutputPath>
+    <OutputPath>$(MSBuildThisFileDirectory)\build\bin\$(Configuration)\$(MSBuildProjectName)</OutputPath>
+
+    <!-- Variable and compile-time constant for the framework identifier. -->
+    <FrameworkIdentifier>$(TargetFramework.TrimEnd('.0123456789'))</FrameworkIdentifier>
+    <DefineConstants>$(DefineConstants);$(FrameworkIdentifier.ToUpper())</DefineConstants>
+  </PropertyGroup>
+</Project>
