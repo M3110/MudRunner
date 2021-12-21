@@ -3,18 +3,8 @@
 	<PropertyGroup>
 		<TargetFramework>net6.0</TargetFramework>
 		<LangVersion>preview</LangVersion>
+		<GenerateDocumentationFile>True</GenerateDocumentationFile>
 	</PropertyGroup>
-
-	<ItemGroup>
-		<Compile Remove="Properties\**" />
-		<EmbeddedResource Remove="Properties\**" />
-		<None Remove="Properties\**" />
-	</ItemGroup>
-
-	<ItemGroup>
-		<None Remove="app.config" />
-		<None Remove="packages.config" />
-	</ItemGroup>
 
 	<ItemGroup>
 		<PackageReference Include="MudRunner.Commons.Core" Version="1.0.0" />

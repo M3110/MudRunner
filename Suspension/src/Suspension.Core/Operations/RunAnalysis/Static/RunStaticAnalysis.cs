@@ -123,6 +123,7 @@ namespace MudRunner.Suspension.Core.Operations.RunAnalysis
         /// </summary>
         /// <param name="shockAbsorberReaction"></param>
         /// <param name="shouldRoundResults"></param>
+        /// <param name="numberOfDecimalsToRound"></param>
         /// <returns></returns>
         public Task<Force> GenerateShockAbsorberResultAsync(Force shockAbsorberReaction, bool shouldRoundResults, int numberOfDecimalsToRound)
         {

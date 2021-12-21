@@ -25,6 +25,7 @@ namespace MudRunner.Suspension.Core.Operations.RunAnalysis.Fatigue
         /// Class constructor.
         /// </summary>
         /// <param name="runStaticAnalysis"></param>
+        /// <param name="fatigue"></param>
         public RunFatigueAnalysis(IRunStaticAnalysis<TProfile> runStaticAnalysis, IFatigue<TProfile> fatigue)
         {
             this._runStaticAnalysis = runStaticAnalysis;

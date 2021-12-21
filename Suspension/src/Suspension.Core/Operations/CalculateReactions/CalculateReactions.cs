@@ -172,6 +172,7 @@ namespace MudRunner.Suspension.Core.Operations.CalculateReactions
         /// This method checks if sum of forces and moment is equals to zero, indicanting that the structure is static.
         /// </summary>
         /// <param name="response"></param>
+        /// <param name="appliedForce"></param>
         public void CheckForceAndMomentSum(CalculateReactionsResponse response, Vector3D appliedForce)
         {
             if (Math.Abs(response.Data.CalculateForceXSum(appliedForce.X)) > this._precision)

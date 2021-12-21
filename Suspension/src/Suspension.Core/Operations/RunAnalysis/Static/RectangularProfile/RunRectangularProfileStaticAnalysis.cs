@@ -16,6 +16,7 @@ namespace MudRunner.Suspension.Core.Operations.RunAnalysis.Static.RectangularPro
         /// </summary>
         /// <param name="calculateReactions"></param>
         /// <param name="mechanicsOfMaterials"></param>
+        /// <param name="geometricProperty"></param>
         /// <param name="mappingResolver"></param>
         public RunRectangularProfileStaticAnalysis(
             ICalculateReactions calculateReactions,
