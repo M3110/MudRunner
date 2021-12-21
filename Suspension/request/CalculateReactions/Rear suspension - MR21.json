@@ -2,7 +2,7 @@
   "shouldRoundResults": true,
   "numberOfDecimalsToRound": 0,
   "origin": "5492.50,600,46.4",
-  "appliedForce": "0,0,10585",
+  "appliedForce": "0,0,8868",
   "shockAbsorber": {
     "pivotPoint": "5572.01,350.33,702.22",
     "fasteningPoint": "5497.58,473.11,400.27"

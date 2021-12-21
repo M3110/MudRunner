@@ -1,7 +1,7 @@
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Hosting;
 
-namespace SuspensionAnalysis
+namespace Suspension.Application
 {
     /// <summary>
     /// Main application class.

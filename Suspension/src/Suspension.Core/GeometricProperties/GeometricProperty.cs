@@ -1,31 +1,9 @@
-﻿using SuspensionAnalysis.Core.Models;
-using SuspensionAnalysis.DataContracts.Models.Profiles;
+﻿using Suspension.Core.Models;
+using Suspension.DataContracts.Models.Profiles;
 using System;
 
-namespace SuspensionAnalysis.Core.GeometricProperties
+namespace Suspension.Core.GeometricProperties
 {
-    /// <summary>
-    /// It is responsible to calculate the geometric properties to a profile.
-    /// </summary>
-    /// <typeparam name="TProfile"></typeparam>
-    public abstract class GeometricProperty<TProfile> : IGeometricProperty<TProfile>
-        where TProfile : Profile
-    {
-        /// <summary>
-        /// This method calculates the area.
-        /// </summary>
-        /// <param name="profile"></param>
-        /// <returns></returns>
-        public abstract double CalculateArea(TProfile profile);
-
-        /// <summary>
-        /// This method calculates the moment of inertia.
-        /// </summary>
-        /// <param name="profile"></param>
-        /// <returns></returns>
-        public abstract double CalculateMomentOfInertia(TProfile profile);
-    }
-
     /// <summary>
     /// It is responsible to calculate the geometric properties to a profile.
     /// </summary>
@@ -44,5 +22,19 @@ namespace SuspensionAnalysis.Core.GeometricProperties
                 throw new ArgumentOutOfRangeException(nameof(geometricProperty), $"The {nameOfVariable} cannot be equals to {geometricProperty}. The {nameOfVariable} must be grether than zero.");
             }
         }
+    }
+
+    /// <summary>
+    /// It is responsible to calculate the geometric properties to a profile.
+    /// </summary>
+    /// <typeparam name="TProfile"></typeparam>
+    public abstract class GeometricProperty<TProfile> : GeometricProperty, IGeometricProperty<TProfile>
+        where TProfile : Profile
+    {
+        /// <inheritdoc/>
+        public abstract double CalculateArea(TProfile profile);
+
+        /// <inheritdoc/>
+        public abstract double CalculateMomentOfInertia(TProfile profile);
     }
 }

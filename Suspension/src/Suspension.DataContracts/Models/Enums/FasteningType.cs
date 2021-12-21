@@ -1,4 +1,4 @@
-﻿namespace SuspensionAnalysis.DataContracts.Models.Enums
+﻿namespace Suspension.DataContracts.Models.Enums
 {
     /// <summary>
     /// It represents the fastening types.

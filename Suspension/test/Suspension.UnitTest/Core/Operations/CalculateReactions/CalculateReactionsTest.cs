@@ -1,17 +1,17 @@
 ﻿using FluentAssertions;
 using Moq;
-using SuspensionAnalysis.Core.Mapper;
-using SuspensionAnalysis.Core.Models.SuspensionComponents;
-using SuspensionAnalysis.DataContracts.CalculateReactions;
-using SuspensionAnalysis.DataContracts.Models;
-using SuspensionAnalysis.UnitTest.Helper;
+using Suspension.Core.Mapper;
+using Suspension.Core.Models.SuspensionComponents;
+using Suspension.DataContracts.CalculateReactions;
+using Suspension.DataContracts.Models;
+using Suspension.UnitTest.Helper;
 using System;
 using System.Net;
 using System.Threading.Tasks;
 using Xunit;
-using Operation = SuspensionAnalysis.Core.Operations.CalculateReactions;
+using Operation = Suspension.Core.Operations.CalculateReactions;
 
-namespace SuspensionAnalysis.UnitTest.Core.Operations.CalculateReactions
+namespace Suspension.UnitTest.Core.Operations.CalculateReactions
 {
     public class CalculateReactionsTest
     {
@@ -102,7 +102,7 @@ namespace SuspensionAnalysis.UnitTest.Core.Operations.CalculateReactions
             result.Should().BeEquivalentTo(effortExpected);
         }
 
-        [Theory(DisplayName = "Feature: MapToResponseData | Given: Valid parameters. | When: ShouldRound is true. | Should: Return valid reactions for components of suspension system.")]
+        [Theory(DisplayName = "Feature: MapToResponseData | Given: Valid parameters. | When: ShouldRoundReults is true. | Should: Return valid reactions for components of suspension system.")]
         [InlineData(0)]
         [InlineData(2)]
         public void MapToResponseData_ValidParameters_When_ShouldRound_Is_True_Should_Return_ValidReactions(int decimals)
@@ -128,7 +128,7 @@ namespace SuspensionAnalysis.UnitTest.Core.Operations.CalculateReactions
             responseData.TieRodReaction.AbsolutValue.Should().Be(this._expectedResponse.Data.TieRodReaction.AbsolutValue);
         }
 
-        [Fact(DisplayName = "Feature: MapToResponseData| Given: Valid parameters. | When: ShouldRound is false. | Should: Return valid reactions for components of suspension system.")]
+        [Fact(DisplayName = "Feature: MapToResponseData| Given: Valid parameters. | When: ShouldRoundReults is false. | Should: Return valid reactions for components of suspension system.")]
         public void MapToResponseData_ValidParameters_When_ShouldRound_Is_False_Should_Return_ValidReactions()
         {
             // Act

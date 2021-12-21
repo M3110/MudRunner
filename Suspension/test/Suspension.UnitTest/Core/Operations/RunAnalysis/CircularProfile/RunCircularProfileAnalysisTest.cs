@@ -1,25 +1,26 @@
 ﻿using Moq;
-using SuspensionAnalysis.Core.ConstitutiveEquations.MechanicsOfMaterials.CircularProfile;
-using SuspensionAnalysis.Core.GeometricProperties.CircularProfile;
-using SuspensionAnalysis.Core.Mapper;
-using SuspensionAnalysis.Core.Operations.CalculateReactions;
-using SuspensionAnalysis.Core.Operations.RunAnalysis.CircularProfile;
-using SuspensionAnalysis.DataContracts.CalculateReactions;
-using SuspensionAnalysis.DataContracts.Models;
-using SuspensionAnalysis.DataContracts.RunAnalysis;
-using SuspensionAnalysis.UnitTest.Helper.DataContracts;
+using Suspension.Core.ConstitutiveEquations.MechanicsOfMaterials;
+using Suspension.Core.GeometricProperties.CircularProfile;
+using Suspension.Core.Mapper;
+using Suspension.Core.Operations.CalculateReactions;
+using Suspension.Core.Operations.RunAnalysis.Fatigue.CircularProfile;
+using Suspension.Core.Operations.RunAnalysis.Static.CircularProfile;
+using Suspension.DataContracts.CalculateReactions;
+using Suspension.DataContracts.Models;
+using Suspension.DataContracts.RunAnalysis.Static;
+using Suspension.UnitTest.Helper.DataContracts;
 using System;
-using DataContract = SuspensionAnalysis.DataContracts.Models.Profiles;
+using DataContract = Suspension.DataContracts.Models.Profiles;
 
-namespace SuspensionAnalysis.UnitTest.Core.Operations.RunAnalysis.CircularProfile
+namespace Suspension.UnitTest.Core.Operations.RunAnalysis.CircularProfile
 {
     public class RunCircularProfileAnalysisTest
     {
-        private readonly RunCircularProfileAnalysis _operation;
-        private readonly RunAnalysisRequest<DataContract.CircularProfile> _requestStub;
+        private readonly RunCircularProfileStaticAnalysis _operation;
+        private readonly RunStaticAnalysisRequest<DataContract.CircularProfile> _requestStub;
 
         private readonly Mock<ICalculateReactions> _calculateReactionsMock;
-        private readonly Mock<ICircularProfileMechanicsOfMaterials> _mechanicsOfMaterialsMock;
+        private readonly Mock<IMechanicsOfMaterials> _mechanicsOfMaterialsMock;
         private readonly Mock<ICircularProfileGeometricProperty> _geometricPropertyMock;
         private readonly Mock<IMappingResolver> _mappingResolverMock;
 
@@ -53,11 +54,11 @@ namespace SuspensionAnalysis.UnitTest.Core.Operations.RunAnalysis.CircularProfil
             this._mappingResolverMock
                 .Setup(mr => mr.MapFrom(this._requestStub, It.IsAny<CalculateReactionsResponseData>()));
 
-            this._mechanicsOfMaterialsMock = new Mock<ICircularProfileMechanicsOfMaterials>();
+            this._mechanicsOfMaterialsMock = new Mock<IMechanicsOfMaterials>();
 
             this._geometricPropertyMock = new Mock<ICircularProfileGeometricProperty>();
 
-            this._operation = new RunCircularProfileAnalysis(
+            this._operation = new RunCircularProfileStaticAnalysis(
                 this._calculateReactionsMock.Object, 
                 this._mechanicsOfMaterialsMock.Object, 
                 this._geometricPropertyMock.Object,

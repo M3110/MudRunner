@@ -1,43 +1,43 @@
 {
-  "success": true,
-  "httpStatusCode": "OK",
-  "errors": [],
   "data": {
     "aArmUpperReaction1": {
-      "absolutValue": 6317,
-      "x": 4254,
-      "y": 4080,
-      "z": -2271
+      "absolutValue": 3516,
+      "x": 2368,
+      "y": 2271,
+      "z": -1264
     },
     "aArmUpperReaction2": {
-      "absolutValue": 6644,
-      "x": -4109,
-      "y": 5150,
-      "z": -863
+      "absolutValue": 3698,
+      "x": -2287,
+      "y": 2866,
+      "z": -481
     },
     "aArmLowerReaction1": {
-      "absolutValue": -12398,
-      "x": -7136,
-      "y": -9695,
-      "z": 2965
+      "absolutValue": -6901,
+      "x": -3972,
+      "y": -5397,
+      "z": 1650
     },
     "aArmLowerReaction2": {
-      "absolutValue": -15263,
-      "x": 8785,
-      "y": -11936,
-      "z": 3650
+      "absolutValue": -8496,
+      "x": 4890,
+      "y": -6644,
+      "z": 2032
     },
     "shockAbsorberReaction": {
-      "absolutValue": 15375,
-      "x": -2111,
-      "y": 8237,
-      "z": -12810
+      "absolutValue": 8558,
+      "x": -1175,
+      "y": 4585,
+      "z": -7131
     },
     "tieRodReaction": {
-      "absolutValue": 4361,
-      "x": 316,
-      "y": 4164,
-      "z": -1256
+      "absolutValue": 2427,
+      "x": 176,
+      "y": 2318,
+      "z": -699
     }
-  }
+  },
+  "success": true,
+  "httpStatusCode": "OK",
+  "errors": []
 }

@@ -1,6 +1,6 @@
-﻿using SuspensionAnalysis.DataContracts.Models;
+﻿using Suspension.DataContracts.Models;
 
-namespace SuspensionAnalysis.Core.ExtensionMethods
+namespace Suspension.Core.ExtensionMethods
 {
     /// <summary>
     /// It contains the extension methods to Vector3D.
@@ -42,5 +42,12 @@ namespace SuspensionAnalysis.Core.ExtensionMethods
         /// <returns></returns>
         public static double DotProduct(this Vector3D vector1, Vector3D vector2)
             => vector1.X * vector2.X + vector1.Y * vector2.Y + vector1.Z * vector2.Z;
+
+        /// <summary>
+        /// This method returns true if all axis of vector is equals to zero and false, otherwise.
+        /// </summary>
+        /// <param name="vector"></param>
+        /// <returns></returns>
+        public static bool IsZero(this Vector3D vector) => vector.X == 0 && vector.Y == 0 && vector.Z == 0;
     }
 }

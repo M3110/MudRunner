@@ -3,17 +3,20 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Newtonsoft.Json.Converters;
-using SuspensionAnalysis.Application.Extensions;
-using SuspensionAnalysis.Core.ConstitutiveEquations.MechanicsOfMaterials.CircularProfile;
-using SuspensionAnalysis.Core.ConstitutiveEquations.MechanicsOfMaterials.RectangularProfile;
-using SuspensionAnalysis.Core.GeometricProperties.CircularProfile;
-using SuspensionAnalysis.Core.GeometricProperties.RectangularProfile;
-using SuspensionAnalysis.Core.Mapper;
-using SuspensionAnalysis.Core.Operations.CalculateReactions;
-using SuspensionAnalysis.Core.Operations.RunAnalysis.CircularProfile;
-using SuspensionAnalysis.Core.Operations.RunAnalysis.RectangularProfile;
+using Suspension.Application.Extensions;
+using Suspension.Core.ConstitutiveEquations.Fatigue;
+using Suspension.Core.ConstitutiveEquations.MechanicsOfMaterials;
+using Suspension.Core.GeometricProperties.CircularProfile;
+using Suspension.Core.GeometricProperties.RectangularProfile;
+using Suspension.Core.Mapper;
+using Suspension.Core.Operations.CalculateReactions;
+using Suspension.Core.Operations.RunAnalysis.Fatigue.CircularProfile;
+using Suspension.Core.Operations.RunAnalysis.Fatigue.RectangularProfile;
+using Suspension.Core.Operations.RunAnalysis.Static.CircularProfile;
+using Suspension.Core.Operations.RunAnalysis.Static.RectangularProfile;
+using Suspension.DataContracts.Models.Profiles;
 
-namespace SuspensionAnalysis
+namespace Suspension.Application
 {
     /// <summary>
     /// The application startup.
@@ -28,8 +31,9 @@ namespace SuspensionAnalysis
         public void ConfigureServices(IServiceCollection services)
         {
             // Register Constitutive Equations
-            services.AddScoped<ICircularProfileMechanicsOfMaterials, CircularProfileMechanicsOfMaterials>();
-            services.AddScoped<IRectangularProfileMechanicsOfMaterials, RectangularProfileMechanicsOfMaterials>();
+            services.AddScoped<IMechanicsOfMaterials, MechanicsOfMaterials>();
+            services.AddScoped<IFatigue<CircularProfile>, Fatigue<CircularProfile>>();
+            services.AddScoped<IFatigue<RectangularProfile>, Fatigue<RectangularProfile>>();
 
             // Register Geometric Property calculators.
             services.AddScoped<ICircularProfileGeometricProperty, CircularProfileGeometricProperty>();
@@ -40,8 +44,10 @@ namespace SuspensionAnalysis
 
             // Register operations.
             services.AddScoped<ICalculateReactions, CalculateReactions>();
-            services.AddScoped<IRunCircularProfileAnalysis, RunCircularProfileAnalysis>();
-            services.AddScoped<IRunRectangularProfileAnalysis, RunRectangularProfileAnalysis>();
+            services.AddScoped<IRunCircularProfileStaticAnalysis, RunCircularProfileStaticAnalysis>();
+            services.AddScoped<IRunRectangularProfileStaticAnalysis, RunRectangularProfileStaticAnalysis>();
+            services.AddScoped<IRunCircularProfileFatigueAnalysis, RunCircularProfileFatigueAnalysis>();
+            services.AddScoped<IRunRectangularProfileFatigueAnalysis, RunRectangularProfileFatigueAnalysis>();
 
             services
                 .AddControllers()

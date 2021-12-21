@@ -1,6 +1,6 @@
-﻿using SuspensionAnalysis.DataContracts.OperationBase;
+﻿using Suspension.DataContracts.OperationBase;
 
-namespace SuspensionAnalysis.DataContracts.CalculateReactions
+namespace Suspension.DataContracts.CalculateReactions
 {
     /// <summary>
     /// It represents the response content to CalculateReactions operation.

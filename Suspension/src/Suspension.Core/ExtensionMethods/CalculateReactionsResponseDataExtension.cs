@@ -1,6 +1,6 @@
-﻿using SuspensionAnalysis.DataContracts.CalculateReactions;
+﻿using Suspension.DataContracts.CalculateReactions;
 
-namespace SuspensionAnalysis.Core.ExtensionMethods
+namespace Suspension.Core.ExtensionMethods
 {
     /// <summary>
     /// It contains the extension method to CalculateReactionsResponseData.1

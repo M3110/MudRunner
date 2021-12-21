@@ -2,7 +2,7 @@
 using System.Globalization;
 using System.Linq;
 
-namespace SuspensionAnalysis.DataContracts.Models
+namespace Suspension.DataContracts.Models
 {
     /// <summary>
     /// It represents a point with 3 dimensions: x, y and z.

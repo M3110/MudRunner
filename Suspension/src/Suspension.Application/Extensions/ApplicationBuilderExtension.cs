@@ -1,7 +1,7 @@
 ﻿using Microsoft.AspNetCore.Builder;
 using System.Reflection;
 
-namespace SuspensionAnalysis.Application.Extensions
+namespace Suspension.Application.Extensions
 {
     /// <summary>
     /// It contains the extensions to the class ApplicationBuilder.

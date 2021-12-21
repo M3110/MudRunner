@@ -1,4 +1,4 @@
-﻿namespace SuspensionAnalysis.DataContracts.OperationBase
+﻿namespace Suspension.DataContracts.OperationBase
 {
     /// <summary>
     /// It represents the request content to operations.

@@ -1,8 +1,8 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using SuspensionAnalysis.DataContracts.OperationBase;
+using Suspension.DataContracts.OperationBase;
 using System.Net;
 
-namespace SuspensionAnalysis.Application.Extensions
+namespace Suspension.Application.Extensions
 {
     /// <summary>
     /// It is responsible to build the HTTP response.
