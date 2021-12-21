@@ -1,10 +1,10 @@
-﻿using SuspensionAnalysis.Core.Models.SuspensionComponents;
-using SuspensionAnalysis.DataContracts.CalculateReactions;
-using SuspensionAnalysis.DataContracts.Models;
-using SuspensionAnalysis.DataContracts.Models.SuspensionComponents;
-using ShockAbsorber = SuspensionAnalysis.Core.Models.SuspensionComponents.ShockAbsorber;
+﻿using MudRunner.Suspension.Core.Models.SuspensionComponents;
+using MudRunner.Suspension.DataContracts.CalculateReactions;
+using MudRunner.Suspension.DataContracts.Models;
+using MudRunner.Suspension.DataContracts.Models.SuspensionComponents;
+using ShockAbsorber = MudRunner.Suspension.Core.Models.SuspensionComponents.ShockAbsorber;
 
-namespace SuspensionAnalysis.UnitTest.Helper
+namespace MudRunner.Suspension.UnitTest.Helper
 {
     /// <summary>
     /// It contains method and properties to help testing the CalculateReactions operation.

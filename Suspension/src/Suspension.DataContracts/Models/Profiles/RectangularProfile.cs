@@ -1,4 +1,4 @@
-﻿namespace SuspensionAnalysis.DataContracts.Models.Profiles
+﻿namespace MudRunner.Suspension.DataContracts.Models.Profiles
 {
     /// <summary>
     /// It represents the rectangular profile.
@@ -7,13 +7,13 @@
     {
         /// <summary>
         /// The width.
-        /// Unit: m (meter).
+        /// Unit: mm (milimeter).
         /// </summary>
         public double Width { get; set; }
 
         /// <summary>
         /// The height.
-        /// Unit: m (meter).
+        /// Unit: mm (milimeter).
         /// </summary>
         public double Height { get; set; }
     }

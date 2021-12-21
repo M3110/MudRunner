@@ -1,4 +1,4 @@
-﻿namespace SuspensionAnalysis.DataContracts.Models.Enums
+﻿namespace MudRunner.Suspension.DataContracts.Models.Enums
 {
     /// <summary>
     /// It contains the materials that could be used in analysis.
@@ -8,16 +8,21 @@
         /// <summary>
         /// Steel SAE 1020.
         /// </summary>
-        Steel1020 = 1,
+        Steel1020 = 1020,
 
         /// <summary>
         /// Steel SAE 1045.
         /// </summary>
-        Steel1045 = 2,
+        Steel1045 = 1045,
+
+        /// <summary>
+        /// Steel SAE 1045.
+        /// </summary>
+        Steel4130 = 4130,
 
         /// <summary>
         /// Amulinum 6061-T6.
         /// </summary>
-        Aluminum6061T6 = 3,
+        Aluminum6061T6 = 6061,
     }
 }

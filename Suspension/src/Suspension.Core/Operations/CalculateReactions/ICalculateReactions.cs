@@ -1,14 +1,14 @@
-﻿using SuspensionAnalysis.Core.Models.SuspensionComponents;
-using SuspensionAnalysis.Core.Operations.Base;
-using SuspensionAnalysis.DataContracts.CalculateReactions;
-using SuspensionAnalysis.DataContracts.Models;
+﻿using MudRunner.Suspension.Core.Models.SuspensionComponents;
+using MudRunner.Suspension.Core.Operations.Base;
+using MudRunner.Suspension.DataContracts.CalculateReactions;
+using MudRunner.Suspension.DataContracts.Models;
 
-namespace SuspensionAnalysis.Core.Operations.CalculateReactions
+namespace MudRunner.Suspension.Core.Operations.CalculateReactions
 {
     /// <summary>
     /// It is responsible to calculate the reactions to suspension system.
     /// </summary>
-    public interface ICalculateReactions : IOperationBase<CalculateReactionsRequest, CalculateReactionsResponse, CalculateReactionsResponseData> 
+    public interface ICalculateReactions : IOperationBase<CalculateReactionsRequest, CalculateReactionsResponse> 
     {
         /// <summary>
         /// This method builds the reactions vector.
@@ -30,9 +30,9 @@ namespace SuspensionAnalysis.Core.Operations.CalculateReactions
         /// </summary>
         /// <param name="suspensionSystem"></param>
         /// <param name="result"></param>
-        /// <param name="shouldRound"></param>
+        /// <param name="shouldRoundResults"></param>
         /// <param name="decimals"></param>
         /// <returns></returns>
-        CalculateReactionsResponseData MapToResponseData(SuspensionSystem suspensionSystem, double[] result, bool shouldRound, int? decimals);
+        CalculateReactionsResponseData MapToResponseData(SuspensionSystem suspensionSystem, double[] result, bool shouldRoundResults, int? decimals);
     }
 }

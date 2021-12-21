@@ -1,6 +1,6 @@
-﻿using DataContract = SuspensionAnalysis.DataContracts.Models.Profiles;
+﻿using DataContract = MudRunner.Suspension.DataContracts.Models.Profiles;
 
-namespace SuspensionAnalysis.Core.GeometricProperties.CircularProfile
+namespace MudRunner.Suspension.Core.GeometricProperties.CircularProfile
 {
     /// <summary>
     /// It is responsible to calculate the geometric properties to circular profile.

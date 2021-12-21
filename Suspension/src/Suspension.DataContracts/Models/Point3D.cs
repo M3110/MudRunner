@@ -2,7 +2,7 @@
 using System.Globalization;
 using System.Linq;
 
-namespace SuspensionAnalysis.DataContracts.Models
+namespace MudRunner.Suspension.DataContracts.Models
 {
     /// <summary>
     /// It represents a point with 3 dimensions: x, y and z.
@@ -30,7 +30,7 @@ namespace SuspensionAnalysis.DataContracts.Models
         /// <summary>
         /// This method creates a <see cref="Point3D"/> based on a string.
         /// </summary>
-        /// <param name="point"></param>
+        /// <param name="point">The points in string at milimeters.</param>
         /// <returns></returns>
         public static Point3D Create(string point)
         {
@@ -38,9 +38,9 @@ namespace SuspensionAnalysis.DataContracts.Models
 
             return new Point3D
             {
-                X = double.Parse(points[0], CultureInfo.InvariantCulture),
-                Y = double.Parse(points[1], CultureInfo.InvariantCulture),
-                Z = double.Parse(points[2], CultureInfo.InvariantCulture),
+                X = double.Parse(points[0], CultureInfo.InvariantCulture) / 1000,
+                Y = double.Parse(points[1], CultureInfo.InvariantCulture) / 1000,
+                Z = double.Parse(points[2], CultureInfo.InvariantCulture) / 1000,
             };
         }
     }

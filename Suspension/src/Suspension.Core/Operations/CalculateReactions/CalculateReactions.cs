@@ -1,19 +1,19 @@
-﻿using SuspensionAnalysis.Core.ExtensionMethods;
-using SuspensionAnalysis.Core.Mapper;
-using SuspensionAnalysis.Core.Models.SuspensionComponents;
-using SuspensionAnalysis.Core.Operations.Base;
-using SuspensionAnalysis.DataContracts.CalculateReactions;
-using SuspensionAnalysis.DataContracts.Models;
-using SuspensionAnalysis.DataContracts.OperationBase;
+﻿using MudRunner.Suspension.Core.ExtensionMethods;
+using MudRunner.Suspension.Core.Mapper;
+using MudRunner.Suspension.Core.Models.SuspensionComponents;
+using MudRunner.Suspension.Core.Operations.Base;
+using MudRunner.Suspension.DataContracts.CalculateReactions;
+using MudRunner.Suspension.DataContracts.Models;
+using MudRunner.Suspension.DataContracts.OperationBase;
 using System;
 using System.Threading.Tasks;
 
-namespace SuspensionAnalysis.Core.Operations.CalculateReactions
+namespace MudRunner.Suspension.Core.Operations.CalculateReactions
 {
     /// <summary>
     /// It is responsible to calculate the reactions to suspension system.
     /// </summary>
-    public class CalculateReactions : OperationBase<CalculateReactionsRequest, CalculateReactionsResponse, CalculateReactionsResponseData>, ICalculateReactions
+    public class CalculateReactions : OperationBase<CalculateReactionsRequest, CalculateReactionsResponse>, ICalculateReactions
     {
         private readonly double _precision = 1e-3;
         private readonly IMappingResolver _mappingResolver;
@@ -62,15 +62,13 @@ namespace SuspensionAnalysis.Core.Operations.CalculateReactions
             }
             catch (DivideByZeroException ex)
             {
-                response.SetInternalServerError(OperationErrorCode.InternalServerError,
-                    $"Occurred error while inversing displacement matrix. It happens because exists some error in suspension geometry. '{ex.Message}'.");
+                response.SetInternalServerError($"Occurred error while inversing displacement matrix. It happens because exists some error in suspension geometry. '{ex.Message}'.");
 
                 return Task.FromResult(response);
             }
             catch (Exception ex)
             {
-                response.SetInternalServerError(OperationErrorCode.InternalServerError,
-                    $"Ocurred error while calculating result. '{ex.Message}'.");
+                response.SetInternalServerError($"Ocurred error while calculating result. '{ex}'.");
 
                 return Task.FromResult(response);
             }
@@ -98,10 +96,9 @@ namespace SuspensionAnalysis.Core.Operations.CalculateReactions
                 return response;
             }
 
-            Vector3D appliedForce = Vector3D.Create(request.AppliedForce);
-            if (appliedForce.X == 0 && appliedForce.Y == 0 && appliedForce.Z == 0)
+            if (Vector3D.Create(request.AppliedForce).IsZero())
             {
-                response.SetBadRequestError(OperationErrorCode.RequestValidationError, "The applied force must have at least one coordinate different than zero.");
+                response.SetBadRequestError("The applied force must have at least one coordinate different than zero.");
             }
 
             return response;
@@ -152,10 +149,10 @@ namespace SuspensionAnalysis.Core.Operations.CalculateReactions
         /// </summary>
         /// <param name="suspensionSystem"></param>
         /// <param name="result"></param>
-        /// <param name="shouldRound"></param>
+        /// <param name="shouldRoundResults"></param>
         /// <param name="decimals"></param>
         /// <returns></returns>
-        public CalculateReactionsResponseData MapToResponseData(SuspensionSystem suspensionSystem, double[] result, bool shouldRound, int? decimals)
+        public CalculateReactionsResponseData MapToResponseData(SuspensionSystem suspensionSystem, double[] result, bool shouldRoundResults, int? decimals)
         {
             // The code below changes the sinal of result (-result) to attest that is passed the component force and not the reactions at chassis.
             var responseData = new CalculateReactionsResponseData
@@ -168,7 +165,7 @@ namespace SuspensionAnalysis.Core.Operations.CalculateReactions
                 TieRodReaction = Force.Create(-result[5], suspensionSystem.TieRod.NormalizedDirection)
             };
 
-            return shouldRound == false ? responseData : responseData.Round(decimals.Value);
+            return shouldRoundResults == false ? responseData : responseData.Round(decimals.Value);
         }
 
         /// <summary>
@@ -179,17 +176,17 @@ namespace SuspensionAnalysis.Core.Operations.CalculateReactions
         {
             if (Math.Abs(response.Data.CalculateForceXSum(appliedForce.X)) > this._precision)
             {
-                response.SetInternalServerError(OperationErrorCode.InternalServerError, "The sum of forces at axis X is not equals to zero.");
+                response.SetInternalServerError("The sum of forces at axis X is not equals to zero.");
             }
 
             if (Math.Abs(response.Data.CalculateForceYSum(appliedForce.Y)) > this._precision)
             {
-                response.SetInternalServerError(OperationErrorCode.InternalServerError, "The sum of forces at axis Y is not equals to zero.");
+                response.SetInternalServerError("The sum of forces at axis Y is not equals to zero.");
             }
 
             if (Math.Abs(response.Data.CalculateForceZSum(appliedForce.Z)) > this._precision)
             {
-                response.SetInternalServerError(OperationErrorCode.InternalServerError, "The sum of forces at axis Z is not equals to zero.");
+                response.SetInternalServerError("The sum of forces at axis Z is not equals to zero.");
             }
         }
     }

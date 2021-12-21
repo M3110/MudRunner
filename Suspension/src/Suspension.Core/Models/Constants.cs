@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace SuspensionAnalysis.Core.Models
+namespace MudRunner.Suspension.Core.Models
 {
     /// <summary>
     /// It contains the constants used in the project.

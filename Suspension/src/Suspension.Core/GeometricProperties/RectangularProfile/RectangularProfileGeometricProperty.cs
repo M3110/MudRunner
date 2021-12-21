@@ -1,19 +1,14 @@
-﻿using DataContract = SuspensionAnalysis.DataContracts.Models.Profiles;
+﻿using DataContract = MudRunner.Suspension.DataContracts.Models.Profiles;
 using System;
 
-namespace SuspensionAnalysis.Core.GeometricProperties.RectangularProfile
+namespace MudRunner.Suspension.Core.GeometricProperties.RectangularProfile
 {
     /// <summary>
     /// It is responsible to calculate the geometric properties to rectangular profile.
     /// </summary>
-    /// <typeparam name="TProfile"></typeparam>
     public class RectangularProfileGeometricProperty : GeometricProperty<DataContract.RectangularProfile>, IRectangularProfileGeometricProperty
     {
-        /// <summary>
-        /// This method calculates the area.
-        /// </summary>
-        /// <param name="profile"></param>
-        /// <returns></returns>
+        /// <inheritdoc/>
         public override double CalculateArea(DataContract.RectangularProfile profile)
         {
             return profile.Thickness.HasValue ?
@@ -21,11 +16,7 @@ namespace SuspensionAnalysis.Core.GeometricProperties.RectangularProfile
                 : profile.Width * profile.Height;
         }
 
-        /// <summary>
-        /// This method calculates the moment of inertia.
-        /// </summary>
-        /// <param name="profile"></param>
-        /// <returns></returns>
+        /// <inheritdoc/>
         public override double CalculateMomentOfInertia(DataContract.RectangularProfile profile)
         {
             return profile.Thickness.HasValue ?

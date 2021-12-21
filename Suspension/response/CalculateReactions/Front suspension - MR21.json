@@ -1,0 +1,43 @@
+{
+  "data": {
+    "aArmUpperReaction1": {
+      "absolutValue": 3516,
+      "x": 2368,
+      "y": 2271,
+      "z": -1264
+    },
+    "aArmUpperReaction2": {
+      "absolutValue": 3698,
+      "x": -2287,
+      "y": 2866,
+      "z": -481
+    },
+    "aArmLowerReaction1": {
+      "absolutValue": -6901,
+      "x": -3972,
+      "y": -5397,
+      "z": 1650
+    },
+    "aArmLowerReaction2": {
+      "absolutValue": -8496,
+      "x": 4890,
+      "y": -6644,
+      "z": 2032
+    },
+    "shockAbsorberReaction": {
+      "absolutValue": 8558,
+      "x": -1175,
+      "y": 4585,
+      "z": -7131
+    },
+    "tieRodReaction": {
+      "absolutValue": 2427,
+      "x": 176,
+      "y": 2318,
+      "z": -699
+    }
+  },
+  "success": true,
+  "httpStatusCode": "OK",
+  "errors": []
+}

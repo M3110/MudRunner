@@ -1,4 +1,4 @@
-﻿namespace SuspensionAnalysis.DataContracts.Models.Profiles
+﻿namespace MudRunner.Suspension.DataContracts.Models.Profiles
 {
     /// <summary>
     /// It represents the circular profile.
@@ -7,7 +7,7 @@
     {
         /// <summary>
         /// The diameter.
-        /// Unit: m (meter).
+        /// Unit: mm (milimeter).
         /// </summary>
         public double Diameter { get; set; }
     }
