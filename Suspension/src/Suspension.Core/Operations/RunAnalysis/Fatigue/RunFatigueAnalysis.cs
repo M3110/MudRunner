@@ -1,4 +1,5 @@
 ﻿using Suspension.Core.ConstitutiveEquations.Fatigue;
+using Suspension.Core.ExtensionMethods;
 using Suspension.Core.Models.Fatigue;
 using Suspension.Core.Operations.Base;
 using Suspension.DataContracts.Models;
@@ -111,7 +112,7 @@ namespace Suspension.Core.Operations.RunAnalysis.Fatigue
             tasks.Add(Task.Run(async () =>
             {
                 // If the minimum applied force is equals to zero, all values must be zero and the safaty factor is the biggest.
-                if (request.MinimumAppliedForce == "0,0,0")
+                if (Vector3D.Create(request.MinimumAppliedForce).IsZero())
                 {
                     runMinimumStaticAnalysisResponse.Data.ShockAbsorberResult = new();
                     runMinimumStaticAnalysisResponse.Data.TieRodResult = new() { BucklingSafetyFactor = Double.MaxValue, StressSafetyFactor = Double.MaxValue };
