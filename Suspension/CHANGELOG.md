@@ -12,7 +12,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
  - Properties BucklingSafetyFactor and StressSafetyFactor to RunStaticAnalysisResponseData.
  - Extension method 'IsZero' for Vector3D.
 ### Changed
- - Renamed application from Suspensionto MudRunner.Suspension.
+ - Renamed application from Suspension to MudRunner.Suspension.
  - Renamed RunAnalysis operation to RunStaticAnalysis and refactored it.
  - Point3D to receive the point as string at milimeters instead of meters.
  - Profiles to receive the values in milimeters.
@@ -30,7 +30,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
  - Nuget Package Swashbuckle.AspNetCore.Newtonsoft to 6.2.3.
 ### Removed
  - Classes CircularProfileMechanicsOfMaterials and RectangularProfileMechanicsOfMaterials.
- - OperationError and OperationErroCode.
+ - Classes OperationError, OperationErroCode, OperationRequestData and OperationRequest<TData>.
 
 ## [1.0.1] - 2021-11-23
 ### Changed
