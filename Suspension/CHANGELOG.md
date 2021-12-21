@@ -12,7 +12,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 ### Removed
  - Codes that was in MudRunner.Commons.
 
-## UNRELEASED
+## [1.1.0] - 2021-12-20
 ### Added
  - File Directory.Build.Props.
  - Fatigue constitutive equations and operation.
