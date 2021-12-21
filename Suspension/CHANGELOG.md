@@ -4,6 +4,14 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
+## UNRELESED
+### Changed
+ - Framework to NET6.0.
+ - Nuget package MudRunner.Commons.Core to 1.0.0.
+ - Nuget package MudRunner.Commons.DataContracts to 1.0.0.
+### Removed
+ - Codes that was in MudRunner.Commons.
+
 ## UNRELEASED
 ### Added
  - File Directory.Build.Props.
@@ -21,7 +29,6 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
  - MechanicsOfMaterials to be concreate and do not receive the profile type.
  - Renamed class TieRodAnalysisResult to SingleComponentAnalysisResult.
  - File .gitignore to ignore the folder build.
- - Framework to NET6.0.
  - Nuget Package Coverlet.collector to 3.1.0.
  - Nuget Package Moq to 4.16.1.
  - Nuget Package Microsoft.NET.Test.Sdk to 17.0.0.
