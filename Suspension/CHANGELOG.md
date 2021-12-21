@@ -28,7 +28,6 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
  - Nuget Package Newtonsoft.Json to 13.0.1.
  - Nuget Package Swashbuckle.AspNetCore to 6.2.3.
  - Nuget Package Swashbuckle.AspNetCore.Newtonsoft to 6.2.3.
-
 ### Removed
  - Classes CircularProfileMechanicsOfMaterials and RectangularProfileMechanicsOfMaterials.
  - OperationError and OperationErroCode.
