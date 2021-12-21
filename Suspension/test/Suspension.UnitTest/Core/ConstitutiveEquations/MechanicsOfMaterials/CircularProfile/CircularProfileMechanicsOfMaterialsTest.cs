@@ -1,12 +1,12 @@
 ﻿//using FluentAssertions;
-//using SuspensionAnalysis.Core.ConstitutiveEquations.MechanicsOfMaterials.CircularProfile;
-//using SuspensionAnalysis.Core.Models;
-//using SuspensionAnalysis.DataContracts.Models.Enums;
+//using MudRunner.Suspension.Analysis.Core.ConstitutiveEquations.MechanicsOfMaterials.CircularProfile;
+//using MudRunner.Suspension.Analysis.Core.Models;
+//using MudRunner.Suspension.Analysis.DataContracts.Models.Enums;
 //using System;
 //using System.Collections.Generic;
 //using Xunit;
 
-//namespace SuspensionAnalysis.UnitTest.Core.ConstitutiveEquations.MechanicsOfMaterials.CircularProfile
+//namespace MudRunner.Suspension.Analysis.UnitTest.Core.ConstitutiveEquations.MechanicsOfMaterials.CircularProfile
 //{
 //    public class CircularProfileMechanicsOfMaterialsTest
 //    {

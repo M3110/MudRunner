@@ -1,4 +1,4 @@
-﻿namespace Suspension.DataContracts.OperationBase
+﻿namespace MudRunner.Suspension.DataContracts.OperationBase
 {
     /// <summary>
     /// It represents the 'data' content of all operation response.

@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Net;
 
-namespace Suspension.DataContracts.OperationBase
+namespace MudRunner.Suspension.DataContracts.OperationBase
 {
     /// <summary>
     /// It represents the response content for all operations.

@@ -1,8 +1,8 @@
-﻿using Suspension.DataContracts.OperationBase;
+﻿using MudRunner.Suspension.DataContracts.OperationBase;
 using System.Collections.Generic;
 using System.Linq;
 
-namespace Suspension.DataContracts.RunAnalysis.Fatigue
+namespace MudRunner.Suspension.DataContracts.RunAnalysis.Fatigue
 {
     /// <summary>
     /// It represents the 'data' content of RunFatigueAnalysis operation response.

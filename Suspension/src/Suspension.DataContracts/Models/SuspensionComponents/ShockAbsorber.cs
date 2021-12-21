@@ -1,4 +1,4 @@
-﻿namespace Suspension.DataContracts.Models.SuspensionComponents
+﻿namespace MudRunner.Suspension.DataContracts.Models.SuspensionComponents
 {
     /// <summary>
     /// It represents the shock absorber.

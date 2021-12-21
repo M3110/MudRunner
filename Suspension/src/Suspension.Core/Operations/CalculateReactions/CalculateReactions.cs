@@ -1,14 +1,14 @@
-﻿using Suspension.Core.ExtensionMethods;
-using Suspension.Core.Mapper;
-using Suspension.Core.Models.SuspensionComponents;
-using Suspension.Core.Operations.Base;
-using Suspension.DataContracts.CalculateReactions;
-using Suspension.DataContracts.Models;
-using Suspension.DataContracts.OperationBase;
+﻿using MudRunner.Suspension.Core.ExtensionMethods;
+using MudRunner.Suspension.Core.Mapper;
+using MudRunner.Suspension.Core.Models.SuspensionComponents;
+using MudRunner.Suspension.Core.Operations.Base;
+using MudRunner.Suspension.DataContracts.CalculateReactions;
+using MudRunner.Suspension.DataContracts.Models;
+using MudRunner.Suspension.DataContracts.OperationBase;
 using System;
 using System.Threading.Tasks;
 
-namespace Suspension.Core.Operations.CalculateReactions
+namespace MudRunner.Suspension.Core.Operations.CalculateReactions
 {
     /// <summary>
     /// It is responsible to calculate the reactions to suspension system.

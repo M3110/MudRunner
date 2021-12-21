@@ -1,8 +1,8 @@
-﻿using Suspension.Core.ConstitutiveEquations.Fatigue;
-using Suspension.Core.Operations.RunAnalysis.Static.CircularProfile;
-using DataContract = Suspension.DataContracts.Models.Profiles;
+﻿using MudRunner.Suspension.Core.ConstitutiveEquations.Fatigue;
+using MudRunner.Suspension.Core.Operations.RunAnalysis.Static.CircularProfile;
+using DataContract = MudRunner.Suspension.DataContracts.Models.Profiles;
 
-namespace Suspension.Core.Operations.RunAnalysis.Fatigue.CircularProfile
+namespace MudRunner.Suspension.Core.Operations.RunAnalysis.Fatigue.CircularProfile
 {
     /// <summary>
     /// It is responsible to run the fatigue analysis to suspension system considering circular profile.

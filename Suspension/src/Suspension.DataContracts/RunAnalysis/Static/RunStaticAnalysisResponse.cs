@@ -1,6 +1,6 @@
-﻿using Suspension.DataContracts.OperationBase;
+﻿using MudRunner.Suspension.DataContracts.OperationBase;
 
-namespace Suspension.DataContracts.RunAnalysis.Static
+namespace MudRunner.Suspension.DataContracts.RunAnalysis.Static
 {
     /// <summary>
     /// It represents the response content of RunStaticAnalysis operation.

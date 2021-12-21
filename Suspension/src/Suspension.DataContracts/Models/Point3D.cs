@@ -2,7 +2,7 @@
 using System.Globalization;
 using System.Linq;
 
-namespace Suspension.DataContracts.Models
+namespace MudRunner.Suspension.DataContracts.Models
 {
     /// <summary>
     /// It represents a point with 3 dimensions: x, y and z.

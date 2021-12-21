@@ -1,6 +1,6 @@
-﻿using DataContract = Suspension.DataContracts.Models.Profiles;
+﻿using DataContract = MudRunner.Suspension.DataContracts.Models.Profiles;
 
-namespace Suspension.Core.Operations.RunAnalysis.Fatigue.CircularProfile
+namespace MudRunner.Suspension.Core.Operations.RunAnalysis.Fatigue.CircularProfile
 {
     /// <summary>
     /// It is responsible to run the fatigue analysis to suspension system considering circular profile.

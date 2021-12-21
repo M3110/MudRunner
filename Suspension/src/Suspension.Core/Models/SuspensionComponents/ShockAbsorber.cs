@@ -1,7 +1,7 @@
-﻿using Suspension.DataContracts.Models;
-using DataContract = Suspension.DataContracts.Models.SuspensionComponents;
+﻿using MudRunner.Suspension.DataContracts.Models;
+using DataContract = MudRunner.Suspension.DataContracts.Models.SuspensionComponents;
 
-namespace Suspension.Core.Models.SuspensionComponents
+namespace MudRunner.Suspension.Core.Models.SuspensionComponents
 {
     /// <summary>
     /// It represents the shock absorber.

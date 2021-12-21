@@ -1,6 +1,6 @@
-﻿using Suspension.DataContracts.Models.Profiles;
+﻿using MudRunner.Suspension.DataContracts.Models.Profiles;
 
-namespace Suspension.Core.Models.SuspensionComponents
+namespace MudRunner.Suspension.Core.Models.SuspensionComponents
 {
     /// <summary>
     /// It represents the suspension system.

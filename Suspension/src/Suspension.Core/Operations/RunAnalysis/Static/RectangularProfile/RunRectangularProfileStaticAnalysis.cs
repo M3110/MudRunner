@@ -1,10 +1,10 @@
-﻿using Suspension.Core.ConstitutiveEquations.MechanicsOfMaterials;
-using Suspension.Core.GeometricProperties.RectangularProfile;
-using Suspension.Core.Mapper;
-using Suspension.Core.Operations.CalculateReactions;
-using DataContract = Suspension.DataContracts.Models.Profiles;
+﻿using MudRunner.Suspension.Core.ConstitutiveEquations.MechanicsOfMaterials;
+using MudRunner.Suspension.Core.GeometricProperties.RectangularProfile;
+using MudRunner.Suspension.Core.Mapper;
+using MudRunner.Suspension.Core.Operations.CalculateReactions;
+using DataContract = MudRunner.Suspension.DataContracts.Models.Profiles;
 
-namespace Suspension.Core.Operations.RunAnalysis.Static.RectangularProfile
+namespace MudRunner.Suspension.Core.Operations.RunAnalysis.Static.RectangularProfile
 {
     /// <summary>
     /// It is responsible to run the static analysis to suspension system considering rectangular profile.

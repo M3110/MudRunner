@@ -1,18 +1,18 @@
 ﻿using Moq;
-using Suspension.Core.ConstitutiveEquations.MechanicsOfMaterials;
-using Suspension.Core.GeometricProperties.CircularProfile;
-using Suspension.Core.Mapper;
-using Suspension.Core.Operations.CalculateReactions;
-using Suspension.Core.Operations.RunAnalysis.Fatigue.CircularProfile;
-using Suspension.Core.Operations.RunAnalysis.Static.CircularProfile;
-using Suspension.DataContracts.CalculateReactions;
-using Suspension.DataContracts.Models;
-using Suspension.DataContracts.RunAnalysis.Static;
-using Suspension.UnitTest.Helper.DataContracts;
+using MudRunner.Suspension.Core.ConstitutiveEquations.MechanicsOfMaterials;
+using MudRunner.Suspension.Core.GeometricProperties.CircularProfile;
+using MudRunner.Suspension.Core.Mapper;
+using MudRunner.Suspension.Core.Operations.CalculateReactions;
+using MudRunner.Suspension.Core.Operations.RunAnalysis.Fatigue.CircularProfile;
+using MudRunner.Suspension.Core.Operations.RunAnalysis.Static.CircularProfile;
+using MudRunner.Suspension.DataContracts.CalculateReactions;
+using MudRunner.Suspension.DataContracts.Models;
+using MudRunner.Suspension.DataContracts.RunAnalysis.Static;
+using MudRunner.Suspension.UnitTest.Helper.DataContracts;
 using System;
-using DataContract = Suspension.DataContracts.Models.Profiles;
+using DataContract = MudRunner.Suspension.DataContracts.Models.Profiles;
 
-namespace Suspension.UnitTest.Core.Operations.RunAnalysis.CircularProfile
+namespace MudRunner.Suspension.UnitTest.Core.Operations.RunAnalysis.CircularProfile
 {
     public class RunCircularProfileAnalysisTest
     {

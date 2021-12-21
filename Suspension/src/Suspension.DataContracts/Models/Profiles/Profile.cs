@@ -1,4 +1,4 @@
-﻿namespace Suspension.DataContracts.Models.Profiles
+﻿namespace MudRunner.Suspension.DataContracts.Models.Profiles
 {
     /// <summary>
     /// It represents the generic profile.

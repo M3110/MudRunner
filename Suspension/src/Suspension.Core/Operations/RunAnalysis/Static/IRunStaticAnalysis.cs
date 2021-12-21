@@ -1,12 +1,12 @@
-﻿using Suspension.Core.Models.SuspensionComponents;
-using Suspension.Core.Operations.Base;
-using Suspension.DataContracts.CalculateReactions;
-using Suspension.DataContracts.Models;
-using Suspension.DataContracts.Models.Profiles;
-using Suspension.DataContracts.RunAnalysis.Static;
+﻿using MudRunner.Suspension.Core.Models.SuspensionComponents;
+using MudRunner.Suspension.Core.Operations.Base;
+using MudRunner.Suspension.DataContracts.CalculateReactions;
+using MudRunner.Suspension.DataContracts.Models;
+using MudRunner.Suspension.DataContracts.Models.Profiles;
+using MudRunner.Suspension.DataContracts.RunAnalysis.Static;
 using System.Threading.Tasks;
 
-namespace Suspension.Core.Operations.RunAnalysis
+namespace MudRunner.Suspension.Core.Operations.RunAnalysis
 {
     /// <summary>
     /// It is responsible to run the static analysis to suspension system.

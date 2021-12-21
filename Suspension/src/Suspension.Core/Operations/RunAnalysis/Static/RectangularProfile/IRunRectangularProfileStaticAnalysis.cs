@@ -1,6 +1,6 @@
-﻿using DataContract = Suspension.DataContracts.Models.Profiles;
+﻿using DataContract = MudRunner.Suspension.DataContracts.Models.Profiles;
 
-namespace Suspension.Core.Operations.RunAnalysis.Static.RectangularProfile
+namespace MudRunner.Suspension.Core.Operations.RunAnalysis.Static.RectangularProfile
 {
     /// <summary>
     /// It is responsible to run the static analysis to suspension system considering rectangular profile.

@@ -1,8 +1,8 @@
-﻿using Suspension.Core.Operations.Base;
-using Suspension.DataContracts.Models.Profiles;
-using Suspension.DataContracts.RunAnalysis.Fatigue;
+﻿using MudRunner.Suspension.Core.Operations.Base;
+using MudRunner.Suspension.DataContracts.Models.Profiles;
+using MudRunner.Suspension.DataContracts.RunAnalysis.Fatigue;
 
-namespace Suspension.Core.Operations.RunAnalysis.Fatigue
+namespace MudRunner.Suspension.Core.Operations.RunAnalysis.Fatigue
 {
     /// <summary>
     /// It is responsible to run the fatigue analysis to suspension system.

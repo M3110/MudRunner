@@ -1,6 +1,6 @@
-﻿using Suspension.DataContracts.Models;
+﻿using MudRunner.Suspension.DataContracts.Models;
 
-namespace Suspension.Core.ExtensionMethods
+namespace MudRunner.Suspension.Core.ExtensionMethods
 {
     /// <summary>
     /// It contains the extension methods to Vector3D.

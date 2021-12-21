@@ -1,16 +1,16 @@
-﻿using Suspension.Core.ConstitutiveEquations.Fatigue;
-using Suspension.Core.ExtensionMethods;
-using Suspension.Core.Models.Fatigue;
-using Suspension.Core.Operations.Base;
-using Suspension.DataContracts.Models;
-using Suspension.DataContracts.Models.Profiles;
-using Suspension.DataContracts.RunAnalysis.Fatigue;
-using Suspension.DataContracts.RunAnalysis.Static;
+﻿using MudRunner.Suspension.Core.ConstitutiveEquations.Fatigue;
+using MudRunner.Suspension.Core.ExtensionMethods;
+using MudRunner.Suspension.Core.Models.Fatigue;
+using MudRunner.Suspension.Core.Operations.Base;
+using MudRunner.Suspension.DataContracts.Models;
+using MudRunner.Suspension.DataContracts.Models.Profiles;
+using MudRunner.Suspension.DataContracts.RunAnalysis.Fatigue;
+using MudRunner.Suspension.DataContracts.RunAnalysis.Static;
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
-namespace Suspension.Core.Operations.RunAnalysis.Fatigue
+namespace MudRunner.Suspension.Core.Operations.RunAnalysis.Fatigue
 {
     /// <summary>
     /// It is responsible to run the fatigue analysis to suspension system.

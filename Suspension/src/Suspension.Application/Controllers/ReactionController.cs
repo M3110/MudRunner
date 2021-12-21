@@ -1,11 +1,11 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using Suspension.Application.Extensions;
-using Suspension.Core.Operations.CalculateReactions;
-using Suspension.DataContracts.CalculateReactions;
+using MudRunner.Suspension.Application.Extensions;
+using MudRunner.Suspension.Core.Operations.CalculateReactions;
+using MudRunner.Suspension.DataContracts.CalculateReactions;
 using System.Threading.Tasks;
 
-namespace Suspension.Application.Controllers
+namespace MudRunner.Suspension.Application.Controllers
 {
     [Route("api/v1/suspension-reactions")]
     public class ReactionController : Controller

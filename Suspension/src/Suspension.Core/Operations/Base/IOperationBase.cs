@@ -1,7 +1,7 @@
-﻿using Suspension.DataContracts.OperationBase;
+﻿using MudRunner.Suspension.DataContracts.OperationBase;
 using System.Threading.Tasks;
 
-namespace Suspension.Core.Operations.Base
+namespace MudRunner.Suspension.Core.Operations.Base
 {
     /// <summary>
     /// It represents the base for all operations in the application.

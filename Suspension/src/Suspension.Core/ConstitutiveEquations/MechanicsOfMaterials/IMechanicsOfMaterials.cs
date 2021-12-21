@@ -1,6 +1,6 @@
-﻿using Suspension.DataContracts.Models.Enums;
+﻿using MudRunner.Suspension.DataContracts.Models.Enums;
 
-namespace Suspension.Core.ConstitutiveEquations.MechanicsOfMaterials
+namespace MudRunner.Suspension.Core.ConstitutiveEquations.MechanicsOfMaterials
 {
     /// <summary>
     /// It contains the Mechanics of Materials constitutive equations.

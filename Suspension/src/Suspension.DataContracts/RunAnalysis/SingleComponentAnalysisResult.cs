@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Suspension.DataContracts.RunAnalysis
+namespace MudRunner.Suspension.DataContracts.RunAnalysis
 {
     /// <summary>
     /// It contains the essential analysis results for a suspension single component.

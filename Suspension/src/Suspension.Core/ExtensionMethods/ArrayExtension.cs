@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Linq;
 
-namespace Suspension.Core.ExtensionMethods
+namespace MudRunner.Suspension.Core.ExtensionMethods
 {
     /// <summary>
     /// It contains extension methods to arrays.

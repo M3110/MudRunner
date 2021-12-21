@@ -1,9 +1,9 @@
-﻿using Suspension.Core.Models.SuspensionComponents;
-using Suspension.DataContracts.CalculateReactions;
-using Suspension.DataContracts.Models.Profiles;
-using Suspension.DataContracts.RunAnalysis.Static;
+﻿using MudRunner.Suspension.Core.Models.SuspensionComponents;
+using MudRunner.Suspension.DataContracts.CalculateReactions;
+using MudRunner.Suspension.DataContracts.Models.Profiles;
+using MudRunner.Suspension.DataContracts.RunAnalysis.Static;
 
-namespace Suspension.Core.Mapper
+namespace MudRunner.Suspension.Core.Mapper
 {
     /// <summary>
     /// It is responsible to map an object to another.

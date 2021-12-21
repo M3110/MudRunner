@@ -1,9 +1,9 @@
-﻿using Suspension.DataContracts.Models;
-using Suspension.DataContracts.OperationBase;
+﻿using MudRunner.Suspension.DataContracts.Models;
+using MudRunner.Suspension.DataContracts.OperationBase;
 using System.Collections.Generic;
 using System.Linq;
 
-namespace Suspension.DataContracts.RunAnalysis.Static
+namespace MudRunner.Suspension.DataContracts.RunAnalysis.Static
 {
     /// <summary>
     /// It represents the 'data' content of RunStaticAnalysis operation response.

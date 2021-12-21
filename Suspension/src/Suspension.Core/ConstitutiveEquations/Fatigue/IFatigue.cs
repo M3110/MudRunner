@@ -1,7 +1,7 @@
-﻿using Suspension.Core.Models.Fatigue;
-using Suspension.DataContracts.Models.Profiles;
+﻿using MudRunner.Suspension.Core.Models.Fatigue;
+using MudRunner.Suspension.DataContracts.Models.Profiles;
 
-namespace Suspension.Core.ConstitutiveEquations.Fatigue
+namespace MudRunner.Suspension.Core.ConstitutiveEquations.Fatigue
 {
     /// <summary>
     /// It contains the Mechanical Fatigue constitutive equations.

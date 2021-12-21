@@ -1,8 +1,8 @@
-﻿using Suspension.Core.GeometricProperties;
-using Suspension.DataContracts.Models.Enums;
+﻿using MudRunner.Suspension.Core.GeometricProperties;
+using MudRunner.Suspension.DataContracts.Models.Enums;
 using System;
 
-namespace Suspension.Core.ConstitutiveEquations.MechanicsOfMaterials
+namespace MudRunner.Suspension.Core.ConstitutiveEquations.MechanicsOfMaterials
 {
     /// <summary>
     /// It contains the Mechanics of Materials constitutive equations.

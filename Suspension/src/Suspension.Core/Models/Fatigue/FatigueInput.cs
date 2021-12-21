@@ -1,6 +1,6 @@
-﻿using Suspension.DataContracts.Models.Enums;
+﻿using MudRunner.Suspension.DataContracts.Models.Enums;
 
-namespace Suspension.Core.Models.Fatigue
+namespace MudRunner.Suspension.Core.Models.Fatigue
 {
     /// <summary>
     /// It contains the input for fatigue analysis.

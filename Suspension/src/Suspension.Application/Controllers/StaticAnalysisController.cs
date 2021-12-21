@@ -1,13 +1,13 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using Suspension.Application.Extensions;
-using Suspension.Core.Operations.RunAnalysis.Static.CircularProfile;
-using Suspension.Core.Operations.RunAnalysis.Static.RectangularProfile;
-using Suspension.DataContracts.Models.Profiles;
-using Suspension.DataContracts.RunAnalysis.Static;
+using MudRunner.Suspension.Application.Extensions;
+using MudRunner.Suspension.Core.Operations.RunAnalysis.Static.CircularProfile;
+using MudRunner.Suspension.Core.Operations.RunAnalysis.Static.RectangularProfile;
+using MudRunner.Suspension.DataContracts.Models.Profiles;
+using MudRunner.Suspension.DataContracts.RunAnalysis.Static;
 using System.Threading.Tasks;
 
-namespace Suspension.Application.Controllers
+namespace MudRunner.Suspension.Application.Controllers
 {
     [Route("api/v1/static-analysis")]
     public class StaticAnalysisController : Controller

@@ -3,20 +3,20 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Newtonsoft.Json.Converters;
-using Suspension.Application.Extensions;
-using Suspension.Core.ConstitutiveEquations.Fatigue;
-using Suspension.Core.ConstitutiveEquations.MechanicsOfMaterials;
-using Suspension.Core.GeometricProperties.CircularProfile;
-using Suspension.Core.GeometricProperties.RectangularProfile;
-using Suspension.Core.Mapper;
-using Suspension.Core.Operations.CalculateReactions;
-using Suspension.Core.Operations.RunAnalysis.Fatigue.CircularProfile;
-using Suspension.Core.Operations.RunAnalysis.Fatigue.RectangularProfile;
-using Suspension.Core.Operations.RunAnalysis.Static.CircularProfile;
-using Suspension.Core.Operations.RunAnalysis.Static.RectangularProfile;
-using Suspension.DataContracts.Models.Profiles;
+using MudRunner.Suspension.Application.Extensions;
+using MudRunner.Suspension.Core.ConstitutiveEquations.Fatigue;
+using MudRunner.Suspension.Core.ConstitutiveEquations.MechanicsOfMaterials;
+using MudRunner.Suspension.Core.GeometricProperties.CircularProfile;
+using MudRunner.Suspension.Core.GeometricProperties.RectangularProfile;
+using MudRunner.Suspension.Core.Mapper;
+using MudRunner.Suspension.Core.Operations.CalculateReactions;
+using MudRunner.Suspension.Core.Operations.RunAnalysis.Fatigue.CircularProfile;
+using MudRunner.Suspension.Core.Operations.RunAnalysis.Fatigue.RectangularProfile;
+using MudRunner.Suspension.Core.Operations.RunAnalysis.Static.CircularProfile;
+using MudRunner.Suspension.Core.Operations.RunAnalysis.Static.RectangularProfile;
+using MudRunner.Suspension.DataContracts.Models.Profiles;
 
-namespace Suspension.Application
+namespace MudRunner.Suspension.Application
 {
     /// <summary>
     /// The application startup.

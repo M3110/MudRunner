@@ -1,6 +1,6 @@
-﻿using Suspension.DataContracts.CalculateReactions;
+﻿using MudRunner.Suspension.DataContracts.CalculateReactions;
 
-namespace Suspension.Core.ExtensionMethods
+namespace MudRunner.Suspension.Core.ExtensionMethods
 {
     /// <summary>
     /// It contains the extension method to CalculateReactionsResponseData.1

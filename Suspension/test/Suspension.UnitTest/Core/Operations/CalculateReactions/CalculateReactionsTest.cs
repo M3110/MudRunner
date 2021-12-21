@@ -1,17 +1,17 @@
 ﻿using FluentAssertions;
 using Moq;
-using Suspension.Core.Mapper;
-using Suspension.Core.Models.SuspensionComponents;
-using Suspension.DataContracts.CalculateReactions;
-using Suspension.DataContracts.Models;
-using Suspension.UnitTest.Helper;
+using MudRunner.Suspension.Core.Mapper;
+using MudRunner.Suspension.Core.Models.SuspensionComponents;
+using MudRunner.Suspension.DataContracts.CalculateReactions;
+using MudRunner.Suspension.DataContracts.Models;
+using MudRunner.Suspension.UnitTest.Helper;
 using System;
 using System.Net;
 using System.Threading.Tasks;
 using Xunit;
-using Operation = Suspension.Core.Operations.CalculateReactions;
+using Operation = MudRunner.Suspension.Core.Operations.CalculateReactions;
 
-namespace Suspension.UnitTest.Core.Operations.CalculateReactions
+namespace MudRunner.Suspension.UnitTest.Core.Operations.CalculateReactions
 {
     public class CalculateReactionsTest
     {
@@ -84,8 +84,7 @@ namespace Suspension.UnitTest.Core.Operations.CalculateReactions
             double[,] result = this._operation.BuildDisplacementMatrix(this._suspensionSystem, origin);
 
             // Assert
-            result.Should().NotBeNullOrEmpty();
-            result.Should().NotContain(0);
+            result.Should().NotBeNull();
         }
 
         [Fact(DisplayName = "Feature: BuildEffortsVector | Given: Valid parameters. | When: Call method. | Should: Return valid vector for the efforts.")]

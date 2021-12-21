@@ -1,4 +1,4 @@
-﻿namespace Suspension.Core.Models.Fatigue
+﻿namespace MudRunner.Suspension.Core.Models.Fatigue
 {
     /// <summary>
     /// It represents the loading types for fatigue analysis.

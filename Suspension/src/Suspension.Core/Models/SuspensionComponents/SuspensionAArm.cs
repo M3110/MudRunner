@@ -1,10 +1,10 @@
-﻿using Suspension.Core.ExtensionMethods;
-using Suspension.DataContracts.Models;
-using Suspension.DataContracts.Models.Enums;
-using Suspension.DataContracts.Models.Profiles;
-using DataContract = Suspension.DataContracts.Models.SuspensionComponents;
+﻿using MudRunner.Suspension.Core.ExtensionMethods;
+using MudRunner.Suspension.DataContracts.Models;
+using MudRunner.Suspension.DataContracts.Models.Enums;
+using MudRunner.Suspension.DataContracts.Models.Profiles;
+using DataContract = MudRunner.Suspension.DataContracts.Models.SuspensionComponents;
 
-namespace Suspension.Core.Models.SuspensionComponents
+namespace MudRunner.Suspension.Core.Models.SuspensionComponents
 {
     /// <summary>
     /// It represents the suspension A-arm.

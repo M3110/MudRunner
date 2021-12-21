@@ -1,11 +1,11 @@
 ﻿using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
-using Suspension.DataContracts.Models.Enums;
-using Suspension.DataContracts.Models.Profiles;
-using Suspension.DataContracts.Models.SuspensionComponents;
-using Suspension.DataContracts.OperationBase;
+using MudRunner.Suspension.DataContracts.Models.Enums;
+using MudRunner.Suspension.DataContracts.Models.Profiles;
+using MudRunner.Suspension.DataContracts.Models.SuspensionComponents;
+using MudRunner.Suspension.DataContracts.OperationBase;
 
-namespace Suspension.DataContracts.RunAnalysis.Static
+namespace MudRunner.Suspension.DataContracts.RunAnalysis.Static
 {
     /// <summary>
     /// It represents the request content of RunStaticAnalysis operation.

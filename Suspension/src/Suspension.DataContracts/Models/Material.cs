@@ -1,7 +1,7 @@
-﻿using Suspension.DataContracts.Models.Enums;
+﻿using MudRunner.Suspension.DataContracts.Models.Enums;
 using System;
 
-namespace Suspension.DataContracts.Models
+namespace MudRunner.Suspension.DataContracts.Models
 {
     /// <summary>
     /// It contains the necessary information about each material that could be used in project.

@@ -1,9 +1,9 @@
-﻿using Suspension.DataContracts.Models.Enums;
-using Suspension.DataContracts.Models.Profiles;
-using Suspension.DataContracts.Models.SuspensionComponents;
-using Suspension.DataContracts.RunAnalysis.Static;
+﻿using MudRunner.Suspension.DataContracts.Models.Enums;
+using MudRunner.Suspension.DataContracts.Models.Profiles;
+using MudRunner.Suspension.DataContracts.Models.SuspensionComponents;
+using MudRunner.Suspension.DataContracts.RunAnalysis.Static;
 
-namespace Suspension.UnitTest.Helper.DataContracts
+namespace MudRunner.Suspension.UnitTest.Helper.DataContracts
 {
     /// <summary>
     /// It contains method and properties to help the testing the RunAnalysis operation.

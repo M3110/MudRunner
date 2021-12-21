@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Suspension.DataContracts.RunAnalysis.Fatigue
+namespace MudRunner.Suspension.DataContracts.RunAnalysis.Fatigue
 {
     /// <summary>
     /// It contains the essential fatigue analysis results for a suspension A-arm.

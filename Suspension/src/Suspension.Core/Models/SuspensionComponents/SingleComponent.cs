@@ -1,8 +1,8 @@
-﻿using Suspension.Core.ExtensionMethods;
-using Suspension.DataContracts.Models;
-using Suspension.DataContracts.Models.Profiles;
+﻿using MudRunner.Suspension.Core.ExtensionMethods;
+using MudRunner.Suspension.DataContracts.Models;
+using MudRunner.Suspension.DataContracts.Models.Profiles;
 
-namespace Suspension.Core.Models.SuspensionComponents
+namespace MudRunner.Suspension.Core.Models.SuspensionComponents
 {
     /// <summary>
     /// It contains the points to a single suspension component.

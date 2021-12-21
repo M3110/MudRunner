@@ -1,6 +1,6 @@
-﻿using Suspension.DataContracts.Models.Profiles;
+﻿using MudRunner.Suspension.DataContracts.Models.Profiles;
 
-namespace Suspension.DataContracts.Models.SuspensionComponents
+namespace MudRunner.Suspension.DataContracts.Models.SuspensionComponents
 {
     /// <summary>
     /// It represents the point to suspension A-arm.

@@ -1,4 +1,4 @@
-﻿namespace Suspension.DataContracts.Models.Enums
+﻿namespace MudRunner.Suspension.DataContracts.Models.Enums
 {
     /// <summary>
     /// It contains the materials that could be used in analysis.

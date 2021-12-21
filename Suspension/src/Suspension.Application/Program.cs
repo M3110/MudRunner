@@ -1,7 +1,7 @@
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Hosting;
 
-namespace Suspension.Application
+namespace MudRunner.Suspension.Application
 {
     /// <summary>
     /// Main application class.

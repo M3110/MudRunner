@@ -1,8 +1,8 @@
-﻿using Suspension.Core.Models;
-using Suspension.DataContracts.Models.Profiles;
+﻿using MudRunner.Suspension.Core.Models;
+using MudRunner.Suspension.DataContracts.Models.Profiles;
 using System;
 
-namespace Suspension.Core.GeometricProperties
+namespace MudRunner.Suspension.Core.GeometricProperties
 {
     /// <summary>
     /// It is responsible to calculate the geometric properties to a profile.

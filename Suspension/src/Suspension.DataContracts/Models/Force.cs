@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Suspension.DataContracts.Models
+namespace MudRunner.Suspension.DataContracts.Models
 {
     /// <summary>
     /// It represents the force.

@@ -1,7 +1,7 @@
-﻿using DataContract = Suspension.DataContracts.Models.Profiles;
+﻿using DataContract = MudRunner.Suspension.DataContracts.Models.Profiles;
 using System;
 
-namespace Suspension.Core.GeometricProperties.RectangularProfile
+namespace MudRunner.Suspension.Core.GeometricProperties.RectangularProfile
 {
     /// <summary>
     /// It is responsible to calculate the geometric properties to rectangular profile.

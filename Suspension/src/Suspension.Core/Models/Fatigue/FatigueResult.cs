@@ -1,4 +1,4 @@
-﻿namespace Suspension.Core.Models.Fatigue
+﻿namespace MudRunner.Suspension.Core.Models.Fatigue
 {
     /// <summary>
     /// It contains the result for fatigue analysis.
