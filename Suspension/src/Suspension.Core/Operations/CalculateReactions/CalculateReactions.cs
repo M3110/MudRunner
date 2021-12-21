@@ -97,7 +97,7 @@ namespace Suspension.Core.Operations.CalculateReactions
             }
 
             Vector3D appliedForce = Vector3D.Create(request.AppliedForce);
-            if (appliedForce.X == 0 && appliedForce.Y == 0 && appliedForce.Z == 0)
+            if (appliedForce.X == 0 && appliedForce.Y == 0 && appliedForce.Z == 0 || request.AppliedForce == "0,0,0")
             {
                 response.SetBadRequestError("The applied force must have at least one coordinate different than zero.");
             }

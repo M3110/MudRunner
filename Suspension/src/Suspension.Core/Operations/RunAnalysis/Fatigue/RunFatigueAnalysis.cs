@@ -51,40 +51,40 @@ namespace Suspension.Core.Operations.RunAnalysis.Fatigue
             // Step 2 - Generate the result and maps to response.
             List<Task> tasks = new();
 
-            //tasks.Add(Task.Run(async () =>
-            //{
+            tasks.Add(Task.Run(async () =>
+            {
                 response.Data.ShockAbsorberResult = await GenerateShockAbsorberResultAsync(
                     runMaximumStaticAnalysisResponseData.ShockAbsorberResult,
                     runMinimumStaticAnalysisResponseData.ShockAbsorberResult,
                     request.ShouldRoundResults, request.NumberOfDecimalsToRound.GetValueOrDefault()).ConfigureAwait(false);
-            //}));
+            }));
 
-            //tasks.Add(Task.Run(async () =>
-            //{
+            tasks.Add(Task.Run(async () =>
+            {
                 response.Data.SuspensionAArmLowerResult = await GenerateSuspensionAArmResultAsync(
                     // It is necessary to inform the profile aside for it be used correctly according to the component.
                     request, request.SuspensionAArmLower.Profile,
                     runMaximumStaticAnalysisResponseData.SuspensionAArmLowerResult,
                     runMinimumStaticAnalysisResponseData.SuspensionAArmLowerResult).ConfigureAwait(false);
-            //}));
+            }));
 
-            //tasks.Add(Task.Run(async () =>
-            //{
+            tasks.Add(Task.Run(async () =>
+            {
                 response.Data.SuspensionAArmUpperResult = await GenerateSuspensionAArmResultAsync(
                     // It is necessary to inform the profile aside for it be used correctly according to the component.
                     request, request.SuspensionAArmUpper.Profile,
                     runMaximumStaticAnalysisResponseData.SuspensionAArmUpperResult,
-                    runMinimumStaticAnalysisResponseData.SuspensionAArmUpperResult).ConfigureAwait(false);
-            //}));
+                  runMinimumStaticAnalysisResponseData.SuspensionAArmUpperResult).ConfigureAwait(false);
+            }));
 
-            //tasks.Add(Task.Run(async () =>
-            //{
+            tasks.Add(Task.Run(async () =>
+            {
                 response.Data.TieRodResult = await GenerateSingleComponentResultAsync(
                     // It is necessary to inform the profile aside for it be used correctly according to the component.
                     request, request.TieRod.Profile,
                     runMaximumStaticAnalysisResponseData.TieRodResult,
                     runMinimumStaticAnalysisResponseData.TieRodResult);
-            //}));
+            }));
 
             await Task.WhenAll(tasks);
 
@@ -110,8 +110,28 @@ namespace Suspension.Core.Operations.RunAnalysis.Fatigue
             }));
             tasks.Add(Task.Run(async () =>
             {
-                RunStaticAnalysisRequest<TProfile> runMinimumStaticAnalysisRequest = BuildRunStaticAnalysisRequest(request, request.MinimumAppliedForce);
-                runMinimumStaticAnalysisResponse = await _runStaticAnalysis.ProcessAsync(runMinimumStaticAnalysisRequest).ConfigureAwait(false);
+                // If the minimum applied force is equals to zero, all values must be zero and the safaty factor is the biggest.
+                if (request.MinimumAppliedForce == "0,0,0")
+                {
+                    runMinimumStaticAnalysisResponse.Data.ShockAbsorberResult = new();
+                    runMinimumStaticAnalysisResponse.Data.TieRodResult = new() { BucklingSafetyFactor = Double.MaxValue, StressSafetyFactor = Double.MaxValue };
+                    runMinimumStaticAnalysisResponse.Data.SuspensionAArmLowerResult = new()
+                    {
+                        FirstSegment = new() { BucklingSafetyFactor = Double.MaxValue, StressSafetyFactor = Double.MaxValue },
+                        SecondSegment = new() { BucklingSafetyFactor = Double.MaxValue, StressSafetyFactor = Double.MaxValue }
+                    };
+                    runMinimumStaticAnalysisResponse.Data.SuspensionAArmUpperResult = new()
+                    {
+                        FirstSegment = new() { BucklingSafetyFactor = Double.MaxValue, StressSafetyFactor = Double.MaxValue },
+                        SecondSegment = new() { BucklingSafetyFactor = Double.MaxValue, StressSafetyFactor = Double.MaxValue }
+                    };
+                    runMinimumStaticAnalysisResponse.SetSuccessOk();
+                }
+                else
+                {
+                    RunStaticAnalysisRequest<TProfile> runMinimumStaticAnalysisRequest = BuildRunStaticAnalysisRequest(request, request.MinimumAppliedForce);
+                    runMinimumStaticAnalysisResponse = await _runStaticAnalysis.ProcessAsync(runMinimumStaticAnalysisRequest).ConfigureAwait(false);
+                }
             }));
             await Task.WhenAll(tasks);
 

@@ -18,7 +18,32 @@ namespace Suspension.DataContracts.RunAnalysis.Static
         /// <summary>
         /// The safety factor.
         /// </summary>
-        public double SafetyFactor => new List<double> { SuspensionAArmUpperResult.SafetyFactor, SuspensionAArmLowerResult.SafetyFactor, TieRodResult.SafetyFactor }.Min();
+        public double SafetyFactor => new List<double>
+        {
+            (SuspensionAArmUpperResult?.SafetyFactor).GetValueOrDefault(),
+            (SuspensionAArmLowerResult?.SafetyFactor).GetValueOrDefault(),
+            (TieRodResult?.SafetyFactor).GetValueOrDefault()
+        }.Min();
+
+        /// <summary>
+        /// The Von-Misses equivalent stress safety factor.
+        /// </summary>
+        public double StressSafetyFactor => new List<double>
+        {
+            (SuspensionAArmUpperResult?.StressSafetyFactor).GetValueOrDefault(),
+            (SuspensionAArmLowerResult?.StressSafetyFactor).GetValueOrDefault(),
+            (TieRodResult?.StressSafetyFactor).GetValueOrDefault()
+        }.Min();
+
+        /// <summary>
+        /// The buckling safety factor.
+        /// </summary>
+        public double BucklingSafetyFactor => new List<double>
+        {
+            (SuspensionAArmUpperResult?.BucklingSafetyFactor).GetValueOrDefault(),
+            (SuspensionAArmLowerResult?.BucklingSafetyFactor).GetValueOrDefault(),
+            (TieRodResult?.BucklingSafetyFactor).GetValueOrDefault()
+        }.Min();
 
         /// <summary>
         /// The force reactions at shock absorber.

@@ -2,6 +2,8 @@
   "data": {
     "analisysFailed": false,
     "safetyFactor": 2.93,
+    "stressSafetyFactor": 2.93,
+    "bucklingSafetyFactor": 7.02,
     "shockAbsorberResult": {
       "absolutValue": 11643.07,
       "x": -2591.89,

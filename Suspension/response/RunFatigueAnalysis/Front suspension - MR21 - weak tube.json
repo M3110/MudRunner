@@ -2,6 +2,10 @@
   "data": {
     "analisysFailed": false,
     "safetyFactor": 2.85,
+    "stressSafetyFactor": 2.85,
+    "bucklingSafetyFactor": 9.53,
+    "fatigueSafetyFactor": 4.26,
+    "fatigueNumberOfCycles": 1000000,
     "shockAbsorberResult": {
       "meanForce": {
         "absolutValue": 4646.69,
