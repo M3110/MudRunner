@@ -1,6 +1,6 @@
-﻿using MudRunner.Suspension.Core.Models.SuspensionComponents;
+﻿using MudRunner.Commons.DataContracts.Models.Profiles;
+using MudRunner.Suspension.Core.Models.SuspensionComponents;
 using MudRunner.Suspension.DataContracts.CalculateReactions;
-using MudRunner.Suspension.DataContracts.Models.Profiles;
 using MudRunner.Suspension.DataContracts.RunAnalysis.Static;
 
 namespace MudRunner.Suspension.Core.Mapper

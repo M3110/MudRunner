@@ -1,4 +1,4 @@
-﻿using MudRunner.Suspension.DataContracts.Models;
+﻿using MudRunner.Commons.DataContracts.Models;
 using DataContract = MudRunner.Suspension.DataContracts.Models.SuspensionComponents;
 
 namespace MudRunner.Suspension.Core.Models.SuspensionComponents

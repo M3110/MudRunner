@@ -1,5 +1,5 @@
-﻿using MudRunner.Suspension.DataContracts.Models.Enums;
-using MudRunner.Suspension.DataContracts.Models.Profiles;
+﻿using MudRunner.Commons.DataContracts.Models.Enums;
+using MudRunner.Commons.DataContracts.Models.Profiles;
 using MudRunner.Suspension.DataContracts.Models.SuspensionComponents;
 using MudRunner.Suspension.DataContracts.RunAnalysis.Static;
 

@@ -1,9 +1,9 @@
-﻿using MudRunner.Suspension.Core.ConstitutiveEquations.Fatigue;
-using MudRunner.Suspension.Core.ExtensionMethods;
-using MudRunner.Suspension.Core.Models.Fatigue;
-using MudRunner.Suspension.Core.Operations.Base;
-using MudRunner.Suspension.DataContracts.Models;
-using MudRunner.Suspension.DataContracts.Models.Profiles;
+﻿using MudRunner.Commons.Core.ConstitutiveEquations.Fatigue;
+using MudRunner.Commons.Core.ExtensionMethods;
+using MudRunner.Commons.Core.Models.Fatigue;
+using MudRunner.Commons.Core.Operation;
+using MudRunner.Commons.DataContracts.Models;
+using MudRunner.Commons.DataContracts.Models.Profiles;
 using MudRunner.Suspension.DataContracts.RunAnalysis.Fatigue;
 using MudRunner.Suspension.DataContracts.RunAnalysis.Static;
 using System;

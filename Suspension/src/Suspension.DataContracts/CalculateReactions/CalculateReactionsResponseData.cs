@@ -1,5 +1,5 @@
-﻿using MudRunner.Suspension.DataContracts.Models;
-using MudRunner.Suspension.DataContracts.OperationBase;
+﻿using MudRunner.Commons.DataContracts.Models;
+using MudRunner.Commons.DataContracts.Operation;
 
 namespace MudRunner.Suspension.DataContracts.CalculateReactions
 {

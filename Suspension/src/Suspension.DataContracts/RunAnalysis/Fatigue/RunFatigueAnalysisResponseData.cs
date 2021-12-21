@@ -1,4 +1,4 @@
-﻿using MudRunner.Suspension.DataContracts.OperationBase;
+﻿using MudRunner.Commons.DataContracts.Operation;
 using System.Collections.Generic;
 using System.Linq;
 

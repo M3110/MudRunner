@@ -1,6 +1,6 @@
-﻿using MudRunner.Suspension.Core.Models.SuspensionComponents;
+﻿using MudRunner.Commons.DataContracts.Models;
+using MudRunner.Suspension.Core.Models.SuspensionComponents;
 using MudRunner.Suspension.DataContracts.CalculateReactions;
-using MudRunner.Suspension.DataContracts.Models;
 using MudRunner.Suspension.DataContracts.Models.SuspensionComponents;
 using ShockAbsorber = MudRunner.Suspension.Core.Models.SuspensionComponents.ShockAbsorber;
 

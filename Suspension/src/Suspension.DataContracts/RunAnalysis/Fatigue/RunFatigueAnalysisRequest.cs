@@ -1,9 +1,9 @@
-﻿using Newtonsoft.Json;
-using Newtonsoft.Json.Converters;
-using MudRunner.Suspension.DataContracts.Models.Enums;
-using MudRunner.Suspension.DataContracts.Models.Profiles;
+﻿using MudRunner.Commons.DataContracts.Models.Enums;
+using MudRunner.Commons.DataContracts.Models.Profiles;
+using MudRunner.Commons.DataContracts.Operation;
 using MudRunner.Suspension.DataContracts.Models.SuspensionComponents;
-using MudRunner.Suspension.DataContracts.OperationBase;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Converters;
 
 namespace MudRunner.Suspension.DataContracts.RunAnalysis.Fatigue
 {

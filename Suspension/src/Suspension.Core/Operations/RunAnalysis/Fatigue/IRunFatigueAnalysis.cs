@@ -1,5 +1,5 @@
-﻿using MudRunner.Suspension.Core.Operations.Base;
-using MudRunner.Suspension.DataContracts.Models.Profiles;
+﻿using MudRunner.Commons.Core.Operation;
+using MudRunner.Commons.DataContracts.Models.Profiles;
 using MudRunner.Suspension.DataContracts.RunAnalysis.Fatigue;
 
 namespace MudRunner.Suspension.Core.Operations.RunAnalysis.Fatigue

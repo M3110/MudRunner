@@ -1,9 +1,9 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using MudRunner.Commons.DataContracts.Models.Profiles;
 using MudRunner.Suspension.Application.Extensions;
 using MudRunner.Suspension.Core.Operations.RunAnalysis.Fatigue.CircularProfile;
 using MudRunner.Suspension.Core.Operations.RunAnalysis.Fatigue.RectangularProfile;
-using MudRunner.Suspension.DataContracts.Models.Profiles;
 using MudRunner.Suspension.DataContracts.RunAnalysis.Fatigue;
 using System.Threading.Tasks;
 

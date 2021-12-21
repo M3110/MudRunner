@@ -21,6 +21,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
  - MechanicsOfMaterials to be concreate and do not receive the profile type.
  - Renamed class TieRodAnalysisResult to SingleComponentAnalysisResult.
  - File .gitignore to ignore the folder build.
+ - Framework to NET6.0.
  - Nuget Package Coverlet.collector to 3.1.0.
  - Nuget Package Moq to 4.16.1.
  - Nuget Package Microsoft.NET.Test.Sdk to 17.0.0.

@@ -1,9 +1,9 @@
 ﻿using FluentAssertions;
 using Moq;
+using MudRunner.Commons.DataContracts.Models;
 using MudRunner.Suspension.Core.Mapper;
 using MudRunner.Suspension.Core.Models.SuspensionComponents;
 using MudRunner.Suspension.DataContracts.CalculateReactions;
-using MudRunner.Suspension.DataContracts.Models;
 using MudRunner.Suspension.UnitTest.Helper;
 using System;
 using System.Net;

@@ -1,7 +1,8 @@
-﻿using MudRunner.Suspension.Core.ExtensionMethods;
-using MudRunner.Suspension.DataContracts.Models;
-using MudRunner.Suspension.DataContracts.Models.Enums;
-using MudRunner.Suspension.DataContracts.Models.Profiles;
+﻿using MudRunner.Commons.Core.ExtensionMethods;
+using MudRunner.Commons.DataContracts.Models;
+using MudRunner.Commons.DataContracts.Models.Enums;
+using MudRunner.Commons.DataContracts.Models.Profiles;
+using MudRunner.Suspension.Core.ExtensionMethods;
 using DataContract = MudRunner.Suspension.DataContracts.Models.SuspensionComponents;
 
 namespace MudRunner.Suspension.Core.Models.SuspensionComponents

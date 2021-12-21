@@ -1,10 +1,10 @@
-﻿using MudRunner.Suspension.Core.ExtensionMethods;
+﻿using MudRunner.Commons.Core.ExtensionMethods;
+using MudRunner.Commons.Core.Operation;
+using MudRunner.Commons.DataContracts.Models;
+using MudRunner.Suspension.Core.ExtensionMethods;
 using MudRunner.Suspension.Core.Mapper;
 using MudRunner.Suspension.Core.Models.SuspensionComponents;
-using MudRunner.Suspension.Core.Operations.Base;
 using MudRunner.Suspension.DataContracts.CalculateReactions;
-using MudRunner.Suspension.DataContracts.Models;
-using MudRunner.Suspension.DataContracts.OperationBase;
 using System;
 using System.Threading.Tasks;
 

@@ -1,5 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using MudRunner.Suspension.DataContracts.OperationBase;
+using MudRunner.Commons.DataContracts.Operation;
 using System.Net;
 
 namespace MudRunner.Suspension.Application.Extensions
