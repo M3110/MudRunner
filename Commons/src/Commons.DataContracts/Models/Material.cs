@@ -11,7 +11,7 @@ namespace MudRunner.Commons.DataContracts.Models
         /// <summary>
         /// It contains the necessary information about Steel SAE 1020.
         /// </summary>
-        public static readonly Material Steel1020 = new(youngModulus: 205e3, yieldStrength: 350, tensileStress: 400, specificMass: 7850);
+        public static readonly Material Steel1020 = new(youngModulus: 205e3, yieldStrength: 350, tensileStress: 470, specificMass: 7850);
 
         /// <summary>
         /// It contains the necessary information about Steel SAE 1045.
