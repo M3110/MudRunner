@@ -1,0 +1,62 @@
+{
+  "data": {
+    "analisysFailed": false,
+    "safetyFactor": 2.93,
+    "stressSafetyFactor": 2.93,
+    "bucklingSafetyFactor": 7.02,
+    "shockAbsorberResult": {
+      "absolutValue": 11643.07,
+      "x": -2591.89,
+      "y": 4275.6,
+      "z": -10514.87
+    },
+    "suspensionAArmUpperResult": {
+      "safetyFactor": 7,
+      "stressSafetyFactor": 7,
+      "bucklingSafetyFactor": 9.27,
+      "firstSegment": {
+        "safetyFactor": 7,
+        "appliedForce": 3465.6,
+        "bucklingSafetyFactor": 9.27,
+        "equivalentStress": 50.03,
+        "stressSafetyFactor": 7
+      },
+      "secondSegment": {
+        "safetyFactor": 16.8,
+        "appliedForce": 1443.47,
+        "bucklingSafetyFactor": 40.75,
+        "equivalentStress": 20.84,
+        "stressSafetyFactor": 16.8
+      }
+    },
+    "suspensionAArmLowerResult": {
+      "safetyFactor": 2.93,
+      "stressSafetyFactor": 2.93,
+      "bucklingSafetyFactor": 7.02,
+      "firstSegment": {
+        "safetyFactor": 6.99,
+        "appliedForce": -3468.6,
+        "bucklingSafetyFactor": 8.41,
+        "equivalentStress": -50.07,
+        "stressSafetyFactor": 6.99
+      },
+      "secondSegment": {
+        "safetyFactor": 2.93,
+        "appliedForce": -8278.19,
+        "bucklingSafetyFactor": 7.02,
+        "equivalentStress": -119.5,
+        "stressSafetyFactor": 2.93
+      }
+    },
+    "tieRodResult": {
+      "safetyFactor": 12.91,
+      "appliedForce": 1877.49,
+      "bucklingSafetyFactor": 41.83,
+      "equivalentStress": 27.1,
+      "stressSafetyFactor": 12.91
+    }
+  },
+  "success": true,
+  "httpStatusCode": "OK",
+  "errors": []
+}

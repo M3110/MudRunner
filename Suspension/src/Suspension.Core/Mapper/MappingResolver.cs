@@ -1,9 +1,9 @@
-﻿using SuspensionAnalysis.Core.Models.SuspensionComponents;
-using SuspensionAnalysis.DataContracts.CalculateReactions;
-using SuspensionAnalysis.DataContracts.Models.Profiles;
-using SuspensionAnalysis.DataContracts.RunAnalysis;
+﻿using MudRunner.Commons.DataContracts.Models.Profiles;
+using MudRunner.Suspension.Core.Models.SuspensionComponents;
+using MudRunner.Suspension.DataContracts.CalculateReactions;
+using MudRunner.Suspension.DataContracts.RunAnalysis.Static;
 
-namespace SuspensionAnalysis.Core.Mapper
+namespace MudRunner.Suspension.Core.Mapper
 {
     /// <summary>
     /// It is responsible to map an object to another.
@@ -38,7 +38,7 @@ namespace SuspensionAnalysis.Core.Mapper
         /// <param name="runAnalysisRequest"></param>
         /// <param name="calculateReactionsResponseData"></param>
         /// <returns></returns>
-        public SuspensionSystem<TProfile> MapFrom<TProfile>(RunAnalysisRequest<TProfile> runAnalysisRequest, CalculateReactionsResponseData calculateReactionsResponseData)
+        public SuspensionSystem<TProfile> MapFrom<TProfile>(RunStaticAnalysisRequest<TProfile> runAnalysisRequest, CalculateReactionsResponseData calculateReactionsResponseData)
             where TProfile : Profile
         {
             if (runAnalysisRequest == null)

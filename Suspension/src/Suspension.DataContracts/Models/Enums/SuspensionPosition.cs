@@ -1,4 +1,4 @@
-﻿namespace SuspensionAnalysis.DataContracts.Models.Enums
+﻿namespace MudRunner.Suspension.DataContracts.Models.Enums
 {
     /// <summary>
     /// It represents if a particular component is in the front or rear suspension. 

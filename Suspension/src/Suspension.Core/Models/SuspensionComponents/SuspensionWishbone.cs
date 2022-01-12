@@ -1,10 +1,11 @@
-﻿using SuspensionAnalysis.Core.ExtensionMethods;
-using SuspensionAnalysis.DataContracts.Models;
-using SuspensionAnalysis.DataContracts.Models.Enums;
-using SuspensionAnalysis.DataContracts.Models.Profiles;
-using DataContract = SuspensionAnalysis.DataContracts.Models.SuspensionComponents;
+﻿using MudRunner.Commons.Core.ExtensionMethods;
+using MudRunner.Commons.DataContracts.Models;
+using MudRunner.Commons.DataContracts.Models.Enums;
+using MudRunner.Commons.DataContracts.Models.Profiles;
+using MudRunner.Suspension.DataContracts.Models.SuspensionComponents;
+using DataContract = MudRunner.Suspension.DataContracts.Models.SuspensionComponents;
 
-namespace SuspensionAnalysis.Core.Models.SuspensionComponents
+namespace MudRunner.Suspension.Core.Models.SuspensionComponents
 {
     /// <summary>
     /// It represents the suspension wishbone.
@@ -69,13 +70,13 @@ namespace SuspensionAnalysis.Core.Models.SuspensionComponents
         public double Length2 => this.VectorDirection2.Length;
 
         /// <summary>
-        /// This method creates a <see cref="SuspensionWishbone"/> based on <see cref="DataContract.SuspensionWishbonePoint"/>.
+        /// This method creates a <see cref="SuspensionWishbone"/> based on <see cref="MudRunner.Suspension.DataContracts.Models.SuspensionComponents.SuspensionWishbonePoint"/>.
         /// </summary>
         /// <param name="suspensionWishbone"></param>
         /// <param name="appliedForce1"></param>
         /// <param name="appliedForce2"></param>
         /// <returns></returns>
-        public static SuspensionWishbone Create(DataContract.SuspensionWishbonePoint suspensionWishbone, double appliedForce1 = 0, double appliedForce2 = 0)
+        public static SuspensionWishbone Create(SuspensionWishbonePoint suspensionWishbone, double appliedForce1 = 0, double appliedForce2 = 0)
         {
             return new SuspensionWishbone
             {
@@ -105,7 +106,7 @@ namespace SuspensionAnalysis.Core.Models.SuspensionComponents
         public TProfile Profile { get; set; }
 
         /// <summary>
-        /// This method creates a <see cref="SuspensionWishbone{TProfile}"/> based on <see cref="DataContract.SuspensionWishbone{TProfile}"/>.
+        /// This method creates a <see cref="SuspensionWishbone{TProfile}"/> based on <see cref="MudRunner.Suspension.DataContracts.Models.SuspensionComponents.SuspensionWishbone{TProfile}"/>.
         /// </summary>
         /// <param name="suspensionWishbone"></param>
         /// <param name="material"></param>

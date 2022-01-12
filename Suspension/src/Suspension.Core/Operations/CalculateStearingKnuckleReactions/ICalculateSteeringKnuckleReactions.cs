@@ -1,11 +1,11 @@
-﻿using SuspensionAnalysis.Core.Operations.Base;
-using SuspensionAnalysis.DataContracts.CalculateSteeringKnuckleReactions;
-using SuspensionAnalysis.DataContracts.Models;
-using SuspensionAnalysis.DataContracts.Models.Enums;
+﻿using MudRunner.Commons.Core.Operation;
+using MudRunner.Commons.DataContracts.Models;
+using MudRunner.Suspension.DataContracts.CalculateSteeringKnuckleReactions;
+using MudRunner.Suspension.DataContracts.Models.Enums;
 
-namespace SuspensionAnalysis.Core.Operations.CalculateStearingKnuckleReactions
+namespace MudRunner.Suspension.Core.Operations.CalculateStearingKnuckleReactions
 {
-    public interface ICalculateSteeringKnuckleReactions : IOperationBase<CalculateSteeringKnuckleReactionsRequest, CalculateSteeringKnuckleReactionsResponse, CalculateSteeringKnuckleReactionsResponseData>
+    public interface ICalculateSteeringKnuckleReactions : IOperationBase<CalculateSteeringKnuckleReactionsRequest, CalculateSteeringKnuckleReactionsResponse>
     {
         /// <summary>
         /// 

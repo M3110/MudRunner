@@ -1,9 +1,10 @@
-﻿using SuspensionAnalysis.DataContracts.Models;
-using SuspensionAnalysis.DataContracts.Models.Enums;
-using SuspensionAnalysis.DataContracts.Models.Profiles;
-using DataContract = SuspensionAnalysis.DataContracts.Models.SuspensionComponents;
+﻿using MudRunner.Commons.DataContracts.Models;
+using MudRunner.Commons.DataContracts.Models.Enums;
+using MudRunner.Commons.DataContracts.Models.Profiles;
+using MudRunner.Suspension.DataContracts.Models.SuspensionComponents;
+using DataContract = MudRunner.Suspension.DataContracts.Models.SuspensionComponents;
 
-namespace SuspensionAnalysis.Core.Models.SuspensionComponents
+namespace MudRunner.Suspension.Core.Models.SuspensionComponents
 {
     /// <summary>
     /// It represents the tie rod.
@@ -11,12 +12,12 @@ namespace SuspensionAnalysis.Core.Models.SuspensionComponents
     public class TieRod : SingleComponent
     {
         /// <summary>
-        /// This method creates a <see cref="TieRod"/> based on <see cref="DataContract.TieRodPoint"/>.
+        /// This method creates a <see cref="TieRod"/> based on <see cref="TieRodPoint"/>.
         /// </summary>
         /// <param name="tieRod"></param>
         /// <param name="appliedForce"></param>
         /// <returns></returns>
-        public static TieRod Create(DataContract.TieRodPoint tieRod, double appliedForce = 0)
+        public static TieRod Create(TieRodPoint tieRod, double appliedForce = 0)
         {
             return new TieRod
             {
@@ -31,19 +32,9 @@ namespace SuspensionAnalysis.Core.Models.SuspensionComponents
     /// It represents the tie rod.
     /// </summary>
     /// <typeparam name="TProfile"></typeparam>
-    public class TieRod<TProfile> : TieRod
+    public class TieRod<TProfile> : SingleComponent<TProfile>
         where TProfile : Profile
     {
-        /// <summary>
-        /// The material.
-        /// </summary>
-        public Material Material { get; set; }
-
-        /// <summary>
-        /// The profile.
-        /// </summary>
-        public TProfile Profile { get; set; }
-
         /// <summary>
         /// This method creates a <see cref="TieRod{TProfile}"/> based on <see cref="DataContract.TieRod{TProfile}"/>.
         /// </summary>

@@ -1,7 +1,7 @@
-﻿using SuspensionAnalysis.DataContracts.Models.Enums;
+﻿using MudRunner.Suspension.DataContracts.Models.Enums;
 using System;
 
-namespace SuspensionAnalysis.Core.Models.SuspensionComponents
+namespace MudRunner.Suspension.Core.Models.SuspensionComponents
 {
     /// <summary>
     /// It contains the necessary information about whatever bearing.

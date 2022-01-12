@@ -1,21 +1,20 @@
-﻿using SuspensionAnalysis.Core.ExtensionMethods;
-using SuspensionAnalysis.Core.Models.SuspensionComponents;
-using SuspensionAnalysis.Core.Models.SuspensionComponents.SteeringKnuckle;
-using SuspensionAnalysis.Core.Operations.Base;
-using SuspensionAnalysis.Core.Operations.CalculateReactions;
-using SuspensionAnalysis.DataContracts.CalculateReactions;
-using SuspensionAnalysis.DataContracts.CalculateSteeringKnuckleReactions;
-using SuspensionAnalysis.DataContracts.Models;
-using SuspensionAnalysis.DataContracts.Models.Enums;
-using SuspensionAnalysis.DataContracts.OperationBase;
+﻿using MudRunner.Commons.Core.ExtensionMethods;
+using MudRunner.Commons.Core.Operation;
+using MudRunner.Commons.DataContracts.Models;
+using MudRunner.Suspension.Core.Models.SuspensionComponents;
+using MudRunner.Suspension.Core.Models.SuspensionComponents.SteeringKnuckle;
+using MudRunner.Suspension.Core.Operations.CalculateReactions;
+using MudRunner.Suspension.DataContracts.CalculateReactions;
+using MudRunner.Suspension.DataContracts.CalculateSteeringKnuckleReactions;
+using MudRunner.Suspension.DataContracts.Models.Enums;
 using System.Threading.Tasks;
 
-namespace SuspensionAnalysis.Core.Operations.CalculateStearingKnuckleReactions
+namespace MudRunner.Suspension.Core.Operations.CalculateStearingKnuckleReactions
 {
     /// <summary>
     /// It is responsible to calculate the reactions to steering knuckle. 
     /// </summary>
-    public class CalculateSteeringKnuckleReactions : OperationBase<CalculateSteeringKnuckleReactionsRequest, CalculateSteeringKnuckleReactionsResponse, CalculateSteeringKnuckleReactionsResponseData>, ICalculateSteeringKnuckleReactions
+    public class CalculateSteeringKnuckleReactions : OperationBase<CalculateSteeringKnuckleReactionsRequest, CalculateSteeringKnuckleReactionsResponse>, ICalculateSteeringKnuckleReactions
     {
         private readonly ICalculateReactions _calculateReactions;
 
@@ -23,7 +22,6 @@ namespace SuspensionAnalysis.Core.Operations.CalculateStearingKnuckleReactions
         {
             this._calculateReactions = calculateReactions;
         }
-
 
         public Force CalculateTieRodReactions(Force tieRodReaction, string steeringWheelForce, SuspensionPosition suspensionPosition)
         {
@@ -92,7 +90,7 @@ namespace SuspensionAnalysis.Core.Operations.CalculateStearingKnuckleReactions
                 if (calculateReactionsResponse.Success == false)
                 {
                     response.AddErrors(calculateReactionsResponse.Errors);
-                    response.SetInternalServerError(OperationErrorCode.InternalServerError, "Occurred error while calculating reactions on suspension system.");
+                    response.SetInternalServerError("Occurred error while calculating reactions on suspension system.");
                     return response;
                 }
 
@@ -119,7 +117,7 @@ namespace SuspensionAnalysis.Core.Operations.CalculateStearingKnuckleReactions
 
             if (request.CalculateReactionsRequest == null && request.CalculateReactionsResponseData == null)
             {
-                response.SetBadRequestError(OperationErrorCode.RequestValidationError, "The forces applied to the steering knukle or the suspension points must be passed on request");
+                response.SetBadRequestError("The forces applied to the steering knukle or the suspension points must be passed on request");
             }
 
             return response;

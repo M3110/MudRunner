@@ -1,4 +1,4 @@
-﻿namespace SuspensionAnalysis.DataContracts.Models.SuspensionComponents.SteeringKnuckle
+﻿namespace MudRunner.Suspension.DataContracts.Models.SuspensionComponents.SteeringKnuckle
 {
     /// <summary>
     /// It represents the brake caliper support. 

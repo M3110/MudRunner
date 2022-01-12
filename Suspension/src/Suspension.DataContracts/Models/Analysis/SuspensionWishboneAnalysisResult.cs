@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace SuspensionAnalysis.DataContracts.Models.Analysis
+namespace MudRunner.Suspension.DataContracts.Models.Analysis
 {
     /// <summary>
     /// It contains the necessary informations to execute the analysis to suspension wihsbone.

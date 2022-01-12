@@ -1,12 +1,14 @@
-﻿using SuspensionAnalysis.Core.ExtensionMethods;
-using SuspensionAnalysis.DataContracts.Models;
+﻿using MudRunner.Commons.Core.ExtensionMethods;
+using MudRunner.Commons.DataContracts.Models;
+using MudRunner.Commons.DataContracts.Models.Profiles;
+using MudRunner.Suspension.Core.ExtensionMethods;
 
-namespace SuspensionAnalysis.Core.Models.SuspensionComponents
+namespace MudRunner.Suspension.Core.Models.SuspensionComponents
 {
     /// <summary>
     /// It contains the points to a single suspension component.
     /// </summary>
-    public abstract class SingleComponent
+    public class SingleComponent
     {
         /// <summary>
         /// The absolut applied force.
@@ -37,5 +39,23 @@ namespace SuspensionAnalysis.Core.Models.SuspensionComponents
         /// The length.
         /// </summary>
         public double Length => this.VectorDirection.Length;
+    }
+
+    /// <summary>
+    /// It contains the points to a single suspension component.
+    /// </summary>
+    /// <typeparam name="TProfile"></typeparam>
+    public class SingleComponent<TProfile> : SingleComponent
+        where TProfile : Profile
+    {
+        /// <summary>
+        /// The material.
+        /// </summary>
+        public Material Material { get; set; }
+
+        /// <summary>
+        /// The profile.
+        /// </summary>
+        public TProfile Profile { get; set; }
     }
 }

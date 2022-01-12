@@ -1,4 +1,4 @@
-﻿namespace SuspensionAnalysis.DataContracts.Models.Enums
+﻿namespace MudRunner.Suspension.DataContracts.Models.Enums
 {
     /// <summary>
     /// It represents the bearing used in suspension system. 

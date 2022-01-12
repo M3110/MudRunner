@@ -1,7 +1,7 @@
-﻿using SuspensionAnalysis.DataContracts.Models;
-using SuspensionAnalysis.DataContracts.OperationBase;
+﻿using MudRunner.Commons.DataContracts.Models;
+using MudRunner.Commons.DataContracts.Operation;
 
-namespace SuspensionAnalysis.DataContracts.CalculateReactions
+namespace MudRunner.Suspension.DataContracts.CalculateReactions
 {
     /// <summary>
     /// It represents the 'data' content of operation CalculateReactions response.

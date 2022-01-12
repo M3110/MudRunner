@@ -1,6 +1,6 @@
-﻿using SuspensionAnalysis.DataContracts.Models;
+﻿using MudRunner.Commons.DataContracts.Models;
 
-namespace SuspensionAnalysis.Core.Models.SuspensionComponents.SteeringKnuckle
+namespace MudRunner.Suspension.Core.Models.SuspensionComponents.SteeringKnuckle
 {
     /// <summary>
     /// It represents the steering knuckle.

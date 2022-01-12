@@ -1,8 +1,8 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using SuspensionAnalysis.DataContracts.OperationBase;
+using MudRunner.Commons.DataContracts.Operation;
 using System.Net;
 
-namespace SuspensionAnalysis.Application.Extensions
+namespace MudRunner.Suspension.Application.Extensions
 {
     /// <summary>
     /// It is responsible to build the HTTP response.

@@ -1,6 +1,6 @@
-﻿using SuspensionAnalysis.DataContracts.OperationBase;
+﻿using MudRunner.Commons.DataContracts.Operation;
 
-namespace SuspensionAnalysis.DataContracts.CalculateSteeringKnuckleReactions
+namespace MudRunner.Suspension.DataContracts.CalculateSteeringKnuckleReactions
 {
     /// <summary>
     /// It represents the response content to CalculateSteeringKnuckleReactions operation.

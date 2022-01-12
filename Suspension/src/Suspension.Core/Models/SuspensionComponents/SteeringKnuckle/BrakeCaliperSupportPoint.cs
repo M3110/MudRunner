@@ -1,7 +1,7 @@
-﻿using SuspensionAnalysis.DataContracts.Models;
-using DataContract = SuspensionAnalysis.DataContracts.Models.SuspensionComponents.SteeringKnuckle;
+﻿using MudRunner.Commons.DataContracts.Models;
+using DataContract = MudRunner.Suspension.DataContracts.Models.SuspensionComponents.SteeringKnuckle;
 
-namespace SuspensionAnalysis.Core.Models.SuspensionComponents.SteeringKnuckle
+namespace MudRunner.Suspension.Core.Models.SuspensionComponents.SteeringKnuckle
 {
     /// <summary>
     /// It represents the brake caliper support. 
@@ -18,6 +18,11 @@ namespace SuspensionAnalysis.Core.Models.SuspensionComponents.SteeringKnuckle
         /// </summary>
         public Point3D Point2 { get; set; }
 
+        /// <summary>
+        /// This method creates a new instance of <see cref="BrakeCaliperSupportPoint"/>.
+        /// </summary>
+        /// <param name="brakeCaliperSupportPoint"></param>
+        /// <returns></returns>
         public static BrakeCaliperSupportPoint Create(DataContract.BrakeCaliperSupportPoint brakeCaliperSupportPoint)
         {
             return new BrakeCaliperSupportPoint
