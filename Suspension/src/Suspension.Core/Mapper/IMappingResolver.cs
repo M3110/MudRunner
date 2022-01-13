@@ -18,13 +18,13 @@ namespace MudRunner.Suspension.Core.Mapper
         SuspensionSystem MapFrom(CalculateReactionsRequest request);
 
         /// <summary>
-        /// This method craetes a <see cref="SuspensionAArm{TProfile}"/> based on <see cref="RunStaticAnalysisRequest{TProfile}"/> and <see cref="CalculateReactionsResponseData"/>.
+        /// This method craetes a <see cref="Wishbone{TProfile}"/> based on <see cref="RunStaticAnalysisRequest{TProfile}"/> and <see cref="CalculateReactionsResponseData"/>.
         /// </summary>
         /// <typeparam name="TProfile"></typeparam>
-        /// <param name="runAnalysisRequest"></param>
+        /// <param name="runStaticAnalysisRequest"></param>
         /// <param name="calculateReactionsResponseData"></param>
         /// <returns></returns>
-        SuspensionSystem<TProfile> MapFrom<TProfile>(RunStaticAnalysisRequest<TProfile> runAnalysisRequest, CalculateReactionsResponseData calculateReactionsResponseData)
+        SuspensionSystem<TProfile> MapFrom<TProfile>(RunStaticAnalysisRequest<TProfile> runStaticAnalysisRequest, CalculateReactionsResponseData calculateReactionsResponseData)
             where TProfile : Profile;
     }
 }
