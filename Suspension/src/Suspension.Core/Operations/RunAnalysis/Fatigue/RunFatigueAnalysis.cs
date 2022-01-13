@@ -44,6 +44,9 @@ namespace MudRunner.Suspension.Core.Operations.RunAnalysis.Fatigue
 
             // Step 1 - Run static analysis for the minimum and maximum force.
             var result = await RunStaticAnalyses(request, response).ConfigureAwait(false);
+            
+            // If some error occurred while running the static analysis, the errors will be added in response and the success will
+            // be set as false.
             if (response.Success == false)
                 return response;
 

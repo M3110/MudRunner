@@ -11,7 +11,7 @@ namespace MudRunner.Suspension.Core.Models.SuspensionComponents
         /// <summary>
         /// It contains the necessary information about bearing 1. 
         /// </summary>
-        public static readonly Bearing Bearing1 = new Bearing(effectiveRadius: 45.3e-3, axialLoadFactor: 1, radialLoadFactor: 1.6);
+        public static readonly Bearing Bearing1 = new(effectiveRadius: 45.3e-3, axialLoadFactor: 1, radialLoadFactor: 1.6);
 
         /// <summary>
         /// Class constructor.

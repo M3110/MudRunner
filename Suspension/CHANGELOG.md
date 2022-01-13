@@ -7,8 +7,8 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 ## UNRELESED
 ### Changed
  - Framework to NET6.0.
- - Nuget package MudRunner.Commons.Core to 1.0.0.
- - Nuget package MudRunner.Commons.DataContracts to 1.0.0.
+ - Nuget package MudRunner.Commons.Core to 1.1.0.
+ - Nuget package MudRunner.Commons.DataContracts to 1.1.0.
  - Renamed suspension A-Arm to wishbone in all application.  
  - Renamed PivotPoint1 to FrontPivot in all application.
  - Renamed PivotPoint2 to RearPivot in all application.
