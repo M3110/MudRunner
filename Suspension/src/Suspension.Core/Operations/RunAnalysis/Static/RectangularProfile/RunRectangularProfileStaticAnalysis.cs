@@ -1,8 +1,8 @@
-﻿using MudRunner.Suspension.Core.ConstitutiveEquations.MechanicsOfMaterials;
-using MudRunner.Suspension.Core.GeometricProperties.RectangularProfile;
+﻿using MudRunner.Commons.Core.ConstitutiveEquations.MechanicsOfMaterials;
+using MudRunner.Commons.Core.GeometricProperties.RectangularProfile;
 using MudRunner.Suspension.Core.Mapper;
 using MudRunner.Suspension.Core.Operations.CalculateReactions;
-using DataContract = MudRunner.Suspension.DataContracts.Models.Profiles;
+using DataContract = MudRunner.Commons.DataContracts.Models.Profiles;
 
 namespace MudRunner.Suspension.Core.Operations.RunAnalysis.Static.RectangularProfile
 {
@@ -16,6 +16,7 @@ namespace MudRunner.Suspension.Core.Operations.RunAnalysis.Static.RectangularPro
         /// </summary>
         /// <param name="calculateReactions"></param>
         /// <param name="mechanicsOfMaterials"></param>
+        /// <param name="geometricProperty"></param>
         /// <param name="mappingResolver"></param>
         public RunRectangularProfileStaticAnalysis(
             ICalculateReactions calculateReactions,

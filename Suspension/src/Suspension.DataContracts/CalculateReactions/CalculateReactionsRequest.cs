@@ -1,5 +1,5 @@
-﻿using MudRunner.Suspension.DataContracts.Models.SuspensionComponents;
-using MudRunner.Suspension.DataContracts.OperationBase;
+﻿using MudRunner.Commons.DataContracts.Operation;
+using MudRunner.Suspension.DataContracts.Models.SuspensionComponents;
 
 namespace MudRunner.Suspension.DataContracts.CalculateReactions
 {
@@ -37,14 +37,14 @@ namespace MudRunner.Suspension.DataContracts.CalculateReactions
         public ShockAbsorberPoint ShockAbsorber { get; set; }
 
         /// <summary>
-        /// The suspension A-arm upper points.
+        /// The suspension upper wishbone points.
         /// </summary>
-        public SuspensionAArmPoint SuspensionAArmUpper { get; set; }
+        public WishbonePoint UpperWishbone { get; set; }
 
         /// <summary>
-        /// The suspension A-arm lower points.
+        /// The suspension lower wishbone points.
         /// </summary>
-        public SuspensionAArmPoint SuspensionAArmLower { get; set; }
+        public WishbonePoint LowerWishbone { get; set; }
 
         /// <summary>
         /// The tie rod points.

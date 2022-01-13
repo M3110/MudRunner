@@ -1,16 +1,15 @@
 ﻿using Moq;
-using MudRunner.Suspension.Core.ConstitutiveEquations.MechanicsOfMaterials;
-using MudRunner.Suspension.Core.GeometricProperties.CircularProfile;
+using MudRunner.Commons.Core.ConstitutiveEquations.MechanicsOfMaterials;
+using MudRunner.Commons.Core.GeometricProperties.CircularProfile;
+using MudRunner.Commons.DataContracts.Models;
 using MudRunner.Suspension.Core.Mapper;
 using MudRunner.Suspension.Core.Operations.CalculateReactions;
-using MudRunner.Suspension.Core.Operations.RunAnalysis.Fatigue.CircularProfile;
 using MudRunner.Suspension.Core.Operations.RunAnalysis.Static.CircularProfile;
 using MudRunner.Suspension.DataContracts.CalculateReactions;
-using MudRunner.Suspension.DataContracts.Models;
 using MudRunner.Suspension.DataContracts.RunAnalysis.Static;
 using MudRunner.Suspension.UnitTest.Helper.DataContracts;
 using System;
-using DataContract = MudRunner.Suspension.DataContracts.Models.Profiles;
+using DataContract = MudRunner.Commons.DataContracts.Models.Profiles;
 
 namespace MudRunner.Suspension.UnitTest.Core.Operations.RunAnalysis.CircularProfile
 {
@@ -37,10 +36,10 @@ namespace MudRunner.Suspension.UnitTest.Core.Operations.RunAnalysis.CircularProf
                     {
                         Data = new CalculateReactionsResponseData
                         {
-                            AArmLowerReaction1 = new Force { AbsolutValue = Math.Sqrt(3), X = 1, Y = 1, Z = 1 },
-                            AArmLowerReaction2 = new Force { AbsolutValue = Math.Sqrt(3), X = 1, Y = 1, Z = 1 },
-                            AArmUpperReaction1 = new Force { AbsolutValue = Math.Sqrt(3), X = 1, Y = 1, Z = 1 },
-                            AArmUpperReaction2 = new Force { AbsolutValue = Math.Sqrt(3), X = 1, Y = 1, Z = 1 },
+                            LowerWishboneReaction1 = new Force { AbsolutValue = Math.Sqrt(3), X = 1, Y = 1, Z = 1 },
+                            LowerWishboneReaction2 = new Force { AbsolutValue = Math.Sqrt(3), X = 1, Y = 1, Z = 1 },
+                            UpperWishboneReaction1 = new Force { AbsolutValue = Math.Sqrt(3), X = 1, Y = 1, Z = 1 },
+                            UpperWishboneReaction2 = new Force { AbsolutValue = Math.Sqrt(3), X = 1, Y = 1, Z = 1 },
                             ShockAbsorberReaction = new Force { AbsolutValue = Math.Sqrt(3), X = 1, Y = 1, Z = 1 },
                             TieRodReaction = new Force { AbsolutValue = Math.Sqrt(3), X = 1, Y = 1, Z = 1 }
                         }
@@ -59,8 +58,8 @@ namespace MudRunner.Suspension.UnitTest.Core.Operations.RunAnalysis.CircularProf
             this._geometricPropertyMock = new Mock<ICircularProfileGeometricProperty>();
 
             this._operation = new RunCircularProfileStaticAnalysis(
-                this._calculateReactionsMock.Object, 
-                this._mechanicsOfMaterialsMock.Object, 
+                this._calculateReactionsMock.Object,
+                this._mechanicsOfMaterialsMock.Object,
                 this._geometricPropertyMock.Object,
                 this._mappingResolverMock.Object);
         }

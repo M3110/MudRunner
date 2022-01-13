@@ -1,6 +1,6 @@
-﻿using MudRunner.Suspension.Core.ConstitutiveEquations.Fatigue;
+﻿using MudRunner.Commons.Core.ConstitutiveEquations.Fatigue;
 using MudRunner.Suspension.Core.Operations.RunAnalysis.Static.CircularProfile;
-using DataContract = MudRunner.Suspension.DataContracts.Models.Profiles;
+using DataContract = MudRunner.Commons.DataContracts.Models.Profiles;
 
 namespace MudRunner.Suspension.Core.Operations.RunAnalysis.Fatigue.CircularProfile
 {

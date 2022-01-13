@@ -1,4 +1,4 @@
-﻿using MudRunner.Suspension.DataContracts.Models.Profiles;
+﻿using MudRunner.Commons.DataContracts.Models.Profiles;
 
 namespace MudRunner.Suspension.Core.Models.SuspensionComponents
 {
@@ -13,14 +13,14 @@ namespace MudRunner.Suspension.Core.Models.SuspensionComponents
         public ShockAbsorber ShockAbsorber { get; set; }
 
         /// <summary>
-        /// The suspension A-arm upper.
+        /// The upper wishbone.
         /// </summary>
-        public SuspensionAArm SuspensionAArmUpper { get; set; }
+        public Wishbone UpperWishbone { get; set; }
 
         /// <summary>
-        /// The suspension A-arm lower.
+        /// The lower wishbone.
         /// </summary>
-        public SuspensionAArm SuspensionAArmLower { get; set; }
+        public Wishbone LowerWishbone { get; set; }
 
         /// <summary>
         /// The tie rod.
@@ -40,14 +40,14 @@ namespace MudRunner.Suspension.Core.Models.SuspensionComponents
         public ShockAbsorber ShockAbsorber { get; set; }
 
         /// <summary>
-        /// The suspension A-arm upper.
+        /// The upper wishbone.
         /// </summary>
-        public SuspensionAArm<TProfile> SuspensionAArmUpper { get; set; }
+        public Wishbone<TProfile> UpperWishbone { get; set; }
 
         /// <summary>
-        /// The suspension A-arm lower.
+        /// The lower wishbone.
         /// </summary>
-        public SuspensionAArm<TProfile> SuspensionAArmLower { get; set; }
+        public Wishbone<TProfile> LowerWishbone { get; set; }
 
         /// <summary>
         /// The tie rod.

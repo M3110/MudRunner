@@ -1,4 +1,4 @@
-﻿using MudRunner.Suspension.DataContracts.OperationBase;
+﻿using MudRunner.Commons.DataContracts.Operation;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -19,8 +19,8 @@ namespace MudRunner.Suspension.DataContracts.RunAnalysis.Fatigue
         /// </summary>
         public double SafetyFactor => new List<double> 
         { 
-            (SuspensionAArmUpperResult?.SafetyFactor).GetValueOrDefault(), 
-            (SuspensionAArmLowerResult?.SafetyFactor).GetValueOrDefault(),
+            (UpperWishboneResult?.SafetyFactor).GetValueOrDefault(), 
+            (LowerWishboneResult?.SafetyFactor).GetValueOrDefault(),
             (TieRodResult?.SafetyFactor).GetValueOrDefault()
         }.Min();
 
@@ -29,8 +29,8 @@ namespace MudRunner.Suspension.DataContracts.RunAnalysis.Fatigue
         /// </summary>
         public double StressSafetyFactor => new List<double>
         {
-            (SuspensionAArmUpperResult?.StressSafetyFactor).GetValueOrDefault(),
-            (SuspensionAArmLowerResult?.StressSafetyFactor).GetValueOrDefault(),
+            (UpperWishboneResult?.StressSafetyFactor).GetValueOrDefault(),
+            (LowerWishboneResult?.StressSafetyFactor).GetValueOrDefault(),
             (TieRodResult?.StressSafetyFactor).GetValueOrDefault()
         }.Min();
 
@@ -39,8 +39,8 @@ namespace MudRunner.Suspension.DataContracts.RunAnalysis.Fatigue
         /// </summary>
         public double BucklingSafetyFactor => new List<double>
         {
-            (SuspensionAArmUpperResult?.BucklingSafetyFactor).GetValueOrDefault(),
-            (SuspensionAArmLowerResult?.BucklingSafetyFactor).GetValueOrDefault(),
+            (UpperWishboneResult?.BucklingSafetyFactor).GetValueOrDefault(),
+            (LowerWishboneResult?.BucklingSafetyFactor).GetValueOrDefault(),
             (TieRodResult?.BucklingSafetyFactor).GetValueOrDefault()
         }.Min();
 
@@ -49,8 +49,8 @@ namespace MudRunner.Suspension.DataContracts.RunAnalysis.Fatigue
         /// </summary>
         public double FatigueSafetyFactor => new List<double>
         {
-            (SuspensionAArmUpperResult?.FatigueSafetyFactor).GetValueOrDefault(),
-            (SuspensionAArmLowerResult?.FatigueSafetyFactor).GetValueOrDefault(),
+            (UpperWishboneResult?.FatigueSafetyFactor).GetValueOrDefault(),
+            (LowerWishboneResult?.FatigueSafetyFactor).GetValueOrDefault(),
             (TieRodResult?.FatigueSafetyFactor).GetValueOrDefault()
         }.Min();
 
@@ -59,8 +59,8 @@ namespace MudRunner.Suspension.DataContracts.RunAnalysis.Fatigue
         /// </summary>
         public double FatigueNumberOfCycles => new List<double>
         {
-            (SuspensionAArmUpperResult?.FatigueNumberOfCycles).GetValueOrDefault(),
-            (SuspensionAArmLowerResult?.FatigueNumberOfCycles).GetValueOrDefault(),
+            (UpperWishboneResult?.FatigueNumberOfCycles).GetValueOrDefault(),
+            (LowerWishboneResult?.FatigueNumberOfCycles).GetValueOrDefault(),
             (TieRodResult?.FatigueNumberOfCycles).GetValueOrDefault()
         }.Min();
 
@@ -70,14 +70,14 @@ namespace MudRunner.Suspension.DataContracts.RunAnalysis.Fatigue
         public ShockAbsorberFatigueAnalysisResult ShockAbsorberResult { get; set; }
 
         /// <summary>
-        /// The analysis result to suspension A-arm upper.
+        /// The analysis result to upper wishbone.
         /// </summary>
-        public SuspensionAArmFatigueAnalysisResult SuspensionAArmUpperResult { get; set; }
+        public WishboneFatigueAnalysisResult UpperWishboneResult { get; set; }
 
         /// <summary>
-        /// The analysis result to suspension A-arm lower.
+        /// The analysis result to lower wishbone.
         /// </summary>
-        public SuspensionAArmFatigueAnalysisResult SuspensionAArmLowerResult { get; set; }
+        public WishboneFatigueAnalysisResult LowerWishboneResult { get; set; }
 
         /// <summary>
         /// The analysis result to tie rod.

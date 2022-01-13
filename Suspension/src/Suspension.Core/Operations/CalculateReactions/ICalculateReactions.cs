@@ -1,7 +1,7 @@
-﻿using MudRunner.Suspension.Core.Models.SuspensionComponents;
-using MudRunner.Suspension.Core.Operations.Base;
+﻿using MudRunner.Commons.Core.Operation;
+using MudRunner.Commons.DataContracts.Models;
+using MudRunner.Suspension.Core.Models.SuspensionComponents;
 using MudRunner.Suspension.DataContracts.CalculateReactions;
-using MudRunner.Suspension.DataContracts.Models;
 
 namespace MudRunner.Suspension.Core.Operations.CalculateReactions
 {

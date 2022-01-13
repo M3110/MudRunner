@@ -1,9 +1,9 @@
-﻿using Newtonsoft.Json;
-using Newtonsoft.Json.Converters;
-using MudRunner.Suspension.DataContracts.Models.Enums;
-using MudRunner.Suspension.DataContracts.Models.Profiles;
+﻿using MudRunner.Commons.DataContracts.Models.Enums;
+using MudRunner.Commons.DataContracts.Models.Profiles;
+using MudRunner.Commons.DataContracts.Operation;
 using MudRunner.Suspension.DataContracts.Models.SuspensionComponents;
-using MudRunner.Suspension.DataContracts.OperationBase;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Converters;
 
 namespace MudRunner.Suspension.DataContracts.RunAnalysis.Static
 {
@@ -49,14 +49,14 @@ namespace MudRunner.Suspension.DataContracts.RunAnalysis.Static
         public ShockAbsorber ShockAbsorber { get; set; }
 
         /// <summary>
-        /// The suspension A-arm upper.
+        /// The suspension upper wishbone.
         /// </summary>
-        public SuspensionAArm<TProfile> SuspensionAArmUpper { get; set; }
+        public Wishbone<TProfile> UpperWishbone { get; set; }
 
         /// <summary>
-        /// The suspension A-arm lower.
+        /// The suspension lower wishbone.
         /// </summary>
-        public SuspensionAArm<TProfile> SuspensionAArmLower { get; set; }
+        public Wishbone<TProfile> LowerWishbone { get; set; }
 
         /// <summary>
         /// The tie rod.

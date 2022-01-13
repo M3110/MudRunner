@@ -4,6 +4,20 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
+## [1.2.0] - 2022-01-13
+### Changed
+ - Framework to NET6.0.
+ - Nuget package MudRunner.Commons.Core to 1.1.0.
+ - Nuget package MudRunner.Commons.DataContracts to 1.1.0.
+ - Renamed suspension A-Arm to wishbone in all application.  
+ - Renamed PivotPoint1 to FrontPivot in all application.
+ - Renamed PivotPoint2 to RearPivot in all application.
+ - Renamed KnucklePoint to OuterBallJoint in all application. 
+### Removed
+ - Codes that was in MudRunner.Commons.
+### Added
+ - Operation CalculateSteeringKnuckleReactions. 
+
 ## [1.1.0] - 2021-12-20
 ### Added
  - File Directory.Build.Props.
@@ -14,10 +28,10 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 ### Changed
  - Renamed application from Suspension to MudRunner.Suspension.
  - Renamed RunAnalysis operation to RunStaticAnalysis and refactored it.
+ - Renamed property 'ForceApplied' to 'AppliedForce' in class RunStaticAnalysisRequest.
  - Point3D to receive the point as string at milimeters instead of meters.
  - Profiles to receive the values in milimeters.
  - GeometricProperty to calculate the area in milimeters squared and moment of inertia in milimeters raised by four.
- - Renamed property 'ForceApplied' to 'AppliedForce' in class RunAnalysisRequest.
  - MechanicsOfMaterials to be concreate and do not receive the profile type.
  - Renamed class TieRodAnalysisResult to SingleComponentAnalysisResult.
  - File .gitignore to ignore the folder build.

@@ -1,12 +1,12 @@
-﻿using MudRunner.Suspension.Core.ConstitutiveEquations.MechanicsOfMaterials;
-using MudRunner.Suspension.Core.GeometricProperties;
+﻿using MudRunner.Commons.Core.ConstitutiveEquations.MechanicsOfMaterials;
+using MudRunner.Commons.Core.GeometricProperties;
+using MudRunner.Commons.Core.Operation;
+using MudRunner.Commons.DataContracts.Models;
+using MudRunner.Commons.DataContracts.Models.Profiles;
 using MudRunner.Suspension.Core.Mapper;
 using MudRunner.Suspension.Core.Models.SuspensionComponents;
-using MudRunner.Suspension.Core.Operations.Base;
 using MudRunner.Suspension.Core.Operations.CalculateReactions;
 using MudRunner.Suspension.DataContracts.CalculateReactions;
-using MudRunner.Suspension.DataContracts.Models;
-using MudRunner.Suspension.DataContracts.Models.Profiles;
 using MudRunner.Suspension.DataContracts.Models.SuspensionComponents;
 using MudRunner.Suspension.DataContracts.RunAnalysis.Static;
 using System;
@@ -81,12 +81,12 @@ namespace MudRunner.Suspension.Core.Operations.RunAnalysis
 
             tasks.Add(Task.Run(async () =>
             {
-                response.Data.SuspensionAArmLowerResult = await this.GenerateSuspensionAArmResultAsync(suspensionSystem.SuspensionAArmLower, request.ShouldRoundResults, request.NumberOfDecimalsToRound.GetValueOrDefault()).ConfigureAwait(false);
+                response.Data.LowerWishboneResult = await this.GenerateWishboneResultAsync(suspensionSystem.LowerWishbone, request.ShouldRoundResults, request.NumberOfDecimalsToRound.GetValueOrDefault()).ConfigureAwait(false);
             }));
 
             tasks.Add(Task.Run(async () =>
             {
-                response.Data.SuspensionAArmUpperResult = await this.GenerateSuspensionAArmResultAsync(suspensionSystem.SuspensionAArmUpper, request.ShouldRoundResults, request.NumberOfDecimalsToRound.GetValueOrDefault()).ConfigureAwait(false);
+                response.Data.UpperWishboneResult = await this.GenerateWishboneResultAsync(suspensionSystem.UpperWishbone, request.ShouldRoundResults, request.NumberOfDecimalsToRound.GetValueOrDefault()).ConfigureAwait(false);
             }));
 
             tasks.Add(Task.Run(async () =>
@@ -112,8 +112,8 @@ namespace MudRunner.Suspension.Core.Operations.RunAnalysis
                 AppliedForce = request.AppliedForce,
                 Origin = request.Origin,
                 ShockAbsorber = ShockAbsorberPoint.Create(request.ShockAbsorber),
-                SuspensionAArmLower = SuspensionAArmPoint.Create(request.SuspensionAArmLower),
-                SuspensionAArmUpper = SuspensionAArmPoint.Create(request.SuspensionAArmUpper),
+                LowerWishbone = WishbonePoint.Create(request.LowerWishbone),
+                UpperWishbone = WishbonePoint.Create(request.UpperWishbone),
                 TieRod = TieRodPoint.Create(request.TieRod)
             };
         }
@@ -123,6 +123,7 @@ namespace MudRunner.Suspension.Core.Operations.RunAnalysis
         /// </summary>
         /// <param name="shockAbsorberReaction"></param>
         /// <param name="shouldRoundResults"></param>
+        /// <param name="numberOfDecimalsToRound"></param>
         /// <returns></returns>
         public Task<Force> GenerateShockAbsorberResultAsync(Force shockAbsorberReaction, bool shouldRoundResults, int numberOfDecimalsToRound)
         {
@@ -139,7 +140,7 @@ namespace MudRunner.Suspension.Core.Operations.RunAnalysis
         /// <param name="shouldRoundResults"></param>
         /// <param name="decimals"></param>
         /// <returns></returns>
-        public async Task<SuspensionAArmStaticAnalysisResult> GenerateSuspensionAArmResultAsync(CoreModels.SuspensionAArm<TProfile> component, bool shouldRoundResults, int decimals = 0)
+        public async Task<WishboneStaticAnalysisResult> GenerateWishboneResultAsync(CoreModels.Wishbone<TProfile> component, bool shouldRoundResults, int decimals = 0)
         {
             if (component == null)
                 throw new ArgumentNullException(nameof(component), "The object suspension A-arm cannot be null to calculate the results.");
@@ -149,16 +150,16 @@ namespace MudRunner.Suspension.Core.Operations.RunAnalysis
                 FirstSegment = await GenerateSingleComponentResultAsync(new SingleComponent<TProfile>
                 {
                     AppliedForce = component.AppliedForce1,
-                    PivotPoint = component.PivotPoint1,
-                    FasteningPoint = component.KnucklePoint,
+                    PivotPoint = component.FrontPivot,
+                    FasteningPoint = component.OuterBallJoint,
                     Material = component.Material,
                     Profile = component.Profile,
                 }, shouldRoundResults, decimals).ConfigureAwait(false),
                 SecondSegment = await GenerateSingleComponentResultAsync(new SingleComponent<TProfile>
                 {
                     AppliedForce = component.AppliedForce2,
-                    PivotPoint = component.PivotPoint2,
-                    FasteningPoint = component.KnucklePoint,
+                    PivotPoint = component.RearPivot,
+                    FasteningPoint = component.OuterBallJoint,
                     Material = component.Material,
                     Profile = component.Profile,
                 }, shouldRoundResults, decimals).ConfigureAwait(false)

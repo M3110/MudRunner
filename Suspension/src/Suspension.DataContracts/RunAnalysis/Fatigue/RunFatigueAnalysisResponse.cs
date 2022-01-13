@@ -1,4 +1,4 @@
-﻿using MudRunner.Suspension.DataContracts.OperationBase;
+﻿using MudRunner.Commons.DataContracts.Operation;
 
 namespace MudRunner.Suspension.DataContracts.RunAnalysis.Fatigue
 {

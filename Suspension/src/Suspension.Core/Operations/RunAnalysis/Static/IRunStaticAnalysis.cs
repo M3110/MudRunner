@@ -1,8 +1,8 @@
-﻿using MudRunner.Suspension.Core.Models.SuspensionComponents;
-using MudRunner.Suspension.Core.Operations.Base;
+﻿using MudRunner.Commons.Core.Operation;
+using MudRunner.Commons.DataContracts.Models;
+using MudRunner.Commons.DataContracts.Models.Profiles;
+using MudRunner.Suspension.Core.Models.SuspensionComponents;
 using MudRunner.Suspension.DataContracts.CalculateReactions;
-using MudRunner.Suspension.DataContracts.Models;
-using MudRunner.Suspension.DataContracts.Models.Profiles;
 using MudRunner.Suspension.DataContracts.RunAnalysis.Static;
 using System.Threading.Tasks;
 
@@ -27,6 +27,7 @@ namespace MudRunner.Suspension.Core.Operations.RunAnalysis
         /// </summary>
         /// <param name="shockAbsorberReaction"></param>
         /// <param name="shouldRoundResults"></param>
+        /// <param name="numberOfDecimalsToRound"></param>
         /// <returns></returns>
         Task<Force> GenerateShockAbsorberResultAsync(Force shockAbsorberReaction, bool shouldRoundResults, int numberOfDecimalsToRound);
 
@@ -40,12 +41,12 @@ namespace MudRunner.Suspension.Core.Operations.RunAnalysis
         Task<SingleComponentStaticAnalysisResult> GenerateSingleComponentResultAsync(SingleComponent<TProfile> component, bool shouldRoundResults, int decimals = 0);
 
         /// <summary>
-        /// Asynchronously, this method generates the analysis result to suspension A-arm.
+        /// Asynchronously, this method generates the analysis result to wishbone.
         /// </summary>
         /// <param name="component"></param>
         /// <param name="shouldRoundResults"></param>
         /// <param name="decimals"></param>
         /// <returns></returns>
-        Task<SuspensionAArmStaticAnalysisResult> GenerateSuspensionAArmResultAsync(SuspensionAArm<TProfile> component, bool shouldRoundResults, int decimals = 0);
+        Task<WishboneStaticAnalysisResult> GenerateWishboneResultAsync(Wishbone<TProfile> component, bool shouldRoundResults, int decimals = 0);
     }
 }
