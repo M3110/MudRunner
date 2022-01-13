@@ -5,6 +5,7 @@ using MudRunner.Suspension.Core.Mapper;
 using MudRunner.Suspension.Core.Models.SuspensionComponents;
 using MudRunner.Suspension.DataContracts.CalculateReactions;
 using MudRunner.Suspension.UnitTest.Helper;
+using Newtonsoft.Json.Linq;
 using System;
 using System.Net;
 using System.Threading.Tasks;
@@ -84,7 +85,7 @@ namespace MudRunner.Suspension.UnitTest.Core.Operations.CalculateReactions
             double[,] result = this._operation.BuildDisplacementMatrix(this._suspensionSystem, origin);
 
             // Assert
-            result.Should().NotBeNull();
+            JToken.DeepEquals(JToken.FromObject(result), CalculateReactionsHelper.CreateDisplacementMatrixAsJToken());
         }
 
         [Fact(DisplayName = "Feature: BuildEffortsVector | Given: Valid parameters. | When: Call method. | Should: Return valid vector for the efforts.")]

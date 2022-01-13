@@ -2,6 +2,7 @@
 using MudRunner.Suspension.Core.Models.SuspensionComponents;
 using MudRunner.Suspension.DataContracts.CalculateReactions;
 using MudRunner.Suspension.DataContracts.Models.SuspensionComponents;
+using Newtonsoft.Json.Linq;
 using ShockAbsorber = MudRunner.Suspension.Core.Models.SuspensionComponents.ShockAbsorber;
 
 namespace MudRunner.Suspension.UnitTest.Helper
@@ -76,6 +77,61 @@ namespace MudRunner.Suspension.UnitTest.Helper
                     PivotPoint = "-0.125,0.370,0.176"
                 }
             };
+        }
+
+        public static JToken CreateDisplacementMatrixAsJToken()
+        {
+            return JToken.Parse(
+               @"[
+                  [
+                    0.2536444394535612,
+                    -0.616054625333608,
+                    0.39276091431921983,
+                    -0.6575356150740176,
+                    0.0,
+                    0.016722033940405615
+                  ],
+                  [
+                    0.9655782638288978,
+                    0.7877034331555677,
+                    0.8965194783373497,
+                    0.7344812721571474,
+                    0.5390536964233674,
+                    0.9966332228481739
+                  ],
+                  [
+                    0.05764646351217296,
+                    0.0,
+                    0.20491873790567985,
+                    0.16788143363591934,
+                    -0.8422714006615114,
+                    0.08026576291394695
+                  ],
+                  [
+                    -0.10539214691613032,
+                    -0.11815551497333515,
+                    -0.2324803081539939,
+                    -0.19046148645995056,
+                    -0.6396630152323849,
+                    -0.14576931426530368
+                  ],
+                  [
+                    0.03873842348018025,
+                    -0.0924081938000412,
+                    0.15857295001601196,
+                    -0.27160417938397824,
+                    -0.004211357003307557,
+                    0.012976298337754757
+                  ],
+                  [
+                    -0.18514314686204603,
+                    0.4120829361866545,
+                    -0.2481693990248975,
+                    0.44229412950343194,
+                    -0.002695268482116837,
+                    -0.1307537638885165
+                  ]
+                ]");
         }
 
         public static CalculateReactionsResponse CreateResponse()
