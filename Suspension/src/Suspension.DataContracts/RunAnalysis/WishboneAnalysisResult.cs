@@ -3,9 +3,9 @@
 namespace MudRunner.Suspension.DataContracts.RunAnalysis
 {
     /// <summary>
-    /// It contains the essential analysis results for a suspension A-arm.
+    /// It contains the essential analysis results for a wishbone.
     /// </summary>
-    public abstract class SuspensionAArmAnalysisResult<TSingleComponent>
+    public abstract class WishboneAnalysisResult<TSingleComponent>
         where TSingleComponent : SingleComponentAnalysisResult
     {
         /// <summary>

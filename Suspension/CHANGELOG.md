@@ -9,10 +9,10 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
  - Framework to NET6.0.
  - Nuget package MudRunner.Commons.Core to 1.0.0.
  - Nuget package MudRunner.Commons.DataContracts to 1.0.0.
- - Renamed A-Arm to Wishbone in all application.  
- - Renamed pivotPoint1 to wishboneFrontPivot in all application.
- - Renamed pivotPoint2 to wishboneRearPivot in all application.
- - Renamed knucklePoint to wishboneOuterBallJoint in all application. 
+ - Renamed suspension A-Arm to wishbone in all application.  
+ - Renamed PivotPoint1 to FrontPivot in all application.
+ - Renamed PivotPoint2 to RearPivot in all application.
+ - Renamed KnucklePoint to OuterBallJoint in all application. 
 ### Removed
  - Codes that was in MudRunner.Commons.
 ### Added

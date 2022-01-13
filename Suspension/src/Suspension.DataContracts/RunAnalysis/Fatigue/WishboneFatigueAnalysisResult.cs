@@ -3,9 +3,9 @@
 namespace MudRunner.Suspension.DataContracts.RunAnalysis.Fatigue
 {
     /// <summary>
-    /// It contains the essential fatigue analysis results for a suspension A-arm.
+    /// It contains the essential fatigue analysis results for a wishbone.
     /// </summary>
-    public class SuspensionAArmFatigueAnalysisResult : SuspensionAArmAnalysisResult<SingleComponentFatigueAnalysisResult> 
+    public class WishboneFatigueAnalysisResult : WishboneAnalysisResult<SingleComponentFatigueAnalysisResult> 
     {
         /// <summary>
         /// The fatigue safety factor based on Modified Goodman.

@@ -10,12 +10,12 @@ namespace MudRunner.Suspension.Core.Models.SuspensionComponents.SteeringKnuckle
         /// <summary>
         /// The point of fastening with wishbone upper. 
         /// </summary>
-        public Point3D AArmUpperPoint { get; set; }
+        public Point3D UpperWishbonePoint { get; set; }
 
         /// <summary>
         /// The point of fastening with wishbone lower.
         /// </summary>
-        public Point3D AArmLowerPoint { get; set; }
+        public Point3D LowerWishbonePoint { get; set; }
 
         /// <summary>
         /// The point of fastening with tie rod.

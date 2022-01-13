@@ -26,12 +26,27 @@ namespace MudRunner.Suspension.Core.Models.SuspensionComponents
             RadialLoadFactor = radialLoadFactor;
         }
 
+        /// <summary>
+        /// Unit: m (meter).
+        /// </summary>
         public double EffectiveRadius { get; }
 
+        /// <summary>
+        /// Dimensionless.
+        /// </summary>
         public double AxialLoadFactor { get; }
 
+        /// <summary>
+        /// Dimensionless.
+        /// </summary>
         public double RadialLoadFactor { get; }
 
+        /// <summary>
+        /// This method creates a new instance of <see cref="Bearing"/> based on <see cref="BearingType"/>.
+        /// </summary>
+        /// <param name="bearingType"></param>
+        /// <returns></returns>
+        /// <exception cref="Exception"></exception>
         public static Bearing Create(BearingType bearingType)
         {
             return bearingType switch

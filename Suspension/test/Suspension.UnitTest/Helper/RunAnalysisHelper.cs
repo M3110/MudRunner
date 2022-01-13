@@ -24,7 +24,7 @@ namespace MudRunner.Suspension.UnitTest.Helper.DataContracts
                     FasteningPoint = "-0.005,0.645,0.180",
                     PivotPoint = "-0.005,0.485,0.430"
                 },
-                LowerWishbone = new SuspensionWishbone<CircularProfile>
+                LowerWishbone = new Wishbone<CircularProfile>
                 {
                     Profile = new CircularProfile
                     {
@@ -35,7 +35,7 @@ namespace MudRunner.Suspension.UnitTest.Helper.DataContracts
                     FrontPivot = "0.250,0.350,0.150",
                     RearPivot = "-0.100,0.350,0.130"
                 },
-                UpperWishbone = new SuspensionWishbone<CircularProfile>
+                UpperWishbone = new Wishbone<CircularProfile>
                 {
                     Profile = new CircularProfile
                     {
@@ -73,7 +73,7 @@ namespace MudRunner.Suspension.UnitTest.Helper.DataContracts
                     FasteningPoint = "-0.005,0.645,0.180",
                     PivotPoint = "-0.005,0.485,0.430"
                 },
-                LowerWishbone = new SuspensionWishbone<RectangularProfile>
+                LowerWishbone = new Wishbone<RectangularProfile>
                 {
                     Profile = new RectangularProfile
                     {
@@ -85,7 +85,7 @@ namespace MudRunner.Suspension.UnitTest.Helper.DataContracts
                     FrontPivot = "0.250,0.350,0.150",
                     RearPivot = "-0.100,0.350,0.130"
                 },
-                UpperWishbone = new SuspensionWishbone<RectangularProfile>
+                UpperWishbone = new Wishbone<RectangularProfile>
                 {
                     Profile = new RectangularProfile
                     {

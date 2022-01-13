@@ -3,10 +3,10 @@
 namespace MudRunner.Suspension.DataContracts.Models.SuspensionComponents
 {
     /// <summary>
-    /// It represents the suspension wishbone.
+    /// It represents the wishbone.
     /// </summary>
     /// <typeparam name="TProfile"></typeparam>
-    public class SuspensionWishbone<TProfile> : SuspensionWishbonePoint
+    public class Wishbone<TProfile> : WishbonePoint
         where TProfile : Profile
     {
         /// <summary>

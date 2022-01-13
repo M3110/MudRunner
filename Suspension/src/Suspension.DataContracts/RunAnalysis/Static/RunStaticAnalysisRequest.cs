@@ -51,12 +51,12 @@ namespace MudRunner.Suspension.DataContracts.RunAnalysis.Static
         /// <summary>
         /// The suspension upper wishbone.
         /// </summary>
-        public SuspensionWishbone<TProfile> UpperWishbone { get; set; }
+        public Wishbone<TProfile> UpperWishbone { get; set; }
 
         /// <summary>
         /// The suspension lower wishbone.
         /// </summary>
-        public SuspensionWishbone<TProfile> LowerWishbone { get; set; }
+        public Wishbone<TProfile> LowerWishbone { get; set; }
 
         /// <summary>
         /// The tie rod.

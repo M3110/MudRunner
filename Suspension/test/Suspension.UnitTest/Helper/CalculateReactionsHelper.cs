@@ -25,13 +25,13 @@ namespace MudRunner.Suspension.UnitTest.Helper
                     FasteningPoint = new Point3D { X = -0.005, Y = 0.645, Z = 0.180 },
                     PivotPoint = new Point3D { X = -0.005, Y = 0.485, Z = 0.430 }
                 },
-                LowerWishbone = new SuspensionWishbone
+                LowerWishbone = new Wishbone
                 {
                     OuterBallJoint = new Point3D { X = -0.012, Y = 0.685, Z = 0.150 },
                     FrontPivot = new Point3D { X = -0.100, Y = 0.350, Z = 0.130 },
                     RearPivot = new Point3D { X = 0.250, Y = 0.350, Z = 0.150 }
                 },
-                UpperWishbone = new SuspensionWishbone
+                UpperWishbone = new Wishbone
                 {
                     OuterBallJoint = new Point3D { X = 0.012, Y = 0.660, Z = 0.410 },
                     FrontPivot = new Point3D { X = -0.080, Y = 0.450, Z = 0.362 },
@@ -58,13 +58,13 @@ namespace MudRunner.Suspension.UnitTest.Helper
                     FasteningPoint = "-0.005,0.645,0.180",
                     PivotPoint = "-0.005,0.485,0.430"
                 },
-                LowerWishbone = new SuspensionWishbonePoint
+                LowerWishbone = new WishbonePoint
                 {
                     OuterBallJoint = "-0.012,0.685,0.150",
                     FrontPivot = "-0.100,0.350,0.130",
                     RearPivot = "0.250,0.350,0.150"
                 },
-                UpperWishbone = new SuspensionWishbonePoint
+                UpperWishbone = new WishbonePoint
                 {
                     OuterBallJoint = "0.012,0.660,0.410",
                     FrontPivot = "-0.080,0.450,0.362",

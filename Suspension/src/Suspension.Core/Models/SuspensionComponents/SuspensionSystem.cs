@@ -13,14 +13,14 @@ namespace MudRunner.Suspension.Core.Models.SuspensionComponents
         public ShockAbsorber ShockAbsorber { get; set; }
 
         /// <summary>
-        /// The suspension wishbone upper.
+        /// The upper wishbone.
         /// </summary>
-        public SuspensionWishbone UpperWishbone { get; set; }
+        public Wishbone UpperWishbone { get; set; }
 
         /// <summary>
-        /// The suspension wishbone lower.
+        /// The lower wishbone.
         /// </summary>
-        public SuspensionWishbone LowerWishbone { get; set; }
+        public Wishbone LowerWishbone { get; set; }
 
         /// <summary>
         /// The tie rod.
@@ -40,14 +40,14 @@ namespace MudRunner.Suspension.Core.Models.SuspensionComponents
         public ShockAbsorber ShockAbsorber { get; set; }
 
         /// <summary>
-        /// The suspension wishbone upper.
+        /// The upper wishbone.
         /// </summary>
-        public SuspensionWishbone<TProfile> UpperWishbone { get; set; }
+        public Wishbone<TProfile> UpperWishbone { get; set; }
 
         /// <summary>
-        /// The suspension wishbone lower.
+        /// The lower wishbone.
         /// </summary>
-        public SuspensionWishbone<TProfile> LowerWishbone { get; set; }
+        public Wishbone<TProfile> LowerWishbone { get; set; }
 
         /// <summary>
         /// The tie rod.

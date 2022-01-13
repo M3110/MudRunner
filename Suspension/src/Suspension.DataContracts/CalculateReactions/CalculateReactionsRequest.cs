@@ -39,12 +39,12 @@ namespace MudRunner.Suspension.DataContracts.CalculateReactions
         /// <summary>
         /// The suspension upper wishbone points.
         /// </summary>
-        public SuspensionWishbonePoint UpperWishbone { get; set; }
+        public WishbonePoint UpperWishbone { get; set; }
 
         /// <summary>
         /// The suspension lower wishbone points.
         /// </summary>
-        public SuspensionWishbonePoint LowerWishbone { get; set; }
+        public WishbonePoint LowerWishbone { get; set; }
 
         /// <summary>
         /// The tie rod points.

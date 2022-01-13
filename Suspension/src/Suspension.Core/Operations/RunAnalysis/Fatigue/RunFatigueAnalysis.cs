@@ -63,26 +63,26 @@ namespace MudRunner.Suspension.Core.Operations.RunAnalysis.Fatigue
 
             tasks.Add(Task.Run(async () =>
             {
-                response.Data.SuspensionAArmLowerResult = await GenerateSuspensionAArmResultAsync(
-                    // It is necessary to inform the profile aside for it be used correctly according to the component.
+                response.Data.LowerWishboneResult = await GenerateWishboneResultAsync(
+                    // It is necessary to inform the profile aside for it to be used correctly according to the component.
                     request, request.LowerWishbone.Profile,
-                    runMaximumStaticAnalysisResponseData.SuspensionAArmLowerResult,
-                    runMinimumStaticAnalysisResponseData.SuspensionAArmLowerResult).ConfigureAwait(false);
+                    runMaximumStaticAnalysisResponseData.LowerWishboneResult,
+                    runMinimumStaticAnalysisResponseData.LowerWishboneResult).ConfigureAwait(false);
             }));
 
             tasks.Add(Task.Run(async () =>
             {
-                response.Data.SuspensionAArmUpperResult = await GenerateSuspensionAArmResultAsync(
-                    // It is necessary to inform the profile aside for it be used correctly according to the component.
+                response.Data.UpperWishboneResult = await GenerateWishboneResultAsync(
+                    // It is necessary to inform the profile aside for it to be used correctly according to the component.
                     request, request.UpperWishbone.Profile,
-                    runMaximumStaticAnalysisResponseData.SuspensionAArmUpperResult,
-                  runMinimumStaticAnalysisResponseData.SuspensionAArmUpperResult).ConfigureAwait(false);
+                    runMaximumStaticAnalysisResponseData.UpperWishboneResult,
+                  runMinimumStaticAnalysisResponseData.UpperWishboneResult).ConfigureAwait(false);
             }));
 
             tasks.Add(Task.Run(async () =>
             {
                 response.Data.TieRodResult = await GenerateSingleComponentResultAsync(
-                    // It is necessary to inform the profile aside for it be used correctly according to the component.
+                    // It is necessary to inform the profile aside for it to be used correctly according to the component.
                     request, request.TieRod.Profile,
                     runMaximumStaticAnalysisResponseData.TieRodResult,
                     runMinimumStaticAnalysisResponseData.TieRodResult);
@@ -117,12 +117,12 @@ namespace MudRunner.Suspension.Core.Operations.RunAnalysis.Fatigue
                 {
                     runMinimumStaticAnalysisResponse.Data.ShockAbsorberResult = new();
                     runMinimumStaticAnalysisResponse.Data.TieRodResult = new() { BucklingSafetyFactor = Double.MaxValue, StressSafetyFactor = Double.MaxValue };
-                    runMinimumStaticAnalysisResponse.Data.SuspensionAArmLowerResult = new()
+                    runMinimumStaticAnalysisResponse.Data.LowerWishboneResult = new()
                     {
                         FirstSegment = new() { BucklingSafetyFactor = Double.MaxValue, StressSafetyFactor = Double.MaxValue },
                         SecondSegment = new() { BucklingSafetyFactor = Double.MaxValue, StressSafetyFactor = Double.MaxValue }
                     };
-                    runMinimumStaticAnalysisResponse.Data.SuspensionAArmUpperResult = new()
+                    runMinimumStaticAnalysisResponse.Data.UpperWishboneResult = new()
                     {
                         FirstSegment = new() { BucklingSafetyFactor = Double.MaxValue, StressSafetyFactor = Double.MaxValue },
                         SecondSegment = new() { BucklingSafetyFactor = Double.MaxValue, StressSafetyFactor = Double.MaxValue }
@@ -197,26 +197,26 @@ namespace MudRunner.Suspension.Core.Operations.RunAnalysis.Fatigue
         }
 
         /// <summary>
-        /// Asynchronously, this method generates the result for suspension A-arm.
+        /// Asynchronously, this method generates the result for wishbone.
         /// </summary>
         /// <param name="request"></param>
         /// <param name="profile"></param>
-        /// <param name="suspensionAArmUpperMaximumResult"></param>
-        /// <param name="suspensionAArmUpperMinimumResult"></param>
+        /// <param name="wishboneMaximumResult"></param>
+        /// <param name="wishboneMinimumResult"></param>
         /// <returns></returns>
-        public async Task<SuspensionAArmFatigueAnalysisResult> GenerateSuspensionAArmResultAsync(RunFatigueAnalysisRequest<TProfile> request, TProfile profile,
-            SuspensionAArmStaticAnalysisResult suspensionAArmUpperMaximumResult, SuspensionAArmStaticAnalysisResult suspensionAArmUpperMinimumResult)
+        public async Task<WishboneFatigueAnalysisResult> GenerateWishboneResultAsync(RunFatigueAnalysisRequest<TProfile> request, TProfile profile,
+            WishboneStaticAnalysisResult wishboneMaximumResult, WishboneStaticAnalysisResult wishboneMinimumResult)
         {
             return new()
             {
                 FirstSegment = await GenerateSingleComponentResultAsync(
                     request, profile,
-                    suspensionAArmUpperMaximumResult.FirstSegment,
-                    suspensionAArmUpperMinimumResult.FirstSegment),
+                    wishboneMaximumResult.FirstSegment,
+                    wishboneMinimumResult.FirstSegment),
                 SecondSegment = await GenerateSingleComponentResultAsync(
                     request, profile,
-                    suspensionAArmUpperMaximumResult.SecondSegment,
-                    suspensionAArmUpperMinimumResult.SecondSegment)
+                    wishboneMaximumResult.SecondSegment,
+                    wishboneMinimumResult.SecondSegment)
             };
         }
 

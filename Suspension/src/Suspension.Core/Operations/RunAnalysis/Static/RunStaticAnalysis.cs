@@ -81,12 +81,12 @@ namespace MudRunner.Suspension.Core.Operations.RunAnalysis
 
             tasks.Add(Task.Run(async () =>
             {
-                response.Data.SuspensionAArmLowerResult = await this.GenerateSuspensionAArmResultAsync(suspensionSystem.LowerWishbone, request.ShouldRoundResults, request.NumberOfDecimalsToRound.GetValueOrDefault()).ConfigureAwait(false);
+                response.Data.LowerWishboneResult = await this.GenerateWishboneResultAsync(suspensionSystem.LowerWishbone, request.ShouldRoundResults, request.NumberOfDecimalsToRound.GetValueOrDefault()).ConfigureAwait(false);
             }));
 
             tasks.Add(Task.Run(async () =>
             {
-                response.Data.SuspensionAArmUpperResult = await this.GenerateSuspensionAArmResultAsync(suspensionSystem.UpperWishbone, request.ShouldRoundResults, request.NumberOfDecimalsToRound.GetValueOrDefault()).ConfigureAwait(false);
+                response.Data.UpperWishboneResult = await this.GenerateWishboneResultAsync(suspensionSystem.UpperWishbone, request.ShouldRoundResults, request.NumberOfDecimalsToRound.GetValueOrDefault()).ConfigureAwait(false);
             }));
 
             tasks.Add(Task.Run(async () =>
@@ -112,8 +112,8 @@ namespace MudRunner.Suspension.Core.Operations.RunAnalysis
                 AppliedForce = request.AppliedForce,
                 Origin = request.Origin,
                 ShockAbsorber = ShockAbsorberPoint.Create(request.ShockAbsorber),
-                LowerWishbone = SuspensionWishbonePoint.Create(request.LowerWishbone),
-                UpperWishbone = SuspensionWishbonePoint.Create(request.UpperWishbone),
+                LowerWishbone = WishbonePoint.Create(request.LowerWishbone),
+                UpperWishbone = WishbonePoint.Create(request.UpperWishbone),
                 TieRod = TieRodPoint.Create(request.TieRod)
             };
         }
@@ -140,7 +140,7 @@ namespace MudRunner.Suspension.Core.Operations.RunAnalysis
         /// <param name="shouldRoundResults"></param>
         /// <param name="decimals"></param>
         /// <returns></returns>
-        public async Task<SuspensionAArmStaticAnalysisResult> GenerateSuspensionAArmResultAsync(CoreModels.SuspensionWishbone<TProfile> component, bool shouldRoundResults, int decimals = 0)
+        public async Task<WishboneStaticAnalysisResult> GenerateWishboneResultAsync(CoreModels.Wishbone<TProfile> component, bool shouldRoundResults, int decimals = 0)
         {
             if (component == null)
                 throw new ArgumentNullException(nameof(component), "The object suspension A-arm cannot be null to calculate the results.");

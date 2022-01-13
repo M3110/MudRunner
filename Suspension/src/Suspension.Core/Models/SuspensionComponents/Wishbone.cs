@@ -8,17 +8,17 @@ using DataContract = MudRunner.Suspension.DataContracts.Models.SuspensionCompone
 namespace MudRunner.Suspension.Core.Models.SuspensionComponents
 {
     /// <summary>
-    /// It represents the suspension wishbone.
+    /// It represents the wishbone.
     /// </summary>
-    public class SuspensionWishbone
+    public class Wishbone
     {
         /// <summary>
-        /// The absolut applied force to one segment of suspension wishbone.
+        /// The absolut applied force to one segment of wishbone.
         /// </summary>
         public double AppliedForce1 { get; set; }
 
         /// <summary>
-        /// The absolut applied force to another segment of suspension wishbone.
+        /// The absolut applied force to another segment of wishbone.
         /// </summary>
         public double AppliedForce2 { get; set; }
 
@@ -28,61 +28,61 @@ namespace MudRunner.Suspension.Core.Models.SuspensionComponents
         public Point3D OuterBallJoint { get; set; }
 
         /// <summary>
-        /// The pivot point.
+        /// The front pivot point.
         /// This geometry has two pivot point.
         /// </summary>
         public Point3D FrontPivot { get; set; }
 
         /// <summary>
-        /// The pivot point.
+        /// The rear pivot point.
         /// This geometry has two pivot point.
         /// </summary>
         public Point3D RearPivot { get; set; }
 
         /// <summary>
-        /// The vector that represents the direction of suspension wishbone to one segment of suspension wishbone.
+        /// The vector that represents the direction of wishbone to one segment of wishbone.
         /// </summary>
         public Vector3D VectorDirection1 => Vector3D.Create(this.FrontPivot, this.OuterBallJoint);
-        
+
         /// <summary>
-        /// The vector that represents the direction of suspension wishbone to another segment of suspension wishbone.
+        /// The vector that represents the direction of wishbone to another segment of wishbone.
         /// </summary>
         public Vector3D VectorDirection2 => Vector3D.Create(this.RearPivot, this.OuterBallJoint);
 
         /// <summary>
-        /// The normalized vector that represents the direction of suspension wishbone to one segment of suspension wishbone.
+        /// The normalized vector that represents the direction of wishbone to one segment of wishbone.
         /// </summary>
         public Vector3D NormalizedDirection1 => this.VectorDirection1.Normalize();
-        
+
         /// <summary>
-        /// The normalized vector that represents the direction of suspension wishbone to anoher segment of suspension wishbone.
+        /// The normalized vector that represents the direction of wishbone to anoher segment of wishbone.
         /// </summary>
         public Vector3D NormalizedDirection2 => this.VectorDirection2.Normalize();
 
         /// <summary>
-        /// The length to one segment of suspension wishbone.
+        /// The length to one segment of wishbone.
         /// </summary>
         public double Length1 => this.VectorDirection1.Length;
 
         /// <summary>
-        /// The length to another segment of suspension wishbone.
+        /// The length to another segment of wishbone.
         /// </summary>
         public double Length2 => this.VectorDirection2.Length;
 
         /// <summary>
-        /// This method creates a <see cref="SuspensionWishbone"/> based on <see cref="MudRunner.Suspension.DataContracts.Models.SuspensionComponents.SuspensionWishbonePoint"/>.
+        /// This method creates a <see cref="Wishbone"/> based on <see cref="WishbonePoint"/>.
         /// </summary>
-        /// <param name="suspensionWishbone"></param>
+        /// <param name="wishbone"></param>
         /// <param name="appliedForce1"></param>
         /// <param name="appliedForce2"></param>
         /// <returns></returns>
-        public static SuspensionWishbone Create(SuspensionWishbonePoint suspensionWishbone, double appliedForce1 = 0, double appliedForce2 = 0)
+        public static Wishbone Create(WishbonePoint wishbone, double appliedForce1 = 0, double appliedForce2 = 0)
         {
-            return new SuspensionWishbone
+            return new Wishbone
             {
-                OuterBallJoint = Point3D.Create(suspensionWishbone.OuterBallJoint),
-                FrontPivot = Point3D.Create(suspensionWishbone.FrontPivot),
-                RearPivot = Point3D.Create(suspensionWishbone.RearPivot),
+                OuterBallJoint = Point3D.Create(wishbone.OuterBallJoint),
+                FrontPivot = Point3D.Create(wishbone.FrontPivot),
+                RearPivot = Point3D.Create(wishbone.RearPivot),
                 AppliedForce1 = appliedForce1,
                 AppliedForce2 = appliedForce2
             };
@@ -90,37 +90,37 @@ namespace MudRunner.Suspension.Core.Models.SuspensionComponents
     }
 
     /// <summary>
-    /// It represents the suspension wishbone.
+    /// It represents the wishbone.
     /// </summary>
-    public class SuspensionWishbone<TProfile> : SuspensionWishbone
+    public class Wishbone<TProfile> : Wishbone
         where TProfile : Profile
     {
         /// <summary>
         /// The material.
         /// </summary>
         public Material Material { get; set; }
-        
+
         /// <summary>
         /// The profile.
         /// </summary>
         public TProfile Profile { get; set; }
 
         /// <summary>
-        /// This method creates a <see cref="SuspensionWishbone{TProfile}"/> based on <see cref="MudRunner.Suspension.DataContracts.Models.SuspensionComponents.SuspensionWishbone{TProfile}"/>.
+        /// This method creates a <see cref="Wishbone{TProfile}"/> based on <see cref="DataContract.Wishbone{TProfile}"/>.
         /// </summary>
-        /// <param name="suspensionWishbone"></param>
+        /// <param name="wishbone"></param>
         /// <param name="material"></param>
         /// <param name="appliedForce1"></param>
         /// <param name="appliedForce2"></param>
         /// <returns></returns>
-        public static SuspensionWishbone<TProfile> Create(DataContract.SuspensionWishbone<TProfile> suspensionWishbone, MaterialType material, double appliedForce1 = 0, double appliedForce2 = 0)
+        public static Wishbone<TProfile> Create(DataContract.Wishbone<TProfile> wishbone, MaterialType material, double appliedForce1 = 0, double appliedForce2 = 0)
         {
-            return new SuspensionWishbone<TProfile>
+            return new Wishbone<TProfile>
             {
-                OuterBallJoint = Point3D.Create(suspensionWishbone.OuterBallJoint),
-                FrontPivot = Point3D.Create(suspensionWishbone.FrontPivot),
-                RearPivot = Point3D.Create(suspensionWishbone.RearPivot),
-                Profile = suspensionWishbone.Profile,
+                OuterBallJoint = Point3D.Create(wishbone.OuterBallJoint),
+                FrontPivot = Point3D.Create(wishbone.FrontPivot),
+                RearPivot = Point3D.Create(wishbone.RearPivot),
+                Profile = wishbone.Profile,
                 AppliedForce1 = appliedForce1,
                 AppliedForce2 = appliedForce2,
                 Material = Material.Create(material)
