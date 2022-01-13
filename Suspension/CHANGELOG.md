@@ -28,10 +28,10 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 ### Changed
  - Renamed application from Suspension to MudRunner.Suspension.
  - Renamed RunAnalysis operation to RunStaticAnalysis and refactored it.
+ - Renamed property 'ForceApplied' to 'AppliedForce' in class RunStaticAnalysisRequest.
  - Point3D to receive the point as string at milimeters instead of meters.
  - Profiles to receive the values in milimeters.
  - GeometricProperty to calculate the area in milimeters squared and moment of inertia in milimeters raised by four.
- - Renamed property 'ForceApplied' to 'AppliedForce' in class RunAnalysisRequest.
  - MechanicsOfMaterials to be concreate and do not receive the profile type.
  - Renamed class TieRodAnalysisResult to SingleComponentAnalysisResult.
  - File .gitignore to ignore the folder build.

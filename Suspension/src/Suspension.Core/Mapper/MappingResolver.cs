@@ -32,26 +32,26 @@ namespace MudRunner.Suspension.Core.Mapper
         }
 
         /// <summary>
-        /// This method craetes a <see cref="SuspensionWishbone{TProfile}"/> based on <see cref="RunAnalysisRequest{TProfile}"/> and <see cref="CalculateReactionsResponseData"/>.
+        /// This method craetes a <see cref="SuspensionWishbone{TProfile}"/> based on <see cref="RunStaticAnalysisRequest{TProfile}"/> and <see cref="CalculateReactionsResponseData"/>.
         /// </summary>
         /// <typeparam name="TProfile"></typeparam>
-        /// <param name="runAnalysisRequest"></param>
+        /// <param name="runStaticAnalysisRequest"></param>
         /// <param name="calculateReactionsResponseData"></param>
         /// <returns></returns>
-        public SuspensionSystem<TProfile> MapFrom<TProfile>(RunStaticAnalysisRequest<TProfile> runAnalysisRequest, CalculateReactionsResponseData calculateReactionsResponseData)
+        public SuspensionSystem<TProfile> MapFrom<TProfile>(RunStaticAnalysisRequest<TProfile> runStaticAnalysisRequest, CalculateReactionsResponseData calculateReactionsResponseData)
             where TProfile : Profile
         {
-            if (runAnalysisRequest == null)
+            if (runStaticAnalysisRequest == null)
             {
                 return null;
             }
 
             return new SuspensionSystem<TProfile>
             {
-                ShockAbsorber = ShockAbsorber.Create(runAnalysisRequest.ShockAbsorber, calculateReactionsResponseData.ShockAbsorberReaction.AbsolutValue),
-                LowerWishbone = SuspensionWishbone<TProfile>.Create(runAnalysisRequest.LowerWishbone, runAnalysisRequest.Material, calculateReactionsResponseData.LowerWishboneReaction1.AbsolutValue, calculateReactionsResponseData.LowerWishboneReaction2.AbsolutValue),
-                UpperWishbone = SuspensionWishbone<TProfile>.Create(runAnalysisRequest.UpperWishbone, runAnalysisRequest.Material, calculateReactionsResponseData.UpperWishboneReaction1.AbsolutValue, calculateReactionsResponseData.UpperWishboneReaction2.AbsolutValue),
-                TieRod = TieRod<TProfile>.Create(runAnalysisRequest.TieRod, runAnalysisRequest.Material, calculateReactionsResponseData.TieRodReaction.AbsolutValue)
+                ShockAbsorber = ShockAbsorber.Create(runStaticAnalysisRequest.ShockAbsorber, calculateReactionsResponseData.ShockAbsorberReaction.AbsolutValue),
+                LowerWishbone = SuspensionWishbone<TProfile>.Create(runStaticAnalysisRequest.LowerWishbone, runStaticAnalysisRequest.Material, calculateReactionsResponseData.LowerWishboneReaction1.AbsolutValue, calculateReactionsResponseData.LowerWishboneReaction2.AbsolutValue),
+                UpperWishbone = SuspensionWishbone<TProfile>.Create(runStaticAnalysisRequest.UpperWishbone, runStaticAnalysisRequest.Material, calculateReactionsResponseData.UpperWishboneReaction1.AbsolutValue, calculateReactionsResponseData.UpperWishboneReaction2.AbsolutValue),
+                TieRod = TieRod<TProfile>.Create(runStaticAnalysisRequest.TieRod, runStaticAnalysisRequest.Material, calculateReactionsResponseData.TieRodReaction.AbsolutValue)
             };
         }
     }
