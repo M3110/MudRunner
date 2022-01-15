@@ -9,6 +9,11 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
  - Newmark and Newmark-Beta numerical methods.
  - Methods 'Multiply', 'Sum', 'Subtract' and 'MathOperation' in class ArrayExtension.
  - Method 'SetConflictError' in class OperationResponseBase.
+ - Method 'ValidateAsync' in class OperationBase and interface IOperationBase.
+ - Method 'AddErrors' receiving an OperationResponseBase in class OperationResponseBase.
+ - Method 'IsHttpStatusCode' class OperationResponseBase.
+### Changed
+ - Method 'ValidateOperationAsync' to be abstract.
 
 ## [1.1.0] - 2022-01-13
 ### Added

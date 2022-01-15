@@ -23,7 +23,7 @@ namespace MudRunner.Commons.Core.Operation
         /// </summary>
         /// <param name="request"></param>
         /// <returns></returns>
-        public virtual Task<TResponse> ValidateOperationAsync(TRequest request)
+        public virtual async Task<TResponse> ValidateAsync(TRequest request)
         {
             var response = new TResponse();
             response.SetSuccessOk();
@@ -31,32 +31,33 @@ namespace MudRunner.Commons.Core.Operation
             if (request == null)
             {
                 response.SetBadRequestError("Request cannot be null");
+                return response;
             }
 
-            return Task.FromResult(response);
+            return response;
         }
 
         /// <summary>
         /// The main method of all operations.
-        /// Asynchronously, this method orchestrates the operations.
+        /// Asynchronously, this method orchestrates the operation.
         /// </summary>
         /// <param name="request"></param>
         /// <returns></returns>
         public async Task<TResponse> ProcessAsync(TRequest request)
         {
-            var response = new TResponse();
+            TResponse response = new();
 
             try
             {
-                response = await ValidateOperationAsync(request).ConfigureAwait(false);
-                if (response.Success == false)
+                TResponse validationResponse = await ValidateAsync(request).ConfigureAwait(false);
+                if (validationResponse.Success == false)
                 {
-                    response.SetBadRequestError();
+                    response.AddErrors(validationResponse.Errors);
 
-                    return response;
+                    return validationResponse;
                 }
 
-                response = await ProcessOperationAsync(request).ConfigureAwait(false);
+                validationResponse = await ProcessOperationAsync(request).ConfigureAwait(false);
             }
             catch (Exception ex)
             {
