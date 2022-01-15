@@ -12,17 +12,20 @@ namespace MudRunner.Commons.Core.Operation
         where TResponse : OperationResponseBase, new()
     {
         /// <summary>
+        /// Asynchronously, this method validates the request sent to operation.
+        /// </summary>
+        /// <param name="request"></param>
+        /// <returns></returns>
+        protected abstract Task<TResponse> ValidateOperationAsync(TRequest request);
+
+        /// <summary>
         /// Asynchronously, this method processes the operation.
         /// </summary>
         /// <param name="request"></param>
         /// <returns></returns>
         protected abstract Task<TResponse> ProcessOperationAsync(TRequest request);
 
-        /// <summary>
-        /// Asynchronously, this method validates the request sent to operation.
-        /// </summary>
-        /// <param name="request"></param>
-        /// <returns></returns>
+        /// <inheritdoc/>
         public virtual async Task<TResponse> ValidateAsync(TRequest request)
         {
             var response = new TResponse();
@@ -34,15 +37,11 @@ namespace MudRunner.Commons.Core.Operation
                 return response;
             }
 
+            response = await this.ValidateOperationAsync(request).ConfigureAwait(false);
             return response;
         }
 
-        /// <summary>
-        /// The main method of all operations.
-        /// Asynchronously, this method orchestrates the operation.
-        /// </summary>
-        /// <param name="request"></param>
-        /// <returns></returns>
+        /// <inheritdoc/>
         public async Task<TResponse> ProcessAsync(TRequest request)
         {
             TResponse response = new();
@@ -52,9 +51,8 @@ namespace MudRunner.Commons.Core.Operation
                 TResponse validationResponse = await ValidateAsync(request).ConfigureAwait(false);
                 if (validationResponse.Success == false)
                 {
-                    response.AddErrors(validationResponse.Errors);
-
-                    return validationResponse;
+                    response.AddErrors(validationResponse);
+                    return response;
                 }
 
                 validationResponse = await ProcessOperationAsync(request).ConfigureAwait(false);

@@ -12,7 +12,7 @@ namespace MudRunner.Commons.Core.Operation
         where TResponse : OperationResponseBase, new()
     {
         /// <summary>
-        /// Asynchronously, this method validates the request sent to operation.
+        /// Asynchronously, this method validates the operation.
         /// </summary>
         /// <param name="request"></param>
         /// <returns></returns>
