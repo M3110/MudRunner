@@ -12,18 +12,21 @@ namespace MudRunner.Commons.Core.Operation
         where TResponse : OperationResponseBase, new()
     {
         /// <summary>
+        /// Asynchronously, this method validates the request sent to operation.
+        /// </summary>
+        /// <param name="request"></param>
+        /// <returns></returns>
+        protected abstract Task<TResponse> ValidateOperationAsync(TRequest request);
+
+        /// <summary>
         /// Asynchronously, this method processes the operation.
         /// </summary>
         /// <param name="request"></param>
         /// <returns></returns>
         protected abstract Task<TResponse> ProcessOperationAsync(TRequest request);
 
-        /// <summary>
-        /// Asynchronously, this method validates the request sent to operation.
-        /// </summary>
-        /// <param name="request"></param>
-        /// <returns></returns>
-        public virtual Task<TResponse> ValidateOperationAsync(TRequest request)
+        /// <inheritdoc/>
+        public virtual async Task<TResponse> ValidateAsync(TRequest request)
         {
             var response = new TResponse();
             response.SetSuccessOk();
@@ -31,32 +34,28 @@ namespace MudRunner.Commons.Core.Operation
             if (request == null)
             {
                 response.SetBadRequestError("Request cannot be null");
+                return response;
             }
 
-            return Task.FromResult(response);
+            response = await this.ValidateOperationAsync(request).ConfigureAwait(false);
+            return response;
         }
 
-        /// <summary>
-        /// The main method of all operations.
-        /// Asynchronously, this method orchestrates the operations.
-        /// </summary>
-        /// <param name="request"></param>
-        /// <returns></returns>
+        /// <inheritdoc/>
         public async Task<TResponse> ProcessAsync(TRequest request)
         {
-            var response = new TResponse();
+            TResponse response = new();
 
             try
             {
-                response = await ValidateOperationAsync(request).ConfigureAwait(false);
-                if (response.Success == false)
+                TResponse validationResponse = await ValidateAsync(request).ConfigureAwait(false);
+                if (validationResponse.Success == false)
                 {
-                    response.SetBadRequestError();
-
+                    response.AddErrors(validationResponse);
                     return response;
                 }
 
-                response = await ProcessOperationAsync(request).ConfigureAwait(false);
+                validationResponse = await ProcessOperationAsync(request).ConfigureAwait(false);
             }
             catch (Exception ex)
             {

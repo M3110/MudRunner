@@ -42,18 +42,18 @@ namespace MudRunner.Suspension.UnitTest.Core.Operations.CalculateReactions
             this._operation = new Operation.CalculateReactions(this._mappingResolverMock.Object);
         }
 
-        [Theory(DisplayName = "Feature: ValidateOperationAsync | Given: Invalid parameters. | When: Call method. | Should: Return a failure for a bad request.")]
+        [Theory(DisplayName = "Feature: ValidateAsync | Given: Invalid parameters. | When: Call method. | Should: Return a failure for a bad request.")]
         [InlineData("0,0,0")]
         [InlineData("0.0,0,0")]
         [InlineData("0.0,0.0,0")]
         [InlineData("0.0,0.0,0.0")]
-        public async Task ValidateOperationAsync_InvalidForce_Should_ReturnBadRequest(string invalidForce)
+        public async Task ValidateAsync_InvalidForce_Should_ReturnBadRequest(string invalidForce)
         {
             // Arrange
             this._requestStub.AppliedForce = invalidForce;
 
             // Act
-            CalculateReactionsResponse response = await this._operation.ValidateOperationAsync(this._requestStub).ConfigureAwait(false);
+            CalculateReactionsResponse response = await this._operation.ValidateAsync(this._requestStub).ConfigureAwait(false);
 
             // Assert
             response.Should().NotBeNull();
@@ -62,11 +62,11 @@ namespace MudRunner.Suspension.UnitTest.Core.Operations.CalculateReactions
             response.Errors.Should().HaveCountGreaterOrEqualTo(1);
         }
 
-        [Fact(DisplayName = "Feature: ValidateOperationAsync | Given: Invalid parameters. | When: Call method. | Should: Return a failure for a bad request.")]
-        public async Task ValidateOperationAsync_NullRequest_Should_ReturnBadRequest()
+        [Fact(DisplayName = "Feature: ValidateAsync | Given: Invalid parameters. | When: Call method. | Should: Return a failure for a bad request.")]
+        public async Task ValidateAsync_NullRequest_Should_ReturnBadRequest()
         {
             // Act
-            CalculateReactionsResponse response = await this._operation.ValidateOperationAsync(null).ConfigureAwait(false);
+            CalculateReactionsResponse response = await this._operation.ValidateAsync(null).ConfigureAwait(false);
 
             // Assert
             response.Should().NotBeNull();

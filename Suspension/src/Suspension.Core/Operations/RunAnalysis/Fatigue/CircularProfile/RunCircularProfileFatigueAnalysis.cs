@@ -1,5 +1,7 @@
 ﻿using MudRunner.Commons.Core.ConstitutiveEquations.Fatigue;
 using MudRunner.Suspension.Core.Operations.RunAnalysis.Static.CircularProfile;
+using MudRunner.Suspension.DataContracts.RunAnalysis.Fatigue;
+using System.Threading.Tasks;
 using DataContract = MudRunner.Commons.DataContracts.Models.Profiles;
 
 namespace MudRunner.Suspension.Core.Operations.RunAnalysis.Fatigue.CircularProfile
@@ -19,5 +21,17 @@ namespace MudRunner.Suspension.Core.Operations.RunAnalysis.Fatigue.CircularProfi
             IFatigue<DataContract.CircularProfile> fatigue)
             : base(runStaticAnalysis, fatigue)
         { }
+
+        /// <summary>
+        /// Asynchronously, this method validates the <see cref="RunFatigueAnalysisRequest{CircularProfile}"/>.
+        /// </summary>
+        /// <param name="request"></param>
+        /// <returns></returns>
+        protected override Task<RunFatigueAnalysisResponse> ValidateOperationAsync(RunFatigueAnalysisRequest<DataContract.CircularProfile> request)
+        {
+            RunFatigueAnalysisResponse response = new();
+
+            return Task.FromResult(response);
+        }
     }
 }

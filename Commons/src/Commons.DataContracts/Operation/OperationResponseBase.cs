@@ -5,7 +5,6 @@ namespace MudRunner.Commons.DataContracts.Operation
     /// <summary>
     /// It represents the response content for all operations.
     /// </summary>
-    /// <typeparam name="TResponseData"></typeparam>
     public class OperationResponseBase
     {
         /// <summary>
@@ -32,7 +31,30 @@ namespace MudRunner.Commons.DataContracts.Operation
         public List<string> Errors { get; protected set; }
 
         /// <summary>
-        /// This method adds errors on list of errors.
+        /// This method adds the operation errors to the error list.
+        /// </summary>
+        /// <param name="response"></param>
+        public void AddErrors(OperationResponseBase response)
+        {
+            if (response == null)
+                throw new ArgumentNullException(nameof(response), "Response cannot be null.");
+
+            if (response.Errors == null)
+                throw new ArgumentNullException(nameof(response.Errors), $"The '{nameof(response.Errors)}' cannot be null in the response.");
+
+            if (response.Errors.Count <= 0)
+                throw new ArgumentOutOfRangeException(nameof(response.Errors), $"It must contains at least one error in '{nameof(response.Errors)}'.");
+
+            if (this.IsSuccessHttpStatusCode(response.HttpStatusCode) == false)
+                throw new ArgumentOutOfRangeException(nameof(response.HttpStatusCode), $"The '{nameof(response.HttpStatusCode)}' indicates success and cannot be used in method '{nameof(AddErrors)}'.");
+
+            this.Errors.AddRange(response.Errors);
+            this.HttpStatusCode = response.HttpStatusCode;
+            this.Success = false;
+        }
+
+        /// <summary>
+        /// This method adds errors to the error list.
         /// </summary>
         /// <param name="errors"></param>
         /// <param name="httpStatusCode"></param>
@@ -69,6 +91,12 @@ namespace MudRunner.Commons.DataContracts.Operation
         /// </summary>
         /// <param name="error"></param>
         public void SetUnauthorizedError(string error = null) => this.SetError(HttpStatusCode.Unauthorized, error);
+
+        /// <summary>
+        /// This method sets Success to false and the HttpStatusCode to 409 (Conflict).
+        /// </summary>
+        /// <param name="error"></param>
+        public void SetConflictError(string error = null) => this.SetError(HttpStatusCode.Conflict, error);
 
         /// <summary>
         /// This method sets Success to false and the HttpStatusCode to 500 (InternalServerError).
@@ -116,6 +144,22 @@ namespace MudRunner.Commons.DataContracts.Operation
 
             this.HttpStatusCode = httpStatusCode;
             this.Success = false;
+        }
+
+        /// <summary>
+        /// This method indicates if the HTTP Status Code is success or not.
+        /// HTTP Status Codes:
+        ///     1xx - Information
+        ///     2xx - Success
+        ///     3xx - Redirection
+        ///     4xx - Client Error
+        ///     5xx - Server Error
+        /// </summary>
+        /// <param name="httpStatusCode"></param>
+        /// <returns></returns>
+        protected bool IsSuccessHttpStatusCode(HttpStatusCode httpStatusCode)
+        {
+            return ((int)httpStatusCode).ToString().StartsWith("2");
         }
     }
 
