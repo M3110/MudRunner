@@ -9,20 +9,14 @@ namespace MudRunner.Suspension.Core.NumericalMethods.DifferentialEquation.Newmar
     /// </summary>
     public class NewmarkMethod : DifferentialEquationMethod<NewmarkMethodInput>, INewmarkMethod
     {
-        /// <summary>
-        /// Asynchronously, this method calculates the results for a numeric analysis.
-        /// </summary>
-        /// <param name="input"></param>
-        /// <param name="previousResult"></param>
-        /// <param name="time"></param>
-        /// <returns></returns>
-        public override async Task<NumericalMethodResult> CalculateResult(NewmarkMethodInput input, NumericalMethodResult previousResult, double time)
+        /// <inheritdoc/>
+        public override async Task<NumericalMethodResult> CalculateResultAsync(NewmarkMethodInput input, NumericalMethodResult previousResult, double time)
         {
             if (time < input.InitialTime)
                 throw new ArgumentOutOfRangeException(nameof(time), $"The time cannot be less than the initial time: {input.InitialTime}.");
 
             if (time == input.InitialTime)
-                return await this.CalculateInitialResult(input).ConfigureAwait(false);
+                return this.CalculateInitialResult(input);
 
             #region Step 1 - Asynchronously, calculates the equivalent stiffness and equivalent force.
             var tasks = new List<Task>();

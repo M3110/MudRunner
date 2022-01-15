@@ -1,5 +1,4 @@
 ﻿using MudRunner.Suspension.Core.Models.NumericalMethod;
-using System.Threading.Tasks;
 
 namespace MudRunner.Suspension.Core.NumericalMethods.DifferentialEquation
 {
@@ -11,12 +10,19 @@ namespace MudRunner.Suspension.Core.NumericalMethods.DifferentialEquation
         where TInput : NumericalMethodInput
     {
         /// <summary>
+        /// Asynchronously, this method calculates the result for the initial time for a matricial analysis.
+        /// </summary>
+        /// <param name="input"></param>
+        /// <returns></returns>
+        NumericalMethodResult CalculateInitialResult(TInput input);
+
+        /// <summary>
         /// Asynchronously, this method calculates the results for a numeric analysis.
         /// </summary>
         /// <param name="input"></param>
         /// <param name="previousResult"></param>
         /// <param name="time"></param>
         /// <returns></returns>
-        Task<NumericalMethodResult> CalculateResult(TInput input, NumericalMethodResult previousResult, double time);
+        Task<NumericalMethodResult> CalculateResultAsync(TInput input, NumericalMethodResult previousResult, double time);
     }
 }
