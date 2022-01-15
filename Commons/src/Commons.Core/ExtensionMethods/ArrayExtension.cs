@@ -1,7 +1,4 @@
-﻿using System;
-using System.Linq;
-
-namespace MudRunner.Commons.Core.ExtensionMethods
+﻿namespace MudRunner.Commons.Core.ExtensionMethods
 {
     /// <summary>
     /// It contains extension methods to arrays.
@@ -126,6 +123,89 @@ namespace MudRunner.Commons.Core.ExtensionMethods
                 }
 
                 result[i] = sum;
+            }
+
+            return result;
+        }
+
+        /// <summary>
+        /// This method multiplicates a number and a vector.
+        /// </summary>
+        /// <param name="vector"></param>
+        /// <param name="number"></param>
+        /// <returns></returns>
+        public static double[] Multiply(this double[] vector, double number)
+            => vector.Select(item => item * number).ToArray();
+
+        /// <summary>
+        /// This method sums two vectors.
+        /// </summary>
+        /// <param name="vector1"></param>
+        /// <param name="vector2"></param>
+        /// <returns></returns>
+        public static double[] Sum(this double[] vector1, double[] vector2)
+            => vector1.MathOperation((v1, v2) => v1 + v2, vector2);
+
+        /// <summary>
+        /// This method subtracts two vectors.
+        /// </summary>
+        /// <param name="vector1"></param>
+        /// <param name="vector2"></param>
+        /// <returns></returns>
+        public static double[] Subtract(this double[] vector1, double[] vector2)
+            => vector1.MathOperation((v1, v2) => v1 - v2, vector2);
+
+        /// <summary>
+        /// This method do a mathematic operation for two vectors.
+        /// </summary>
+        /// <param name="vector1"></param>
+        /// <param name="vector2"></param>
+        /// <returns></returns>
+        public static double[] MathOperation(this double[] vector1, Func<double, double, double> func, double[] vector2)
+        {
+            if (vector1.Length != vector2.Length)
+                throw new ArgumentOutOfRangeException("Vectors", "The vectors must have the same size.");
+
+            return vector1.Zip(vector2, func).ToArray();
+        }
+
+        /// <summary>
+        /// This method sums two vectors.
+        /// </summary>
+        /// <param name="vector1"></param>
+        /// <param name="vector2"></param>
+        /// <param name="vector3"></param>
+        /// <returns></returns>
+        public static double[] Sum(this double[] vector1, double[] vector2, double[] vector3)
+        {
+            if (vector1.Length != vector2.Length || vector1.Length != vector3.Length || vector2.Length != vector3.Length)
+                throw new ArgumentOutOfRangeException("Vectors", "The vectors must have the same size.");
+
+            double[] result = new double[vector1.Length];
+            for (int i = 0; i < vector1.Length; i++)
+            {
+                result[i] = vector1[i] + vector2[i] + vector3[i];
+            }
+
+            return result;
+        }
+
+        /// <summary>
+        /// This method subtracts three vectors.
+        /// </summary>
+        /// <param name="vector1"></param>
+        /// <param name="vector2"></param>
+        /// <param name="vector3"></param>
+        /// <returns></returns>
+        public static double[] Subtract(this double[] vector1, double[] vector2, double[] vector3)
+        {
+            if (vector1.Length != vector2.Length || vector1.Length != vector3.Length || vector2.Length != vector3.Length)
+                throw new ArgumentOutOfRangeException("Vectors", "The vectors must have the same size.");
+
+            double[] result = new double[vector1.Length];
+            for (int i = 0; i < vector1.Length; i++)
+            {
+                result[i] = vector1[i] - vector2[i] - vector3[i];
             }
 
             return result;

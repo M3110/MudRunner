@@ -1,13 +1,14 @@
-﻿using System.Collections.Generic;
-
-namespace MudRunner.Commons.Core.Models
+﻿namespace MudRunner.Commons.Core.Models
 {
     /// <summary>
     /// It contains the constants used in the project.
     /// </summary>
     public static class Constants
     {
-        public static List<double> InvalidValues = new List<double> 
+        /// <summary>
+        /// The invalid values for double parameters.
+        /// </summary>
+        public static List<double> InvalidValues => new()
         { 
             double.NaN, 
             double.PositiveInfinity, 
@@ -15,5 +16,10 @@ namespace MudRunner.Commons.Core.Models
             double.MaxValue, 
             double.MinValue 
         };
+
+        /// <summary>
+        /// Unit: m/s² (meter per squared second).
+        /// </summary>
+        public static double GravityAcceleration => 9.80665;
     }
 }

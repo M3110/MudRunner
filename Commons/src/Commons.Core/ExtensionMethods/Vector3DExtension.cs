@@ -13,7 +13,7 @@ namespace MudRunner.Commons.Core.ExtensionMethods
         /// <param name="vector"></param>
         /// <returns></returns>
         public static Vector3D Normalize(this Vector3D vector)
-            => new Vector3D
+            => new()
             {
                 X = vector.X / vector.Length,
                 Y = vector.Y / vector.Length,
@@ -27,7 +27,7 @@ namespace MudRunner.Commons.Core.ExtensionMethods
         /// <param name="vector2"></param>
         /// <returns></returns>
         public static Vector3D CrossProduct(this Vector3D vector1, Vector3D vector2)
-            => new Vector3D
+            => new()
             {
                 X = vector1.Y * vector2.Z - vector1.Z * vector2.Y,
                 Y = vector1.Z * vector2.X - vector1.X * vector2.Z,
