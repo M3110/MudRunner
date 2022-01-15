@@ -5,8 +5,10 @@
     /// </summary>
     public class NewmarkMethodInput : NumericalMethodInput
     {
+        /// <inheritdoc/>
         public override double Gama => (double)1 / 2;
 
+        /// <inheritdoc/>
         public override double Beta => (double)1 / 6;
 
         #region Integration Constants

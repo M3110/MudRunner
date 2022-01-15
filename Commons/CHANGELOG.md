@@ -12,6 +12,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
  - Method 'ValidateAsync' in class OperationBase and interface IOperationBase.
  - Method 'AddErrors' receiving an OperationResponseBase in class OperationResponseBase.
  - Method 'IsHttpStatusCode' class OperationResponseBase.
+ - Property 'GravityAcceleration' in class Constants.
 ### Changed
  - Method 'ValidateOperationAsync' to be abstract.
 
