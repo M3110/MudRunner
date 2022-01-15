@@ -107,20 +107,16 @@ namespace MudRunner.Suspension.Core.Operations.CalculateStearingKnuckleReactions
             return response;
         }
 
-        public override async Task<CalculateSteeringKnuckleReactionsResponse> ValidateOperationAsync(CalculateSteeringKnuckleReactionsRequest request)
+        protected override Task<CalculateSteeringKnuckleReactionsResponse> ValidateOperationAsync(CalculateSteeringKnuckleReactionsRequest request)
         {
-            CalculateSteeringKnuckleReactionsResponse response = await base.ValidateOperationAsync(request).ConfigureAwait(false);
-            if (response.Success == false)
-            {
-                return response;
-            }
+            CalculateSteeringKnuckleReactionsResponse response = new();
 
             if (request.CalculateReactionsRequest == null && request.CalculateReactionsResponseData == null)
             {
                 response.SetBadRequestError("The forces applied to the steering knukle or the suspension points must be passed on request");
             }
 
-            return response;
+            return Task.FromResult(response);
         }
     }
 }

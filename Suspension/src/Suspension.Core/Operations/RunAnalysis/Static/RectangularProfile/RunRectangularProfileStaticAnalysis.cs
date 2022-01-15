@@ -2,6 +2,8 @@
 using MudRunner.Commons.Core.GeometricProperties.RectangularProfile;
 using MudRunner.Suspension.Core.Mapper;
 using MudRunner.Suspension.Core.Operations.CalculateReactions;
+using MudRunner.Suspension.DataContracts.RunAnalysis.Static;
+using System.Threading.Tasks;
 using DataContract = MudRunner.Commons.DataContracts.Models.Profiles;
 
 namespace MudRunner.Suspension.Core.Operations.RunAnalysis.Static.RectangularProfile
@@ -25,5 +27,17 @@ namespace MudRunner.Suspension.Core.Operations.RunAnalysis.Static.RectangularPro
             IMappingResolver mappingResolver)
             : base(calculateReactions, mechanicsOfMaterials, geometricProperty, mappingResolver)
         { }
+
+        /// <summary>
+        /// Asynchronously, this method validates the <see cref="RunStaticAnalysisRequest{RectangularProfile}"/>.
+        /// </summary>
+        /// <param name="request"></param>
+        /// <returns></returns>
+        protected override Task<RunStaticAnalysisResponse> ValidateOperationAsync(RunStaticAnalysisRequest<DataContract.RectangularProfile> request)
+        {
+            RunStaticAnalysisResponse response = new();
+
+            return Task.FromResult(response);
+        }
     }
 }

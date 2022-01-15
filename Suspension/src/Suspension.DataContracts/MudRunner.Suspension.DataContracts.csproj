@@ -11,7 +11,7 @@
 	</ItemGroup>
 	
 	<ItemGroup>
-	  <PackageReference Include="MudRunner.Commons.DataContracts" Version="1.1.0" />
+	  <PackageReference Include="MudRunner.Commons.DataContracts" Version="1.2.0-rc05" />
 	  <PackageReference Include="Newtonsoft.Json" Version="13.0.1" />
 	</ItemGroup>
 
