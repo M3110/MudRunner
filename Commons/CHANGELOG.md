@@ -8,6 +8,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 ### Added
  - Newmark and Newmark-Beta numerical methods.
  - Methods 'Multiply', 'Sum', 'Subtract' and 'MathOperation' in class ArrayExtension.
+ - Method 'SetConflictError' in class OperationResponseBase.
 
 ## [1.1.0] - 2022-01-13
 ### Added

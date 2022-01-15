@@ -71,6 +71,12 @@ namespace MudRunner.Commons.DataContracts.Operation
         public void SetUnauthorizedError(string error = null) => this.SetError(HttpStatusCode.Unauthorized, error);
 
         /// <summary>
+        /// This method sets Success to false and the HttpStatusCode to 409 (Conflict).
+        /// </summary>
+        /// <param name="error"></param>
+        public void SetConflictError(string error = null) => this.SetError(HttpStatusCode.Conflict, error);
+
+        /// <summary>
         /// This method sets Success to false and the HttpStatusCode to 500 (InternalServerError).
         /// </summary>
         /// <param name="error"></param>
