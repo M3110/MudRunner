@@ -5,6 +5,9 @@
     /// </summary>
     public class NumericalMethodResult
     {
+        /// <summary>
+        /// Unit: s (second).
+        /// </summary>
         public double Time { get; set; }
 
         /// <summary>

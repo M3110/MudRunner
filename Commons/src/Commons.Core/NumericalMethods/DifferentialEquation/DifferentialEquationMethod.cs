@@ -1,5 +1,4 @@
 ﻿using MudRunner.Suspension.Core.Models.NumericalMethod;
-using System.Threading.Tasks;
 
 namespace MudRunner.Suspension.Core.NumericalMethods.DifferentialEquation
 {
