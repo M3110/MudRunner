@@ -51,8 +51,7 @@ namespace MudRunner.Suspension.Core.Operations.RunAnalysis.Dynamic
             NewmarkMethodInput input = await this.BuildNumericalMethodInputAsync(request).ConfigureAwait(false);
 
             // Step 2 - Creates the solutions file and the folder if they do not exist.
-            string solutionFullFileName;
-            if (this.TryCreateSolutionFile(request.AdditionalFileNameInformation, out solutionFullFileName))
+            if (this.TryCreateSolutionFile(request.AdditionalFileNameInformation, out string solutionFullFileName) == false)
             {
                 response.SetConflictError($"The file '{solutionFullFileName}' already exist.");
                 return response;
