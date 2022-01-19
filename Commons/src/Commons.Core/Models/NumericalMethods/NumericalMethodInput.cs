@@ -8,11 +8,6 @@
         /// <summary>
         /// Unit: s (second).
         /// </summary>
-        public double InitialTime => 0;
-
-        /// <summary>
-        /// Unit: s (second).
-        /// </summary>
         public double TimeStep { get; set; }
 
         /// <summary>

@@ -1,4 +1,5 @@
 ﻿using MudRunner.Commons.Core.ExtensionMethods;
+using MudRunner.Commons.Core.Models;
 using MudRunner.Suspension.Core.Models.NumericalMethod;
 using MudRunner.Suspension.Core.Models.NumericalMethod.Newmark;
 
@@ -12,10 +13,10 @@ namespace MudRunner.Suspension.Core.NumericalMethods.DifferentialEquation.Newmar
         /// <inheritdoc/>
         public override async Task<NumericalMethodResult> CalculateResultAsync(NewmarkMethodInput input, NumericalMethodResult previousResult, double time)
         {
-            if (time < input.InitialTime)
-                throw new ArgumentOutOfRangeException(nameof(time), $"The time cannot be less than the initial time: {input.InitialTime}.");
+            if (time < Constants.InitialTime)
+                throw new ArgumentOutOfRangeException(nameof(time), $"The time cannot be less than the initial time: {Constants.InitialTime}.");
 
-            if (time == input.InitialTime)
+            if (time == Constants.InitialTime)
                 return this.CalculateInitialResult(input);
 
             #region Step 1 - Asynchronously, calculates the equivalent stiffness and equivalent force.
