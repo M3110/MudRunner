@@ -1,5 +1,5 @@
-﻿using MudRunner.Commons.Core.Operation;
-using MudRunner.Suspension.Core.Models;
+﻿using MudRunner.Commons.Core.Models;
+using MudRunner.Commons.Core.Operation;
 using MudRunner.Suspension.Core.Models.NumericalMethod;
 using MudRunner.Suspension.Core.Models.NumericalMethod.Newmark;
 using MudRunner.Suspension.Core.NumericalMethods.DifferentialEquation.Newmark;
@@ -67,7 +67,7 @@ namespace MudRunner.Suspension.Core.Operations.RunAnalysis.Dynamic
                     // Step 4 - Calculates the result for initial time.
                     NumericalMethodResult previousResult = this._newmarkMethod.CalculateInitialResult(input);
 
-                    double time = input.InitialTime;
+                    double time = Constants.InitialTime;
                     while (time <= request.FinalTime)
                     {
                         // Step 5 - Calculate the results and write it in the file.
@@ -78,6 +78,9 @@ namespace MudRunner.Suspension.Core.Operations.RunAnalysis.Dynamic
                         // and itereta the time.
                         previousResult = result;
                         time += input.TimeStep;
+
+                        // Step 7 - Calculates the equivalent force to be used at next step.
+                        input.EquivalentForce = await this.BuildEquivalentForceVectorAsync(request, time).ConfigureAwait(false);
                     }
                 }
             }
@@ -111,7 +114,7 @@ namespace MudRunner.Suspension.Core.Operations.RunAnalysis.Dynamic
                 Task.Run(async () => mass = await this.BuildMassMatrixAsync(request).ConfigureAwait(false)),
                 Task.Run(async () => stiffness = await this.BuildStiffnessMatrixAsync(request).ConfigureAwait(false)),
                 Task.Run(async () => damping = await this.BuildDampingMatrixAsync(request).ConfigureAwait(false)),
-                Task.Run(async () => equivalentForce = await this.BuildEquivalentForceVectorAsync(request).ConfigureAwait(false)),
+                Task.Run(async () => equivalentForce = await this.BuildEquivalentForceVectorAsync(request, Constants.InitialTime).ConfigureAwait(false)),
             };
 
             // Step iii - Wait all tasks to be executed.
@@ -139,7 +142,7 @@ namespace MudRunner.Suspension.Core.Operations.RunAnalysis.Dynamic
         public abstract Task<double[,]> BuildStiffnessMatrixAsync(RunDynamicAnalysisRequest request);
 
         /// <inheritdoc/>
-        public abstract Task<double[]> BuildEquivalentForceVectorAsync(RunDynamicAnalysisRequest request);
+        public abstract Task<double[]> BuildEquivalentForceVectorAsync(RunDynamicAnalysisRequest request, double time);
 
         /// <inheritdoc/>
         public bool TryCreateSolutionFile(string additionalFileNameInformation, out string fullFileName)

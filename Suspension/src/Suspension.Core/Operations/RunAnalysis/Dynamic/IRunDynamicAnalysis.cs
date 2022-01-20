@@ -42,8 +42,9 @@ namespace MudRunner.Suspension.Core.Operations.RunAnalysis.Dynamic
         /// Asynchronously, this method calculates the external forcing vector.
         /// </summary>
         /// <param name="request"></param>
+        /// <param name="time"></param>
         /// <returns></returns>
-        Task<double[]> BuildEquivalentForceVectorAsync(RunDynamicAnalysisRequest request);
+        Task<double[]> BuildEquivalentForceVectorAsync(RunDynamicAnalysisRequest request, double time);
 
         /// <summary>
         /// This method creates the solution file.
