@@ -1,6 +1,8 @@
 ﻿using MudRunner.Commons.Core.Operation;
+using MudRunner.Suspension.Core.Models.NumericalMethod;
 using MudRunner.Suspension.Core.Models.NumericalMethod.Newmark;
 using MudRunner.Suspension.DataContracts.RunAnalysis.Dynamic;
+using System.IO;
 using System.Threading.Tasks;
 
 namespace MudRunner.Suspension.Core.Operations.RunAnalysis.Dynamic
@@ -8,35 +10,36 @@ namespace MudRunner.Suspension.Core.Operations.RunAnalysis.Dynamic
     /// <summary>
     /// It is responsible to run the dynamic analysis to suspension system.
     /// </summary>
-    public interface IRunDynamicAnalysis : IOperationBase<RunDynamicAnalysisRequest, RunDynamicAnalysisResponse>
+    public interface IRunDynamicAnalysis<TRequest> : IOperationBase<TRequest, RunDynamicAnalysisResponse>
+        where TRequest : RunDynamicAnalysisRequest
     {
         /// <summary>
         /// Asynchronously, this method builds the input for numerical method.
         /// </summary>
         /// <param name="request"></param>
         /// <returns></returns>
-        Task<NewmarkMethodInput> BuildNumericalMethodInputAsync(RunDynamicAnalysisRequest request);
+        Task<NewmarkMethodInput> BuildNumericalMethodInputAsync(TRequest request);
 
         /// <summary>
         /// Asynchronously, this method calculates the mass matrix.
         /// </summary>
         /// <param name="request"></param>
         /// <returns></returns>
-        Task<double[,]> BuildMassMatrixAsync(RunDynamicAnalysisRequest request);
+        Task<double[,]> BuildMassMatrixAsync(TRequest request);
 
         /// <summary>
         /// Asynchronously, this method calculates the damping matrix.
         /// </summary>
         /// <param name="request"></param>
         /// <returns></returns>
-        Task<double[,]> BuildDampingMatrixAsync(RunDynamicAnalysisRequest request);
+        Task<double[,]> BuildDampingMatrixAsync(TRequest request);
 
         /// <summary>
         /// Asynchronously, this method calculates the stiffness matrix.
         /// </summary>
         /// <param name="request"></param>
         /// <returns></returns>
-        Task<double[,]> BuildStiffnessMatrixAsync(RunDynamicAnalysisRequest request);
+        Task<double[,]> BuildStiffnessMatrixAsync(TRequest request);
 
         /// <summary>
         /// Asynchronously, this method calculates the external forcing vector.
@@ -44,7 +47,7 @@ namespace MudRunner.Suspension.Core.Operations.RunAnalysis.Dynamic
         /// <param name="request"></param>
         /// <param name="time"></param>
         /// <returns></returns>
-        Task<double[]> BuildEquivalentForceVectorAsync(RunDynamicAnalysisRequest request, double time);
+        Task<double[]> BuildEquivalentForceVectorAsync(TRequest request, double time);
 
         /// <summary>
         /// This method creates the solution file.
@@ -56,8 +59,19 @@ namespace MudRunner.Suspension.Core.Operations.RunAnalysis.Dynamic
 
         /// <summary>
         /// This method creates the file header with the results order.
+        /// To implement this method is necessary to know what is written in the file.
+        /// Currently, it is necessary to know what is returned in the <see cref="NumericalMethodResult"/>.
         /// </summary>
         /// <returns></returns>
         string CreateFileHeader();
+
+        /// <summary>
+        /// This method builds the result for large displacements. It is necessary because when considering large displacements,
+        /// the values at <see cref="NumericalMethodResult"/> do not represent the displacement, the velocity or the acceleration, 
+        /// and some steps must be done to calculate the real value of those.
+        /// </summary>
+        /// <param name="result"></param>
+        /// <returns></returns>
+        NumericalMethodResult BuildLargeDisplacementResult(NumericalMethodResult result);
     }
 }

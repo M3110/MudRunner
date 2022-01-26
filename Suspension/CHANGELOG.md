@@ -7,6 +7,11 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 ## UNRELEASED
 ### Fixed
  - RunDynamicAnalysis operation that was not building correctly the equivalent force vector.
+### Added
+ - Enum CurveType.
+ - Class BaseExcitation.
+ - Properties 'ConsiderLargeDisplacements', 'BaseExcitation' and 'CarSpeed' to class RunDynamicAnalysisRequest.
+ - 
 
 ## [1.2.0] - 2022-01-13
 ### Changed

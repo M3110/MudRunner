@@ -1,8 +1,10 @@
 ﻿using MudRunner.Commons.Core.Models;
 using MudRunner.Commons.Core.Operation;
+using MudRunner.Suspension.Core.ExtensionMethods;
 using MudRunner.Suspension.Core.Models.NumericalMethod;
 using MudRunner.Suspension.Core.Models.NumericalMethod.Newmark;
 using MudRunner.Suspension.Core.NumericalMethods.DifferentialEquation.Newmark;
+using MudRunner.Suspension.DataContracts.Models.Enums;
 using MudRunner.Suspension.DataContracts.RunAnalysis.Dynamic;
 using System;
 using System.Collections.Generic;
@@ -14,7 +16,8 @@ namespace MudRunner.Suspension.Core.Operations.RunAnalysis.Dynamic
     /// <summary>
     /// It is responsible to run the dynamic analysis to suspension system.
     /// </summary>
-    public abstract class RunDynamicAnalysis : OperationBase<RunDynamicAnalysisRequest, RunDynamicAnalysisResponse>, IRunDynamicAnalysis
+    public abstract class RunDynamicAnalysis<TRequest> : OperationBase<TRequest, RunDynamicAnalysisResponse>, IRunDynamicAnalysis<TRequest>
+        where TRequest : RunDynamicAnalysisRequest
     {
         /// <summary>
         /// The number of boundary conditions for dynamic analysis.
@@ -43,7 +46,7 @@ namespace MudRunner.Suspension.Core.Operations.RunAnalysis.Dynamic
         /// </summary>
         /// <param name="request"></param>
         /// <returns></returns>
-        protected async override Task<RunDynamicAnalysisResponse> ProcessOperationAsync(RunDynamicAnalysisRequest request)
+        protected async override Task<RunDynamicAnalysisResponse> ProcessOperationAsync(TRequest request)
         {
             RunDynamicAnalysisResponse response = new();
 
@@ -72,7 +75,17 @@ namespace MudRunner.Suspension.Core.Operations.RunAnalysis.Dynamic
                     {
                         // Step 5 - Calculate the results and write it in the file.
                         NumericalMethodResult result = await this._newmarkMethod.CalculateResultAsync(input, previousResult, time).ConfigureAwait(false);
-                        streamWriter.WriteLine($"{result}");
+                        if (request.ConsiderLargeDisplacements == false)
+                        {
+                            streamWriter.WriteLine($"{result}");
+                        }
+                        else
+                        {
+                            // OBS.: 
+                            //   The variable 'largeDisplacementResult' must only be used 
+                            NumericalMethodResult largeDisplacementResult = this.BuildLargeDisplacementResult(result);
+                            streamWriter.WriteLine($"{largeDisplacementResult}");
+                        }
 
                         // Step 6 - Save the current result in the variable 'previousResult' to be used at next step
                         // and itereta the time.
@@ -100,7 +113,7 @@ namespace MudRunner.Suspension.Core.Operations.RunAnalysis.Dynamic
         }
 
         /// <inheritdoc />
-        public async Task<NewmarkMethodInput> BuildNumericalMethodInputAsync(RunDynamicAnalysisRequest request)
+        public async Task<NewmarkMethodInput> BuildNumericalMethodInputAsync(TRequest request)
         {
             // Step i - Create the mass, the stiffness and the damping matrixes, and the equivalent force vector.
             double[,] mass = default;
@@ -133,16 +146,16 @@ namespace MudRunner.Suspension.Core.Operations.RunAnalysis.Dynamic
         }
 
         /// <inheritdoc/>
-        public abstract Task<double[,]> BuildMassMatrixAsync(RunDynamicAnalysisRequest request);
+        public abstract Task<double[,]> BuildMassMatrixAsync(TRequest request);
 
         /// <inheritdoc/>
-        public abstract Task<double[,]> BuildDampingMatrixAsync(RunDynamicAnalysisRequest request);
+        public abstract Task<double[,]> BuildDampingMatrixAsync(TRequest request);
 
         /// <inheritdoc/>
-        public abstract Task<double[,]> BuildStiffnessMatrixAsync(RunDynamicAnalysisRequest request);
+        public abstract Task<double[,]> BuildStiffnessMatrixAsync(TRequest request);
 
         /// <inheritdoc/>
-        public abstract Task<double[]> BuildEquivalentForceVectorAsync(RunDynamicAnalysisRequest request, double time);
+        public abstract Task<double[]> BuildEquivalentForceVectorAsync(TRequest request, double time);
 
         /// <inheritdoc/>
         public bool TryCreateSolutionFile(string additionalFileNameInformation, out string fullFileName)
@@ -175,13 +188,16 @@ namespace MudRunner.Suspension.Core.Operations.RunAnalysis.Dynamic
         /// TODO: Tentar usar regex para que não precise criar um método só para isso.
         protected abstract string CreateSolutionFileName(string additionalFileNameInformation);
 
+        /// <inheritdoc/>
+        public abstract NumericalMethodResult BuildLargeDisplacementResult(NumericalMethodResult result);
+
         /// <summary>
         /// Asynchronously, this method validates the <see cref="RunDynamicAnalysisRequest"/>.
         /// </summary>
         /// <param name="request"></param>
         /// <returns></returns>
         /// <exception cref="NotImplementedException"></exception>
-        protected override Task<RunDynamicAnalysisResponse> ValidateOperationAsync(RunDynamicAnalysisRequest request)
+        protected override Task<RunDynamicAnalysisResponse> ValidateOperationAsync(TRequest request)
         {
             RunDynamicAnalysisResponse response = new();
 
@@ -189,10 +205,32 @@ namespace MudRunner.Suspension.Core.Operations.RunAnalysis.Dynamic
                 response.SetBadRequestError($"The time step: '{request.TimeStep}' must be greather zero.");
 
             if (request.FinalTime <= 0)
-                response.SetBadRequestError($"The time step: '{request.FinalTime}' must be greather zero.");
+                response.SetBadRequestError($"The final time: '{request.FinalTime}' must be greather zero.");
 
             if (request.TimeStep >= request.FinalTime)
                 response.SetBadRequestError($"The time step: '{request.TimeStep}' must be smaller than final time: '{request.FinalTime}'.");
+
+            if (request.BaseExcitation != null)
+            {
+                if (request.BaseExcitation.Constants.IsNullOrEmpty())
+                    response.SetBadRequestError($"'{nameof(request.BaseExcitation.Constants)}' cannot be null or empty.");
+
+                if (Enum.IsDefined(request.BaseExcitation.CurveType) == false)
+                    response.SetBadRequestError($"Invalid curve type: '{request.BaseExcitation.CurveType}'.");
+
+                if (request.BaseExcitation.CurveType == CurveType.Cosine)
+                {
+                    if (request.BaseExcitation.LimitTimes.IsNullOrEmpty())
+                        response.SetBadRequestError($"'{nameof(request.BaseExcitation.LimitTimes)}' cannot be null or empty.");
+
+                    if (request.BaseExcitation.ObstacleWidth <= 0)
+                        response.SetBadRequestError($"'{nameof(request.BaseExcitation.ObstacleWidth)}' must be greather than zero.");
+
+                    if (request.BaseExcitation.CarSpeed == 0)
+                        response.SetBadRequestError($"'{nameof(request.BaseExcitation.CarSpeed)}' cannot be zero.");
+                }
+            }
+
 
             return Task.FromResult(response);
         }

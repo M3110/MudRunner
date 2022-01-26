@@ -3,9 +3,9 @@
 namespace MudRunner.Suspension.Core.ExtensionMethods
 {
     /// <summary>
-    /// It contains the extension method to CalculateReactionsResponseData.1
+    /// It contains the extension method to <see cref="CalculateReactionsResponseData"/>.
     /// </summary>
-    public static class CalculateReactionsResponseDataExtension
+    public static class CalculateReactionsResponseDataExtensions
     {
         /// <summary>
         /// This method calculates the sum of forces at axis X.
