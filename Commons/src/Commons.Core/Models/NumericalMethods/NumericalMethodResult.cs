@@ -1,4 +1,6 @@
-﻿namespace MudRunner.Suspension.Core.Models.NumericalMethod
+﻿using System.Globalization;
+
+namespace MudRunner.Suspension.Core.Models.NumericalMethod
 {
     /// <summary>
     /// It contains the finite element analysis results to a specific time.
@@ -33,6 +35,8 @@
         /// <inheritdoc/>
         public override string ToString()
         {
+            CultureInfo.CurrentCulture = CultureInfo.InvariantCulture;
+
             return $"{this.Time}," +
                 $"{string.Join(",", this.Displacement)}," +
                 $"{string.Join(",", this.Velocity)}," +

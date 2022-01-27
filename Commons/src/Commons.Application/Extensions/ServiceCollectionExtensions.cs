@@ -10,7 +10,6 @@ using MudRunner.Commons.DataContracts.Models.Profiles;
 using MudRunner.Suspension.Core.NumericalMethods.DifferentialEquation;
 using MudRunner.Suspension.Core.NumericalMethods.DifferentialEquation.Newmark;
 using MudRunner.Suspension.Core.NumericalMethods.DifferentialEquation.NewmarkBeta;
-using System.Globalization;
 using System.Reflection;
 
 namespace MudRunner.Commons.Application.Extensions
@@ -27,9 +26,6 @@ namespace MudRunner.Commons.Application.Extensions
         /// <returns></returns>
         public static IServiceCollection AddMudRunnerCommonsServices(this IServiceCollection services)
         {
-            // Sets the current culture as invariant.
-            CultureInfo.CurrentCulture = CultureInfo.InvariantCulture;
-
             // Register constitutive equations.
             services.AddScoped<IFatigue<CircularProfile>, Fatigue<CircularProfile>>();
             services.AddScoped<IFatigue<RectangularProfile>, Fatigue<RectangularProfile>>();
