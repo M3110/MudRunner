@@ -2,7 +2,7 @@
 using Microsoft.OpenApi.Models;
 using MudRunner.Commons.Core.ConstitutiveEquations.Fatigue;
 using MudRunner.Commons.Core.ConstitutiveEquations.MechanicsOfMaterials;
-using MudRunner.Commons.Core.Factory;
+using MudRunner.Commons.Core.Factory.DifferentialEquationMethod;
 using MudRunner.Commons.Core.GeometricProperties.CircularProfile;
 using MudRunner.Commons.Core.GeometricProperties.RectangularProfile;
 using MudRunner.Commons.DataContracts.Models.Enums;

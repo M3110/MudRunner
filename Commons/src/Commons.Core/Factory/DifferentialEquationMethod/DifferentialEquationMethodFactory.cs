@@ -1,7 +1,7 @@
 ﻿using MudRunner.Commons.DataContracts.Models.Enums;
 using MudRunner.Suspension.Core.NumericalMethods.DifferentialEquation;
 
-namespace MudRunner.Commons.Core.Factory
+namespace MudRunner.Commons.Core.Factory.DifferentialEquationMethod
 {
     /// <summary>
     /// It is responsible to build a <see cref="DifferentialEquationMethod"/>.
@@ -22,7 +22,7 @@ namespace MudRunner.Commons.Core.Factory
         /// <inheritdoc/>
         public IDifferentialEquationMethod Get(DifferentialEquationMethodEnum differentialEquationMethodEnum)
         {
-            return this._differentialEquationMethods.First(d => d.Key == differentialEquationMethodEnum).Value;
+            return this._differentialEquationMethods.FirstOrDefault(d => d.Key == differentialEquationMethodEnum).Value;
         }
     }
 }
