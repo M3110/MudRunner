@@ -2,6 +2,7 @@ using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using MudRunner.Commons.Application.Extensions;
 using MudRunner.Commons.Core.ConstitutiveEquations.Fatigue;
 using MudRunner.Commons.Core.ConstitutiveEquations.MechanicsOfMaterials;
 using MudRunner.Commons.Core.GeometricProperties.CircularProfile;
@@ -32,6 +33,9 @@ namespace MudRunner.Suspension.Application
         /// <param name="services"></param>
         public void ConfigureServices(IServiceCollection services)
         {
+            // Register MudRunner.Commons sevices.
+            services.AddMudRunnerCommonsServices();
+
             // Register Constitutive Equations
             services.AddScoped<IMechanicsOfMaterials, MechanicsOfMaterials>();
             services.AddScoped<IFatigue<CircularProfile>, Fatigue<CircularProfile>>();
@@ -59,7 +63,9 @@ namespace MudRunner.Suspension.Application
                 .AddControllers()
                 .AddNewtonsoftJson(options => options.SerializerSettings.Converters.Add(new StringEnumConverter()));
 
-            services.AddSwaggerDocs();
+            services.AddSwaggerDocs(
+                applicationFileName:"MudRunner.Suspension.Application.xml", 
+                dataContractFileName: "MudRunner.Suspension.DataContracts.xml");
         }
 
         /// <summary>

@@ -1,4 +1,5 @@
-﻿using MudRunner.Commons.DataContracts.Operation;
+﻿using MudRunner.Commons.DataContracts.Models.Enums;
+using MudRunner.Commons.DataContracts.Operation;
 using MudRunner.Suspension.DataContracts.Models;
 
 namespace MudRunner.Suspension.DataContracts.RunAnalysis.Dynamic
@@ -27,6 +28,11 @@ namespace MudRunner.Suspension.DataContracts.RunAnalysis.Dynamic
         /// An additional information to be set in the file name that contains the analysis results.
         /// </summary>
         public string AdditionalFileNameInformation { get; set; }
+
+        /// <summary>
+        /// The available numerical methods for differential equations.
+        /// </summary>
+        public DifferentialEquationMethodEnum DifferentialEquationMethodEnum { get; set; }
 
         /// <summary>
         /// The variables to calculate the base excitation at the system.

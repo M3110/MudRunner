@@ -56,7 +56,7 @@ namespace MudRunner.Suspension.Core.Utils
                 double result = 0;
                 if (limitTimes == null)
                 {
-                    if (Constants.InitialTime <= time && time <= Constants.InitialTime + carSpeed / baseExcitation.ObstacleWidth)
+                    if (Constants.InitialTime <= time && time <= Constants.InitialTime + baseExcitation.ObstacleWidth / carSpeed)
                     {
                         result = constants[0] / 2 * (constants[1] + constants[2] * Math.Cos(frequency * time));
                     }

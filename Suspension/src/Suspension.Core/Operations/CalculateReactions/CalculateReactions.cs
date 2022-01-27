@@ -22,7 +22,7 @@ namespace MudRunner.Suspension.Core.Operations.CalculateReactions
         /// Class constructor.
         /// </summary>
         /// <param name="mappingResolver"></param>
-        public CalculateReactions(IMappingResolver mappingResolver)
+        public CalculateReactions(IMappingResolver mappingResolver) : base()
         {
             this._mappingResolver = mappingResolver;
         }

@@ -1,8 +1,6 @@
 ﻿using MudRunner.Commons.Core.Operation;
 using MudRunner.Suspension.Core.Models.NumericalMethod;
-using MudRunner.Suspension.Core.Models.NumericalMethod.Newmark;
 using MudRunner.Suspension.DataContracts.RunAnalysis.Dynamic;
-using System.IO;
 using System.Threading.Tasks;
 
 namespace MudRunner.Suspension.Core.Operations.RunAnalysis.Dynamic
@@ -18,7 +16,7 @@ namespace MudRunner.Suspension.Core.Operations.RunAnalysis.Dynamic
         /// </summary>
         /// <param name="request"></param>
         /// <returns></returns>
-        Task<NewmarkMethodInput> BuildNumericalMethodInputAsync(TRequest request);
+        Task<NumericalMethodInput> BuildNumericalMethodInputAsync(TRequest request);
 
         /// <summary>
         /// Asynchronously, this method calculates the mass matrix.

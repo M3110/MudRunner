@@ -1,8 +1,8 @@
 ﻿using MudRunner.Commons.Core.ExtensionMethods;
+using MudRunner.Commons.Core.Factory.DifferentialEquationMethod;
 using MudRunner.Commons.Core.Models;
 using MudRunner.Suspension.Core.Models;
 using MudRunner.Suspension.Core.Models.NumericalMethod;
-using MudRunner.Suspension.Core.NumericalMethods.DifferentialEquation.Newmark;
 using MudRunner.Suspension.Core.Utils;
 using MudRunner.Suspension.DataContracts.RunAnalysis.Dynamic.HalfCar.SixDegreeOfFreedom;
 using System;
@@ -19,8 +19,8 @@ namespace MudRunner.Suspension.Core.Operations.RunAnalysis.Dynamic.HalfCar.SixDe
         /// <summary>
         /// Class constructor.
         /// </summary>
-        /// <param name="newmarkMethod"></param>
-        public RunHalfCarSixDofDynamicAnalysis(INewmarkMethod newmarkMethod) : base(newmarkMethod) { }
+        /// <param name="differentialEquationMethodFactory"></param>
+        public RunHalfCarSixDofDynamicAnalysis(IDifferentialEquationMethodFactory differentialEquationMethodFactory) : base(differentialEquationMethodFactory) { }
 
         /// <inheritdoc/>
         protected override uint NumberOfBoundaryConditions => 6;
@@ -161,7 +161,7 @@ namespace MudRunner.Suspension.Core.Operations.RunAnalysis.Dynamic.HalfCar.SixDe
             // because all calculations must be done with the units according to International System of Units.
             double carSpeed = UnitConverter.FromKmHToMS(request.BaseExcitation.CarSpeed);
 
-            double rearBaseExcitation = BaseExcitationUtils.Calculate(request.BaseExcitation, time - request.BaseExcitation.ObstacleWidth / carSpeed);
+            double rearBaseExcitation = BaseExcitationUtils.Calculate(request.BaseExcitation, time - (request.RearDistance + request.FrontDistance) / carSpeed);
             double frontBaseExcitation = BaseExcitationUtils.Calculate(request.BaseExcitation, time);
 
             double[] baseExcitation = new double[this.NumberOfBoundaryConditions];
@@ -169,7 +169,8 @@ namespace MudRunner.Suspension.Core.Operations.RunAnalysis.Dynamic.HalfCar.SixDe
             baseExcitation[5] = frontBaseExcitation;
 
             // [Equivalent Force] = [Applied Force] + [Equivalent Stiffness] * [Base Excitation]
-            return Task.FromResult(appliedForce.Sum(equivalentStiffness.Multiply(baseExcitation)));
+            var a = appliedForce.Sum(equivalentStiffness.Multiply(baseExcitation));
+            return Task.FromResult(a);
         }
 
         /// <inheritdoc/>
@@ -178,16 +179,16 @@ namespace MudRunner.Suspension.Core.Operations.RunAnalysis.Dynamic.HalfCar.SixDe
             StringBuilder fileHeader = new("Time");
 
             // Step i - Add the header for displacement.
-            fileHeader.Append("Car linear displacement,Car angular displacement,Engine linear displacement,Driver linear displacement,Rear linear displacement,Front linear displacement");
+            fileHeader.Append(",Car linear displacement,Car angular displacement,Engine linear displacement,Driver linear displacement,Rear linear displacement,Front linear displacement");
 
             // Step ii - Add the header for velocity.
-            fileHeader.Append("Car linear velocity,Car angular velocity,Engine linear velocity,Driver linear velocity,Rear linear velocity,Front linear velocity");
+            fileHeader.Append(",Car linear velocity,Car angular velocity,Engine linear velocity,Driver linear velocity,Rear linear velocity,Front linear velocity");
 
             // Step iii - Add the header for acceleration.
-            fileHeader.Append("Car linear acceleration,Car angular acceleration,Engine linear acceleration,Driver linear acceleration,Rear linear acceleration,Front linear acceleration");
+            fileHeader.Append(",Car linear acceleration,Car angular acceleration,Engine linear acceleration,Driver linear acceleration,Rear linear acceleration,Front linear acceleration");
 
             // Step iv - Add the header for equivalente force.
-            fileHeader.Append("Car equivalente force,Car equivalente torque,Engine equivalente force,Driver equivalente force,Rear equivalente force,Front equivalente force");
+            fileHeader.Append(",Car equivalente force,Car equivalente torque,Engine equivalente force,Driver equivalente force,Rear equivalente force,Front equivalente force");
 
             return fileHeader.ToString();
         }
@@ -200,7 +201,7 @@ namespace MudRunner.Suspension.Core.Operations.RunAnalysis.Dynamic.HalfCar.SixDe
             if (string.IsNullOrWhiteSpace(additionalFileNameInformation) == false)
                 fileName.Append($"{additionalFileNameInformation}_");
 
-            fileName.Append($"{DateTime.UtcNow:yyyy-MM-dd HH-mm-ss}");
+            fileName.Append($"{DateTime.UtcNow:yyyy-MM-dd HH-mm-ss}.csv");
 
             return fileName.ToString();
         }
@@ -210,10 +211,11 @@ namespace MudRunner.Suspension.Core.Operations.RunAnalysis.Dynamic.HalfCar.SixDe
         {
             NumericalMethodResult largeDisplacementResult = new()
             {
+                Time = result.Time,
                 Displacement = new double[this.NumberOfBoundaryConditions],
                 Velocity = new double[this.NumberOfBoundaryConditions],
                 Acceleration = new double[this.NumberOfBoundaryConditions],
-                EquivalentForce = new double[this.NumberOfBoundaryConditions],
+                EquivalentForce = new double[this.NumberOfBoundaryConditions]
             };
 
             for (int i = 0; i < this.NumberOfBoundaryConditions; i++)

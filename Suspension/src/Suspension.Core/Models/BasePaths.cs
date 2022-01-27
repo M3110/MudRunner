@@ -10,7 +10,7 @@ namespace MudRunner.Suspension.Core.Models
         /// <summary>
         /// The application base path.
         /// </summary>
-        public static string Application => Directory.GetCurrentDirectory().Replace("\\src\\SoftTissue.Application", "\\");
+        public static string Application => Directory.GetCurrentDirectory().Replace("\\src\\Suspension.Application", "\\");
 
         /// <summary>
         /// The base path to solution response files.

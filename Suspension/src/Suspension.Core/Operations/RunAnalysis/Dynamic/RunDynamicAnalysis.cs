@@ -1,9 +1,9 @@
-﻿using MudRunner.Commons.Core.Models;
+﻿using MudRunner.Commons.Core.Factory.DifferentialEquationMethod;
+using MudRunner.Commons.Core.Models;
 using MudRunner.Commons.Core.Operation;
 using MudRunner.Suspension.Core.ExtensionMethods;
 using MudRunner.Suspension.Core.Models.NumericalMethod;
-using MudRunner.Suspension.Core.Models.NumericalMethod.Newmark;
-using MudRunner.Suspension.Core.NumericalMethods.DifferentialEquation.Newmark;
+using MudRunner.Suspension.Core.NumericalMethods.DifferentialEquation;
 using MudRunner.Suspension.DataContracts.Models.Enums;
 using MudRunner.Suspension.DataContracts.RunAnalysis.Dynamic;
 using System;
@@ -30,15 +30,17 @@ namespace MudRunner.Suspension.Core.Operations.RunAnalysis.Dynamic
         /// </summary>
         protected abstract string SolutionPath { get; }
 
-        private readonly INewmarkMethod _newmarkMethod;
+        private IDifferentialEquationMethod _differentialEquationMethod;
+
+        private readonly IDifferentialEquationMethodFactory _differentialEquationMethodFactory;
 
         /// <summary>
         /// Class constructor.
         /// </summary>
-        /// <param name="newmarkMethod"></param>
-        public RunDynamicAnalysis(INewmarkMethod newmarkMethod)
+        /// <param name="differentialEquationMethodFactory"></param>
+        protected RunDynamicAnalysis(IDifferentialEquationMethodFactory differentialEquationMethodFactory)// : base()
         {
-            this._newmarkMethod = newmarkMethod;
+            this._differentialEquationMethodFactory = differentialEquationMethodFactory;
         }
 
         /// <summary>
@@ -52,7 +54,7 @@ namespace MudRunner.Suspension.Core.Operations.RunAnalysis.Dynamic
             response.SetSuccessOk();
 
             // Step 1 - Build the input for numerical method.
-            NewmarkMethodInput input = await this.BuildNumericalMethodInputAsync(request).ConfigureAwait(false);
+            NumericalMethodInput input = await this.BuildNumericalMethodInputAsync(request).ConfigureAwait(false);
 
             // Step 2 - Creates the solutions file and the folder if they do not exist.
             if (this.TryCreateSolutionFile(request.AdditionalFileNameInformation, out string solutionFullFileName) == false)
@@ -69,13 +71,13 @@ namespace MudRunner.Suspension.Core.Operations.RunAnalysis.Dynamic
                     streamWriter.WriteLine(this.CreateFileHeader());
 
                     // Step 4 - Calculates the result for initial time.
-                    NumericalMethodResult previousResult = this._newmarkMethod.CalculateInitialResult(input);
+                    NumericalMethodResult previousResult = this._differentialEquationMethod.CalculateInitialResult(input);
 
-                    double time = Constants.InitialTime;
+                    double time = Constants.InitialTime + request.TimeStep;
                     while (time <= request.FinalTime)
                     {
                         // Step 5 - Calculate the results and write it in the file.
-                        NumericalMethodResult result = await this._newmarkMethod.CalculateResultAsync(input, previousResult, time).ConfigureAwait(false);
+                        NumericalMethodResult result = await this._differentialEquationMethod.CalculateResultAsync(input, previousResult, time).ConfigureAwait(false);
                         if (request.ConsiderLargeDisplacements == false)
                         {
                             streamWriter.WriteLine($"{result}");
@@ -113,7 +115,7 @@ namespace MudRunner.Suspension.Core.Operations.RunAnalysis.Dynamic
         }
 
         /// <inheritdoc />
-        public async Task<NewmarkMethodInput> BuildNumericalMethodInputAsync(TRequest request)
+        public async Task<NumericalMethodInput> BuildNumericalMethodInputAsync(TRequest request)
         {
             // Step i - Create the mass, the stiffness and the damping matrixes, and the equivalent force vector.
             double[,] mass = default;
@@ -211,6 +213,13 @@ namespace MudRunner.Suspension.Core.Operations.RunAnalysis.Dynamic
             if (request.TimeStep >= request.FinalTime)
                 response.SetBadRequestError($"The time step: '{request.TimeStep}' must be smaller than final time: '{request.FinalTime}'.");
 
+            if (Enum.IsDefined(request.DifferentialEquationMethodEnum) == false)
+                response.SetBadRequestError($"Invalid {nameof(request.DifferentialEquationMethodEnum)}: '{request.DifferentialEquationMethodEnum}'.");
+
+            this._differentialEquationMethod = this._differentialEquationMethodFactory.Get(request.DifferentialEquationMethodEnum);
+            if (this._differentialEquationMethod == null)
+                response.SetBadRequestError($"The differential method '{request.DifferentialEquationMethodEnum}' was not registered in '{nameof(IDifferentialEquationMethodFactory)}'.");
+
             if (request.BaseExcitation != null)
             {
                 if (request.BaseExcitation.Constants.IsNullOrEmpty())
@@ -221,9 +230,6 @@ namespace MudRunner.Suspension.Core.Operations.RunAnalysis.Dynamic
 
                 if (request.BaseExcitation.CurveType == CurveType.Cosine)
                 {
-                    if (request.BaseExcitation.LimitTimes.IsNullOrEmpty())
-                        response.SetBadRequestError($"'{nameof(request.BaseExcitation.LimitTimes)}' cannot be null or empty.");
-
                     if (request.BaseExcitation.ObstacleWidth <= 0)
                         response.SetBadRequestError($"'{nameof(request.BaseExcitation.ObstacleWidth)}' must be greather than zero.");
 

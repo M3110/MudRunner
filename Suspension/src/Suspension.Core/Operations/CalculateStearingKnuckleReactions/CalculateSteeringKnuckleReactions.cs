@@ -18,7 +18,7 @@ namespace MudRunner.Suspension.Core.Operations.CalculateStearingKnuckleReactions
     {
         private readonly ICalculateReactions _calculateReactions;
 
-        public CalculateSteeringKnuckleReactions(ICalculateReactions calculateReactions)
+        public CalculateSteeringKnuckleReactions(ICalculateReactions calculateReactions) : base()
         {
             this._calculateReactions = calculateReactions;
         }
