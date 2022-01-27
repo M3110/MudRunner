@@ -15,10 +15,10 @@ namespace MudRunner.Commons.Core.Operation
         /// <summary>
         /// Class constructor.
         /// </summary>
-        protected OperationBase()
-        {
-            CultureInfo.CurrentCulture = CultureInfo.InvariantCulture;
-        }
+        //protected OperationBase()
+        //{
+        //    CultureInfo.CurrentCulture = CultureInfo.InvariantCulture;
+        //}
 
         /// <summary>
         /// Asynchronously, this method validates the request sent to operation.
