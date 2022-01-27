@@ -17,6 +17,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
  - Refactored numerical methods.
 ### Fixed
  - Class OperationBase that was not processing the operation correctly.
+ - Method 'AddErros' in class OperationResponseBase that was not adding errors when HttpStatusCode is not success.
 
 ## [1.2.0] - 2022-01-15
 ### Added

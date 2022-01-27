@@ -45,7 +45,7 @@ namespace MudRunner.Commons.DataContracts.Operation
             if (response.Errors.Count <= 0)
                 throw new ArgumentOutOfRangeException(nameof(response.Errors), $"It must contains at least one error in '{nameof(response.Errors)}'.");
 
-            if (this.IsSuccessHttpStatusCode(response.HttpStatusCode) == false)
+            if (this.IsSuccessHttpStatusCode(response.HttpStatusCode))
                 throw new ArgumentOutOfRangeException(nameof(response.HttpStatusCode), $"The '{nameof(response.HttpStatusCode)}' indicates success and cannot be used in method '{nameof(AddErrors)}'.");
 
             this.Errors.AddRange(response.Errors);

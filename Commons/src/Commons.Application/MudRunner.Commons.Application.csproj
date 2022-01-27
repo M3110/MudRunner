@@ -16,7 +16,7 @@
 	</ItemGroup>
 
 	<ItemGroup>
-		<ProjectReference Include="..\src\Commons.Core\MudRunner.Commons.Core.csproj" />
+	  <ProjectReference Include="..\Commons.Core\MudRunner.Commons.Core.csproj" />
 	</ItemGroup>
 
 </Project>
