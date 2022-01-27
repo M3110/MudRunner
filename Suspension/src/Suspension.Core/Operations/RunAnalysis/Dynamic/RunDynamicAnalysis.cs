@@ -49,6 +49,7 @@ namespace MudRunner.Suspension.Core.Operations.RunAnalysis.Dynamic
         protected async override Task<RunDynamicAnalysisResponse> ProcessOperationAsync(TRequest request)
         {
             RunDynamicAnalysisResponse response = new();
+            response.SetSuccessOk();
 
             // Step 1 - Build the input for numerical method.
             NewmarkMethodInput input = await this.BuildNumericalMethodInputAsync(request).ConfigureAwait(false);
@@ -106,7 +107,6 @@ namespace MudRunner.Suspension.Core.Operations.RunAnalysis.Dynamic
                 // Step 8 - At the end of the process, map the full name of solution file in the response
                 // and set the success as true and HTTP Status Code as 200 (OK).
                 response.Data.FullFileName = solutionFullFileName;
-                response.SetSuccessOk();
             }
 
             return response;
@@ -200,6 +200,7 @@ namespace MudRunner.Suspension.Core.Operations.RunAnalysis.Dynamic
         protected override Task<RunDynamicAnalysisResponse> ValidateOperationAsync(TRequest request)
         {
             RunDynamicAnalysisResponse response = new();
+            response.SetSuccessOk();
 
             if (request.TimeStep <= 0)
                 response.SetBadRequestError($"The time step: '{request.TimeStep}' must be greather zero.");
@@ -230,7 +231,6 @@ namespace MudRunner.Suspension.Core.Operations.RunAnalysis.Dynamic
                         response.SetBadRequestError($"'{nameof(request.BaseExcitation.CarSpeed)}' cannot be zero.");
                 }
             }
-
 
             return Task.FromResult(response);
         }

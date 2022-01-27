@@ -3,6 +3,7 @@ using MudRunner.Commons.Core.Models;
 using MudRunner.Suspension.Core.Models;
 using MudRunner.Suspension.Core.Models.NumericalMethod;
 using MudRunner.Suspension.Core.NumericalMethods.DifferentialEquation.Newmark;
+using MudRunner.Suspension.Core.Utils;
 using MudRunner.Suspension.DataContracts.RunAnalysis.Dynamic.HalfCar.SixDegreeOfFreedom;
 using System;
 using System.Text;
@@ -156,7 +157,11 @@ namespace MudRunner.Suspension.Core.Operations.RunAnalysis.Dynamic.HalfCar.SixDe
             equivalentStiffness[4, 4] = request.RearTireStiffness;
             equivalentStiffness[5, 5] = request.FrontTireStiffness;
 
-            double rearBaseExcitation = BaseExcitationUtils.Calculate(request.BaseExcitation, time - request.BaseExcitation.ObstacleWidth / request.BaseExcitation.CarSpeed);
+            // The speed of the car is in kilometers per hour when recieved in the request and it must be converted to meters per second
+            // because all calculations must be done with the units according to International System of Units.
+            double carSpeed = UnitConverter.FromKmHToMS(request.BaseExcitation.CarSpeed);
+
+            double rearBaseExcitation = BaseExcitationUtils.Calculate(request.BaseExcitation, time - request.BaseExcitation.ObstacleWidth / carSpeed);
             double frontBaseExcitation = BaseExcitationUtils.Calculate(request.BaseExcitation, time);
 
             double[] baseExcitation = new double[this.NumberOfBoundaryConditions];

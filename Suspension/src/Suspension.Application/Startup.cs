@@ -9,7 +9,9 @@ using MudRunner.Commons.Core.GeometricProperties.RectangularProfile;
 using MudRunner.Commons.DataContracts.Models.Profiles;
 using MudRunner.Suspension.Application.Extensions;
 using MudRunner.Suspension.Core.Mapper;
+using MudRunner.Suspension.Core.NumericalMethods.DifferentialEquation.Newmark;
 using MudRunner.Suspension.Core.Operations.CalculateReactions;
+using MudRunner.Suspension.Core.Operations.RunAnalysis.Dynamic.HalfCar.SixDegreeOfFreedom;
 using MudRunner.Suspension.Core.Operations.RunAnalysis.Fatigue.CircularProfile;
 using MudRunner.Suspension.Core.Operations.RunAnalysis.Fatigue.RectangularProfile;
 using MudRunner.Suspension.Core.Operations.RunAnalysis.Static.CircularProfile;
@@ -42,12 +44,16 @@ namespace MudRunner.Suspension.Application
             // Register Mapper
             services.AddScoped<IMappingResolver, MappingResolver>();
 
+            // Register numerical methods
+            services.AddScoped<INewmarkMethod, NewmarkMethod>();
+
             // Register operations.
             services.AddScoped<ICalculateReactions, CalculateReactions>();
             services.AddScoped<IRunCircularProfileStaticAnalysis, RunCircularProfileStaticAnalysis>();
             services.AddScoped<IRunRectangularProfileStaticAnalysis, RunRectangularProfileStaticAnalysis>();
             services.AddScoped<IRunCircularProfileFatigueAnalysis, RunCircularProfileFatigueAnalysis>();
             services.AddScoped<IRunRectangularProfileFatigueAnalysis, RunRectangularProfileFatigueAnalysis>();
+            services.AddScoped<IRunHalfCarSixDofDynamicAnalysis, RunHalfCarSixDofDynamicAnalysis>();
 
             services
                 .AddControllers()

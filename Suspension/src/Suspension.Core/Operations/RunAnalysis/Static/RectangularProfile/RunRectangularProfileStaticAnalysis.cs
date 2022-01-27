@@ -36,6 +36,7 @@ namespace MudRunner.Suspension.Core.Operations.RunAnalysis.Static.RectangularPro
         protected override Task<RunStaticAnalysisResponse> ValidateOperationAsync(RunStaticAnalysisRequest<DataContract.RectangularProfile> request)
         {
             RunStaticAnalysisResponse response = new();
+            response.SetSuccessOk();
 
             return Task.FromResult(response);
         }

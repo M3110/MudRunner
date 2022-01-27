@@ -5,10 +5,18 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
 ## UNRELEASED
-### Addedd
+### Added
+ - Project MudRunner.Commons.Application.
  - Property 'InitialTime' in class Constants.
+ - Class UnitConverter.
+ - Class DifferentialEquationMethodFactory.
 ### Removed
  - Property 'InitialTime' in class NumericalMethodInput.
+ - Classes NewmarkMethodInput and NewmarkBetaMethodInput.
+### Changed
+ - Refactored numerical methods.
+### Fixed
+ - Class OperationBase that was not processing the operation correctly.
 
 ## [1.2.0] - 2022-01-15
 ### Added

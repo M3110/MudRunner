@@ -30,6 +30,7 @@ namespace MudRunner.Suspension.Core.Operations.RunAnalysis.Fatigue.CircularProfi
         protected override Task<RunFatigueAnalysisResponse> ValidateOperationAsync(RunFatigueAnalysisRequest<DataContract.CircularProfile> request)
         {
             RunFatigueAnalysisResponse response = new();
+            response.SetSuccessOk();
 
             return Task.FromResult(response);
         }

@@ -36,6 +36,7 @@ namespace MudRunner.Suspension.Core.Operations.RunAnalysis.Static.CircularProfil
         protected override Task<RunStaticAnalysisResponse> ValidateOperationAsync(RunStaticAnalysisRequest<DataContract.CircularProfile> request)
         {
             RunStaticAnalysisResponse response = new();
+            response.SetSuccessOk();
 
             return Task.FromResult(response);
         }

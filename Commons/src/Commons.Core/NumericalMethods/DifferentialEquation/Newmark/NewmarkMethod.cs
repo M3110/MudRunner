@@ -1,17 +1,22 @@
 ﻿using MudRunner.Commons.Core.ExtensionMethods;
 using MudRunner.Commons.Core.Models;
 using MudRunner.Suspension.Core.Models.NumericalMethod;
-using MudRunner.Suspension.Core.Models.NumericalMethod.Newmark;
 
 namespace MudRunner.Suspension.Core.NumericalMethods.DifferentialEquation.Newmark
 {
     /// <summary>
     /// It is responsible to execute the Newmark numerical method to solve Differential Equation.
     /// </summary>
-    public class NewmarkMethod : DifferentialEquationMethod<NewmarkMethodInput>, INewmarkMethod
+    public class NewmarkMethod : DifferentialEquationMethod, INewmarkMethod
     {
         /// <inheritdoc/>
-        public override async Task<NumericalMethodResult> CalculateResultAsync(NewmarkMethodInput input, NumericalMethodResult previousResult, double time)
+        protected override double Gama => (double)1 / 2;
+
+        /// <inheritdoc/>
+        protected override double Beta => (double)1 / 6;
+
+        /// <inheritdoc/>
+        public override async Task<NumericalMethodResult> CalculateResultAsync(NumericalMethodInput input, NumericalMethodResult previousResult, double time)
         {
             if (time < Constants.InitialTime)
                 throw new ArgumentOutOfRangeException(nameof(time), $"The time cannot be less than the initial time: {Constants.InitialTime}.");
@@ -40,8 +45,8 @@ namespace MudRunner.Suspension.Core.NumericalMethods.DifferentialEquation.Newmar
             double[] acceleration = new double[input.NumberOfBoundaryConditions];
             for (int i = 0; i < input.NumberOfBoundaryConditions; i++)
             {
-                acceleration[i] = input.A0 * (displacement[i] - previousResult.Displacement[i]) - input.A2 * previousResult.Velocity[i] - input.A3 * previousResult.Acceleration[i];
-                velocity[i] = previousResult.Velocity[i] + input.A6 * previousResult.Acceleration[i] + input.A7 * acceleration[i];
+                acceleration[i] = GetA0(input.TimeStep) * (displacement[i] - previousResult.Displacement[i]) - GetA2(input.TimeStep) * previousResult.Velocity[i] - GetA3() * previousResult.Acceleration[i];
+                velocity[i] = previousResult.Velocity[i] + GetA6(input.TimeStep) * previousResult.Acceleration[i] + GetA7(input.TimeStep) * acceleration[i];
             }
             #endregion
 
@@ -60,14 +65,14 @@ namespace MudRunner.Suspension.Core.NumericalMethods.DifferentialEquation.Newmar
         /// </summary>
         /// <param name="input"></param>
         /// <returns></returns>
-        private double[,] CalculateEquivalentStiffness(NewmarkMethodInput input)
+        private double[,] CalculateEquivalentStiffness(NumericalMethodInput input)
         {
             double[,] equivalentStiffness = new double[input.NumberOfBoundaryConditions, input.NumberOfBoundaryConditions];
             for (int i = 0; i < input.NumberOfBoundaryConditions; i++)
             {
                 for (int j = 0; j < input.NumberOfBoundaryConditions; j++)
                 {
-                    equivalentStiffness[i, j] = input.A0 * input.Mass[i, j] + input.A1 * input.Damping[i, j] + input.Stiffness[i, j];
+                    equivalentStiffness[i, j] = GetA0(input.TimeStep) * input.Mass[i, j] + GetA1(input.TimeStep) * input.Damping[i, j] + input.Stiffness[i, j];
                 }
             }
 
@@ -82,7 +87,7 @@ namespace MudRunner.Suspension.Core.NumericalMethods.DifferentialEquation.Newmar
         /// <param name="previousVelocity"></param>
         /// <param name="previousAcceleration"></param>
         /// <returns></returns>
-        private async Task<double[]> CalculateEquivalentForceAsync(NewmarkMethodInput input, double[] previousDisplacement, double[] previousVelocity, double[] previousAcceleration)
+        private async Task<double[]> CalculateEquivalentForceAsync(NumericalMethodInput input, double[] previousDisplacement, double[] previousVelocity, double[] previousAcceleration)
         {
             #region Calculates the equivalent velocity and equivalent acceleration.
             var tasks = new List<Task>();
@@ -119,12 +124,12 @@ namespace MudRunner.Suspension.Core.NumericalMethods.DifferentialEquation.Newmar
         /// <param name="previousVelocity"></param>
         /// <param name="previousAcceleration"></param>
         /// <returns></returns>
-        private double[] CalculateEquivalentAcceleration(NewmarkMethodInput input, double[] previousDisplacement, double[] previousVelocity, double[] previousAcceleration)
+        private double[] CalculateEquivalentAcceleration(NumericalMethodInput input, double[] previousDisplacement, double[] previousVelocity, double[] previousAcceleration)
         {
             double[] equivalentAcceleration = new double[input.NumberOfBoundaryConditions];
             for (int i = 0; i < input.NumberOfBoundaryConditions; i++)
             {
-                equivalentAcceleration[i] = input.A0 * previousDisplacement[i] + input.A2 * previousVelocity[i] + input.A3 * previousAcceleration[i];
+                equivalentAcceleration[i] = GetA0(input.TimeStep) * previousDisplacement[i] + GetA2(input.TimeStep) * previousVelocity[i] + GetA3() * previousAcceleration[i];
             }
 
             return equivalentAcceleration;
@@ -138,15 +143,35 @@ namespace MudRunner.Suspension.Core.NumericalMethods.DifferentialEquation.Newmar
         /// <param name="previousVelocity"></param>
         /// <param name="previousAcceleration"></param>
         /// <returns></returns>
-        private double[] CalculateEquivalentVelocity(NewmarkMethodInput input, double[] previousDisplacement, double[] previousVelocity, double[] previousAcceleration)
+        private double[] CalculateEquivalentVelocity(NumericalMethodInput input, double[] previousDisplacement, double[] previousVelocity, double[] previousAcceleration)
         {
             double[] equivalentVelocity = new double[input.NumberOfBoundaryConditions];
             for (int i = 0; i < input.NumberOfBoundaryConditions; i++)
             {
-                equivalentVelocity[i] = input.A1 * previousDisplacement[i] + input.A4 * previousVelocity[i] + input.A5 * previousAcceleration[i];
+                equivalentVelocity[i] = GetA1(input.TimeStep) * previousDisplacement[i] + GetA4() * previousVelocity[i] + GetA5(input.TimeStep) * previousAcceleration[i];
             }
 
             return equivalentVelocity;
         }
+
+        #region Integration Constants
+
+        private double GetA0(double timeStep) => 1 / (this.Beta * Math.Pow(timeStep, 2));
+
+        private double GetA1(double timeStep) => this.Gama / (this.Beta * timeStep);
+
+        private double GetA2(double timeStep) => 1 / (this.Beta * timeStep);
+
+        private double GetA3() => 1 / (2 * this.Beta) - 1;
+
+        private double GetA4() => this.Gama / this.Beta - 1;
+
+        private double GetA5(double timeStep) => timeStep / 2 * (this.Gama / this.Beta - 2);
+
+        private double GetA6(double timeStep) => timeStep * (1 - this.Gama);
+
+        private double GetA7(double timeStep) => this.Gama * timeStep;
+
+        #endregion
     }
 }

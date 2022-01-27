@@ -1,9 +1,10 @@
-﻿using MudRunner.Suspension.DataContracts.Models;
+﻿using MudRunner.Commons.Core.Models;
+using MudRunner.Suspension.DataContracts.Models;
 using MudRunner.Suspension.DataContracts.Models.Enums;
 using System;
 using System.Collections.Generic;
 
-namespace MudRunner.Suspension.Core.Models
+namespace MudRunner.Suspension.Core.Utils
 {
     /// <summary>
     /// It contains useful methods for <see cref="BaseExcitation"/>.
@@ -46,14 +47,28 @@ namespace MudRunner.Suspension.Core.Models
 
             if (curveType == CurveType.Cosine)
             {
-                double frequency = 2 * Math.PI * baseExcitation.CarSpeed / baseExcitation.ObstacleWidth;
+                // The speed of the car is in kilometers per hour when recieved in the request and it must be converted to meters per second
+                // because all calculations must be done with the units according to International System of Units.
+                double carSpeed = UnitConverter.FromKmHToMS(baseExcitation.CarSpeed);
+
+                double frequency = 2 * Math.PI * carSpeed / baseExcitation.ObstacleWidth;
 
                 double result = 0;
-                for (int i = 0; i < constants.Count / 3; i++)
+                if (limitTimes == null)
                 {
-                    if (limitTimes[2 * i] <= time && time < limitTimes[2 * i + 1])
+                    if (Constants.InitialTime <= time && time <= Constants.InitialTime + carSpeed / baseExcitation.ObstacleWidth)
                     {
-                        result = (constants[3 * i] / 2) * (constants[3 * i + 1] + constants[3 * 2] * Math.Cos(frequency * time));
+                        result = constants[0] / 2 * (constants[1] + constants[2] * Math.Cos(frequency * time));
+                    }
+                }
+                else
+                {
+                    for (int i = 0; i < constants.Count / 3; i++)
+                    {
+                        if (limitTimes[2 * i] <= time && time < limitTimes[2 * i + 1])
+                        {
+                            result = constants[3 * i] / 2 * (constants[3 * i + 1] + constants[3 * i + 2] * Math.Cos(frequency * time));
+                        }
                     }
                 }
 

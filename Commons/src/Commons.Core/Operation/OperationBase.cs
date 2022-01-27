@@ -55,7 +55,7 @@ namespace MudRunner.Commons.Core.Operation
                     return response;
                 }
 
-                validationResponse = await ProcessOperationAsync(request).ConfigureAwait(false);
+                response = await ProcessOperationAsync(request).ConfigureAwait(false);
             }
             catch (Exception ex)
             {

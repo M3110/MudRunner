@@ -29,6 +29,7 @@ namespace MudRunner.Suspension.Core.Operations.RunAnalysis.Fatigue.RectangularPr
         protected override Task<RunFatigueAnalysisResponse> ValidateOperationAsync(RunFatigueAnalysisRequest<DataContract.RectangularProfile> request)
         {
             RunFatigueAnalysisResponse response = new();
+            response.SetSuccessOk();
 
             return Task.FromResult(response);
         }

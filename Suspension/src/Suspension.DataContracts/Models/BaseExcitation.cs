@@ -32,7 +32,7 @@ namespace MudRunner.Suspension.DataContracts.Models
 
         /// <summary>
         /// The speed at which the car is traveling down the track.
-        /// Unit: m/s (meter per second).
+        /// Unit: km/h (kilometer per hour).
         /// </summary>
         public double CarSpeed { get; set; }
     }
