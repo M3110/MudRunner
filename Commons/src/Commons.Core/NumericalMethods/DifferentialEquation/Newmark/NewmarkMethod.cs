@@ -25,7 +25,7 @@ namespace MudRunner.Suspension.Core.NumericalMethods.DifferentialEquation.Newmar
                 return this.CalculateInitialResult(input);
 
             #region Step 1 - Asynchronously, calculates the equivalent stiffness and equivalent force.
-            var tasks = new List<Task>();
+            List<Task> tasks = new();
 
             double[,] inversedEquivalentStiffness = null;
             tasks.Add(Task.Run(() => inversedEquivalentStiffness = this.CalculateEquivalentStiffness(input).InverseMatrix()));
@@ -90,7 +90,7 @@ namespace MudRunner.Suspension.Core.NumericalMethods.DifferentialEquation.Newmar
         private async Task<double[]> CalculateEquivalentForceAsync(NumericalMethodInput input, double[] previousDisplacement, double[] previousVelocity, double[] previousAcceleration)
         {
             #region Calculates the equivalent velocity and equivalent acceleration.
-            var tasks = new List<Task>();
+            List<Task> tasks = new();
 
             double[] equivalentVelocity = null;
             tasks.Add(Task.Run(() => equivalentVelocity = this.CalculateEquivalentVelocity(input, previousDisplacement, previousVelocity, previousAcceleration)));
@@ -102,13 +102,13 @@ namespace MudRunner.Suspension.Core.NumericalMethods.DifferentialEquation.Newmar
             #endregion
 
             #region Calculates the equivalent forces.
-            var forceTasks = new List<Task>();
+            List<Task> forceTasks = new();
 
             double[] equivalentDampingForce = null;
-            tasks.Add(Task.Run(() => equivalentDampingForce = input.Damping.Multiply(equivalentVelocity)));
+            forceTasks.Add(Task.Run(() => equivalentDampingForce = input.Damping.Multiply(equivalentVelocity)));
 
             double[] equivalentDynamicForce = null;
-            tasks.Add(Task.Run(() => equivalentDynamicForce = input.Mass.Multiply(equivalentAcceleration)));
+            forceTasks.Add(Task.Run(() => equivalentDynamicForce = input.Mass.Multiply(equivalentAcceleration)));
 
             await Task.WhenAll(forceTasks).ConfigureAwait(false);
             #endregion

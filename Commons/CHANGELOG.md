@@ -18,6 +18,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 ### Fixed
  - Class OperationBase that was not processing the operation correctly.
  - Method 'AddErros' in class OperationResponseBase that was not adding errors when HttpStatusCode is not success.
+ - Method 'CalculateEquivalentForceAsync' in class NewmarkMethod that was returning null vectors.
 
 ## [1.2.0] - 2022-01-15
 ### Added
