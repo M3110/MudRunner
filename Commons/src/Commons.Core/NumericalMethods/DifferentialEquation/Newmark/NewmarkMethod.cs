@@ -13,7 +13,7 @@ namespace MudRunner.Suspension.Core.NumericalMethods.DifferentialEquation.Newmar
         protected override double Gama => (double)1 / 2;
 
         /// <inheritdoc/>
-        protected override double Beta => (double)1 / 6;
+        protected override double Beta => (double)1 / 4;
 
         /// <inheritdoc/>
         public override async Task<NumericalMethodResult> CalculateResultAsync(NumericalMethodInput input, NumericalMethodResult previousResult, double time)
