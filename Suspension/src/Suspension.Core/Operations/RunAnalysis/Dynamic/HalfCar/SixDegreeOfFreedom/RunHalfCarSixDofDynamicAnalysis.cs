@@ -96,32 +96,32 @@ namespace MudRunner.Suspension.Core.Operations.RunAnalysis.Dynamic.HalfCar.SixDe
         public override Task<double[,]> BuildStiffnessMatrixAsync(RunHalfCarSixDofDynamicAnalysisRequest request)
         {
             double[,] stiffness = new double[this.NumberOfBoundaryConditions, this.NumberOfBoundaryConditions];
-            stiffness[0, 0] = request.RearStiffness + request.FrontStiffness - request.EngineMountStiffness - request.SeatStiffness;
-            stiffness[0, 1] = -request.RearStiffness * request.RearDistance + request.FrontStiffness * request.FrontDistance + request.EngineMountStiffness * request.EngineDistance - request.SeatStiffness * request.DriverDistance;
-            stiffness[0, 2] = request.EngineMountStiffness;
-            stiffness[0, 3] = request.SeatStiffness;
+            stiffness[0, 0] = request.RearStiffness + request.FrontStiffness + request.EngineMountStiffness + request.SeatStiffness;
+            stiffness[0, 1] = -request.RearStiffness * request.RearDistance + request.FrontStiffness * request.FrontDistance - request.EngineMountStiffness * request.EngineDistance + request.SeatStiffness * request.DriverDistance;
+            stiffness[0, 2] = -request.EngineMountStiffness;
+            stiffness[0, 3] = -request.SeatStiffness;
             stiffness[0, 4] = -request.RearStiffness;
             stiffness[0, 5] = -request.FrontStiffness;
             // Second row.
-            stiffness[1, 0] = -request.RearStiffness * request.RearDistance + request.FrontStiffness * request.FrontDistance + request.EngineMountStiffness * request.EngineDistance - request.SeatStiffness * request.DriverDistance;
+            stiffness[1, 0] = -request.RearStiffness * request.RearDistance + request.FrontStiffness * request.FrontDistance - request.EngineMountStiffness * request.EngineDistance + request.SeatStiffness * request.DriverDistance;
             stiffness[1, 1] = request.RearStiffness * Math.Pow(request.RearDistance, 2) + request.FrontStiffness * Math.Pow(request.FrontDistance, 2)
-                - request.EngineMountStiffness * Math.Pow(request.EngineDistance, 2) - request.SeatStiffness * Math.Pow(request.DriverDistance, 2);
-            stiffness[1, 2] = -request.EngineMountStiffness * request.EngineDistance;
-            stiffness[1, 3] = request.SeatStiffness * request.DriverDistance;
+                + request.EngineMountStiffness * Math.Pow(request.EngineDistance, 2) + request.SeatStiffness * Math.Pow(request.DriverDistance, 2);
+            stiffness[1, 2] = request.EngineMountStiffness * request.EngineDistance;
+            stiffness[1, 3] = -request.SeatStiffness * request.DriverDistance;
             stiffness[1, 4] = request.RearStiffness * request.RearDistance;
             stiffness[1, 5] = -request.FrontStiffness * request.FrontDistance;
             // Third row.
-            stiffness[2, 0] = request.EngineMountStiffness;
-            stiffness[2, 1] = -request.EngineMountStiffness * request.EngineDistance;
-            stiffness[2, 2] = -request.EngineMountStiffness;
+            stiffness[2, 0] = -request.EngineMountStiffness;
+            stiffness[2, 1] = request.EngineMountStiffness * request.EngineDistance;
+            stiffness[2, 2] = request.EngineMountStiffness;
             stiffness[2, 3] = 0;
             stiffness[2, 4] = 0;
             stiffness[2, 5] = 0;
             // Forth row.
-            stiffness[3, 0] = request.SeatStiffness;
-            stiffness[3, 1] = request.SeatStiffness * request.DriverDistance;
+            stiffness[3, 0] = -request.SeatStiffness;
+            stiffness[3, 1] = -request.SeatStiffness * request.DriverDistance;
             stiffness[3, 2] = 0;
-            stiffness[3, 3] = -request.SeatStiffness;
+            stiffness[3, 3] = request.SeatStiffness;
             stiffness[3, 4] = 0;
             stiffness[3, 5] = 0;
             // Fifth row.
@@ -201,7 +201,7 @@ namespace MudRunner.Suspension.Core.Operations.RunAnalysis.Dynamic.HalfCar.SixDe
             if (string.IsNullOrWhiteSpace(additionalFileNameInformation) == false)
                 fileName.Append($"{additionalFileNameInformation}_");
 
-            fileName.Append($"{DateTime.UtcNow:yyyy-MM-dd HH-mm-ss}.csv");
+            fileName.Append($"{DateTime.UtcNow:yyyyMMddHHmmss}.csv");
 
             return fileName.ToString();
         }

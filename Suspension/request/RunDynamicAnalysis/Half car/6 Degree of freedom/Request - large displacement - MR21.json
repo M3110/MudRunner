@@ -1,0 +1,37 @@
+{
+  "frontMassDistribution": 0.45,
+  "rearMassDistribution": 0.55,
+  "carMass": 105,
+  "carMomentOfInertia": 38.85,
+  "engineMass": 12,
+  "engineMountStiffness": 320000,
+  "engineDistance": 0.285,
+  "engineForce": 0,
+  "engineFrequency": 0,
+  "rearDamping": 500,
+  "rearStiffness": 31600,
+  "rearTireStiffness": 100000,
+  "rearDistance": 0.64,
+  "frontDamping": 500,
+  "frontStiffness": 31600,
+  "frontTireStiffness": 100000,
+  "frontDistance": 0.8,
+  "rearUnsprungMass": 5,
+  "frontUnsprungMass": 5,
+  "driverMass": 40,
+  "seatStiffness": 320000,
+  "driverDistance": 0.08,
+  "considerLargeDisplacements": true,
+  "timeStep": 0.1,
+  "finalTime": 100,
+  "additionalFileNameInformation": "Large displacement",
+  "differentialEquationMethodEnum": "Newmark",
+  "baseExcitation": {
+    "constants": [
+      1e-1,-1,1
+    ],
+    "curveType": "Cosine",
+    "obstacleWidth": 1,
+    "carSpeed": 30
+  }
+}

@@ -38,7 +38,7 @@ namespace MudRunner.Suspension.Core.Operations.RunAnalysis.Dynamic
         /// Class constructor.
         /// </summary>
         /// <param name="differentialEquationMethodFactory"></param>
-        protected RunDynamicAnalysis(IDifferentialEquationMethodFactory differentialEquationMethodFactory)// : base()
+        protected RunDynamicAnalysis(IDifferentialEquationMethodFactory differentialEquationMethodFactory)
         {
             this._differentialEquationMethodFactory = differentialEquationMethodFactory;
         }
@@ -51,7 +51,7 @@ namespace MudRunner.Suspension.Core.Operations.RunAnalysis.Dynamic
         protected async override Task<RunDynamicAnalysisResponse> ProcessOperationAsync(TRequest request)
         {
             RunDynamicAnalysisResponse response = new();
-            response.SetSuccessOk();
+            response.SetSuccessCreated();
 
             // Step 1 - Build the input for numerical method.
             NumericalMethodInput input = await this.BuildNumericalMethodInputAsync(request).ConfigureAwait(false);
@@ -84,8 +84,6 @@ namespace MudRunner.Suspension.Core.Operations.RunAnalysis.Dynamic
                         }
                         else
                         {
-                            // OBS.: 
-                            //   The variable 'largeDisplacementResult' must only be used 
                             NumericalMethodResult largeDisplacementResult = this.BuildLargeDisplacementResult(result);
                             streamWriter.WriteLine($"{largeDisplacementResult}");
                         }
@@ -107,7 +105,7 @@ namespace MudRunner.Suspension.Core.Operations.RunAnalysis.Dynamic
             finally
             {
                 // Step 8 - At the end of the process, map the full name of solution file in the response
-                // and set the success as true and HTTP Status Code as 200 (OK).
+                // and set the success as true and HTTP Status Code as 201 (Created).
                 response.Data.FullFileName = solutionFullFileName;
             }
 
@@ -204,11 +202,11 @@ namespace MudRunner.Suspension.Core.Operations.RunAnalysis.Dynamic
             RunDynamicAnalysisResponse response = new();
             response.SetSuccessOk();
 
-            if (request.TimeStep <= 0)
-                response.SetBadRequestError($"The time step: '{request.TimeStep}' must be greather zero.");
+            if (request.TimeStep < 0)
+                response.SetBadRequestError($"The time step: '{request.TimeStep}' must be greather than zero.");
 
-            if (request.FinalTime <= 0)
-                response.SetBadRequestError($"The final time: '{request.FinalTime}' must be greather zero.");
+            if (request.FinalTime < 0)
+                response.SetBadRequestError($"The final time: '{request.FinalTime}' must be greather than zero.");
 
             if (request.TimeStep >= request.FinalTime)
                 response.SetBadRequestError($"The time step: '{request.TimeStep}' must be smaller than final time: '{request.FinalTime}'.");

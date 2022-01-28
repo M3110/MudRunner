@@ -39,7 +39,7 @@ namespace MudRunner.Suspension.Core.Operations.RunAnalysis
             ICalculateReactions calculateReactions,
             IMechanicsOfMaterials mechanicsOfMaterials,
             IGeometricProperty<TProfile> geometricProperty,
-            IMappingResolver mappingResolver) : base()
+            IMappingResolver mappingResolver)
         {
             this._calculateReactions = calculateReactions;
             this._mechanicsOfMaterials = mechanicsOfMaterials;
