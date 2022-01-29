@@ -20,11 +20,8 @@ namespace MudRunner.Suspension.Core.NumericalMethods.DifferentialEquation
         /// <inheritdoc/>
         public virtual NumericalMethodResult CalculateInitialResult(NumericalMethodInput input)
         {
-            return new NumericalMethodResult
+            return new(input.NumberOfBoundaryConditions)
             {
-                Displacement = new double[input.NumberOfBoundaryConditions],
-                Velocity = new double[input.NumberOfBoundaryConditions],
-                Acceleration = new double[input.NumberOfBoundaryConditions],
                 EquivalentForce = input.EquivalentForce
             };
         }

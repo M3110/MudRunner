@@ -8,6 +8,23 @@ namespace MudRunner.Suspension.Core.Models.NumericalMethod
     public class NumericalMethodResult
     {
         /// <summary>
+        /// Basic constructor.
+        /// </summary>
+        public NumericalMethodResult() { }
+
+        /// <summary>
+        /// Class constructor.
+        /// </summary>
+        /// <param name="numberOfBoundaryConditions"></param>
+        public NumericalMethodResult(uint numberOfBoundaryConditions)
+        {
+            this.Displacement = new double[numberOfBoundaryConditions];
+            this.Velocity = new double[numberOfBoundaryConditions];
+            this.Acceleration = new double[numberOfBoundaryConditions];
+            this.EquivalentForce = new double[numberOfBoundaryConditions];
+        }
+
+        /// <summary>
         /// Unit: s (second).
         /// </summary>
         public double Time { get; set; }

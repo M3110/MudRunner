@@ -81,6 +81,11 @@ namespace MudRunner.Commons.DataContracts.Operation
         public void SetSuccessAccepted() => this.SetSuccess(HttpStatusCode.Accepted);
 
         /// <summary>
+        /// This method sets Success to true and the HttpStatusCode to 206 (PartialContent).
+        /// </summary>
+        public void SetSuccessPartialContent() => this.SetSuccess(HttpStatusCode.PartialContent);
+
+        /// <summary>
         /// This method sets Success to false and the HttpStatusCode to 400 (BadRequest).
         /// </summary>
         /// <param name="error"></param>

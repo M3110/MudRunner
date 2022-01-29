@@ -75,7 +75,7 @@ namespace MudRunner.Suspension.Core.NumericalMethods.DifferentialEquation.Newmar
 
             #endregion
 
-            return new NumericalMethodResult
+            return new()
             {
                 Time = time,
                 Displacement = displacement,
