@@ -11,5 +11,10 @@ namespace MudRunner.Suspension.DataContracts.RunAnalysis.Dynamic
         /// The full name of solution file.
         /// </summary>
         public string FullFileName { get; set; }
+
+        /// <summary>
+        /// The maximum results for analysis.
+        /// </summary>
+        public DynamicAnalysisResult MaximumResult { get; set; }
     }
 }

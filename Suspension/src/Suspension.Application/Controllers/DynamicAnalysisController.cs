@@ -16,12 +16,12 @@ namespace MudRunner.Suspension.Application.Controllers
         /// </summary>
         /// <param name="operation"></param>
         /// <param name="request"></param>
-        /// <response code="200">Returns the reactions value.</response>
+        /// <response code="201">Returns the file with the results.</response>
         /// <response code="400">If some validation do not passed.</response>
         /// <response code="500">If occurred some error in process.</response>
         /// <response code="501">If some resource is not implemented.</response>
         /// <returns></returns>
-        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status201Created)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         [ProducesResponseType(StatusCodes.Status501NotImplemented)]
@@ -31,6 +31,30 @@ namespace MudRunner.Suspension.Application.Controllers
             [FromBody] RunHalfCarSixDofDynamicAnalysisRequest request)
         {
             RunDynamicAnalysisResponse response = await operation.ProcessAsync(request).ConfigureAwait(false);
+            return response.BuildHttpResponse();
+        }
+
+        /// <summary>
+        /// This operation runs the dynamic analysis to suspension system focusing in the amplitude of the system 
+        /// considering half car and six degrees of freedom.
+        /// </summary>
+        /// <param name="operation"></param>
+        /// <param name="request"></param>
+        /// <response code="201">Returns the file with the results.</response>
+        /// <response code="400">If some validation do not passed.</response>
+        /// <response code="500">If occurred some error in process.</response>
+        /// <response code="501">If some resource is not implemented.</response>
+        /// <returns></returns>
+        [ProducesResponseType(StatusCodes.Status201Created)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
+        [ProducesResponseType(StatusCodes.Status501NotImplemented)]
+        [HttpPost("half-car/six-degrees-of-freedom/amplitude")]
+        public async Task<ActionResult<RunAmplitudeDynamicAnalysisResponse>> RunAmplitudeAnalysis(
+            [FromServices] IRunHalfCarSixDofAmplitudeDynamicAnalysis operation,
+            [FromBody] RunHalfCarSixDofAmplitudeDynamicAnalysisRequest request)
+        {
+            RunAmplitudeDynamicAnalysisResponse response = await operation.ProcessAsync(request).ConfigureAwait(false);
             return response.BuildHttpResponse();
         }
     }

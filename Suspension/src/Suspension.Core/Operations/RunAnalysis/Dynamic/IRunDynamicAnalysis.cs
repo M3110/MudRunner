@@ -9,7 +9,7 @@ namespace MudRunner.Suspension.Core.Operations.RunAnalysis.Dynamic
     /// It is responsible to run the dynamic analysis to suspension system.
     /// </summary>
     public interface IRunDynamicAnalysis<TRequest> : IOperationBase<TRequest, RunDynamicAnalysisResponse>
-        where TRequest : RunDynamicAnalysisRequest
+        where TRequest : RunGenericDynamicAnalysisRequest
     {
         /// <summary>
         /// Asynchronously, this method builds the input for numerical method.

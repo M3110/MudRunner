@@ -10,8 +10,10 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 ### Added
  - Enum CurveType.
  - Class BaseExcitation.
- - Properties 'ConsiderLargeDisplacements', 'BaseExcitation' and 'CarSpeed' to class RunDynamicAnalysisRequest.
- - 
+ - Class DynamicAnalysisResult.
+ - Properties 'ConsiderLargeDisplacements', 'BaseExcitation' and 'CarSpeed' on class RunDynamicAnalysisRequest.
+ - Properties 'MaximumResult' and 'DynamicAnalysisResult' on class RunDynamicAnalysisResponseData.
+ - Operations RunAmplitudeDynamicAnalysis, RunHalfCarSixDofDynamicAnalysis and RunHalfCarSixDofAmplitudeDynamicAnalysis.
 
 ## [1.2.0] - 2022-01-13
 ### Changed

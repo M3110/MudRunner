@@ -58,6 +58,7 @@ namespace MudRunner.Suspension.Application
             services.AddScoped<IRunCircularProfileFatigueAnalysis, RunCircularProfileFatigueAnalysis>();
             services.AddScoped<IRunRectangularProfileFatigueAnalysis, RunRectangularProfileFatigueAnalysis>();
             services.AddScoped<IRunHalfCarSixDofDynamicAnalysis, RunHalfCarSixDofDynamicAnalysis>();
+            services.AddScoped<IRunHalfCarSixDofAmplitudeDynamicAnalysis, RunHalfCarSixDofAmplitudeDynamicAnalysis>();
 
             services
                 .AddControllers()

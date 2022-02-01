@@ -1,6 +1,7 @@
 ﻿using MudRunner.Commons.Core.ExtensionMethods;
 using MudRunner.Commons.Core.Factory.DifferentialEquationMethod;
 using MudRunner.Commons.Core.Models;
+using MudRunner.Suspension.Core.Mapper;
 using MudRunner.Suspension.Core.Models;
 using MudRunner.Suspension.Core.Models.NumericalMethod;
 using MudRunner.Suspension.Core.Utils;
@@ -20,7 +21,11 @@ namespace MudRunner.Suspension.Core.Operations.RunAnalysis.Dynamic.HalfCar.SixDe
         /// Class constructor.
         /// </summary>
         /// <param name="differentialEquationMethodFactory"></param>
-        public RunHalfCarSixDofDynamicAnalysis(IDifferentialEquationMethodFactory differentialEquationMethodFactory) : base(differentialEquationMethodFactory) { }
+        /// <param name="mappingResolver"></param>
+        public RunHalfCarSixDofDynamicAnalysis(
+            IDifferentialEquationMethodFactory differentialEquationMethodFactory,
+            IMappingResolver mappingResolver)
+            : base(differentialEquationMethodFactory, mappingResolver) { }
 
         /// <inheritdoc/>
         protected override uint NumberOfBoundaryConditions => 6;

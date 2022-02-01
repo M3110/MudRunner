@@ -2,6 +2,7 @@
 using MudRunner.Commons.Core.Models;
 using MudRunner.Commons.Core.Operation;
 using MudRunner.Suspension.Core.ExtensionMethods;
+using MudRunner.Suspension.Core.Mapper;
 using MudRunner.Suspension.Core.Models.NumericalMethod;
 using MudRunner.Suspension.Core.NumericalMethods.DifferentialEquation;
 using MudRunner.Suspension.DataContracts.Models.Enums;
@@ -17,7 +18,7 @@ namespace MudRunner.Suspension.Core.Operations.RunAnalysis.Dynamic
     /// It is responsible to run the dynamic analysis to suspension system.
     /// </summary>
     public abstract class RunDynamicAnalysis<TRequest> : OperationBase<TRequest, RunDynamicAnalysisResponse>, IRunDynamicAnalysis<TRequest>
-        where TRequest : RunDynamicAnalysisRequest
+        where TRequest : RunGenericDynamicAnalysisRequest
     {
         /// <summary>
         /// The number of boundary conditions for dynamic analysis.
@@ -33,14 +34,17 @@ namespace MudRunner.Suspension.Core.Operations.RunAnalysis.Dynamic
         private IDifferentialEquationMethod _differentialEquationMethod;
 
         private readonly IDifferentialEquationMethodFactory _differentialEquationMethodFactory;
+        private readonly IMappingResolver _mappingResolver;
 
         /// <summary>
         /// Class constructor.
         /// </summary>
         /// <param name="differentialEquationMethodFactory"></param>
-        protected RunDynamicAnalysis(IDifferentialEquationMethodFactory differentialEquationMethodFactory)
+        /// <param name="mappingResolver"></param>
+        protected RunDynamicAnalysis(IDifferentialEquationMethodFactory differentialEquationMethodFactory, IMappingResolver mappingResolver)
         {
             this._differentialEquationMethodFactory = differentialEquationMethodFactory;
+            this._mappingResolver = mappingResolver;
         }
 
         /// <summary>
@@ -51,49 +55,54 @@ namespace MudRunner.Suspension.Core.Operations.RunAnalysis.Dynamic
         protected async override Task<RunDynamicAnalysisResponse> ProcessOperationAsync(TRequest request)
         {
             RunDynamicAnalysisResponse response = new();
-            response.SetSuccessCreated();
 
             // Step 1 - Build the input for numerical method.
             NumericalMethodInput input = await this.BuildNumericalMethodInputAsync(request).ConfigureAwait(false);
 
-            // Step 2 - Creates the solutions file and the folder if they do not exist.
+            // Step 2 - Create the solutions file and the folder if they do not exist.
             if (this.TryCreateSolutionFile(request.AdditionalFileNameInformation, out string solutionFullFileName) == false)
             {
                 response.SetConflictError($"The file '{solutionFullFileName}' already exist.");
                 return response;
             }
 
+            // Step 3 - Instantiate the variable 'maximumResult' that will contains the maximum results for analysis.
+            NumericalMethodResult maximumResult = new(this.NumberOfBoundaryConditions);
+
             try
             {
                 using (StreamWriter streamWriter = new(solutionFullFileName))
                 {
-                    // Step 3 - Write the header in the file.
+                    // Step 4 - Write the header in the file.
                     streamWriter.WriteLine(this.CreateFileHeader());
 
-                    // Step 4 - Calculates the result for initial time.
+                    // Step 5 - Calculate the result for initial time.
                     NumericalMethodResult previousResult = this._differentialEquationMethod.CalculateInitialResult(input);
+                    maximumResult = previousResult;
 
                     double time = Constants.InitialTime + request.TimeStep;
                     while (time <= request.FinalTime)
                     {
-                        // Step 5 - Calculate the results and write it in the file.
+                        // Step 6 - Calculate the results and write it in the file.
                         NumericalMethodResult result = await this._differentialEquationMethod.CalculateResultAsync(input, previousResult, time).ConfigureAwait(false);
                         if (request.ConsiderLargeDisplacements == false)
                         {
                             streamWriter.WriteLine($"{result}");
+                            maximumResult = this.GetMaximumResult(maximumResult, result);
                         }
                         else
                         {
                             NumericalMethodResult largeDisplacementResult = this.BuildLargeDisplacementResult(result);
                             streamWriter.WriteLine($"{largeDisplacementResult}");
+                            maximumResult = this.GetMaximumResult(maximumResult, largeDisplacementResult);
                         }
 
-                        // Step 6 - Save the current result in the variable 'previousResult' to be used at next step
+                        // Step 7 - Save the current result in the variable 'previousResult' to be used at next step
                         // and itereta the time.
                         previousResult = result;
                         time += input.TimeStep;
 
-                        // Step 7 - Calculates the equivalent force to be used at next step.
+                        // Step 8 - Calculates the equivalent force to be used at next step.
                         input.EquivalentForce = await this.BuildEquivalentForceVectorAsync(request, time).ConfigureAwait(false);
                     }
                 }
@@ -104,9 +113,11 @@ namespace MudRunner.Suspension.Core.Operations.RunAnalysis.Dynamic
             }
             finally
             {
-                // Step 8 - At the end of the process, map the full name of solution file in the response
+                // Step 9 - At the end of the process, it maps the full name of solution file and the maximum result to response
                 // and set the success as true and HTTP Status Code as 201 (Created).
                 response.Data.FullFileName = solutionFullFileName;
+                response.Data.MaximumResult = this._mappingResolver.MapFrom(maximumResult);
+                response.SetSuccessCreated();
             }
 
             return response;
@@ -180,6 +191,9 @@ namespace MudRunner.Suspension.Core.Operations.RunAnalysis.Dynamic
         /// <inheritdoc/>
         public abstract string CreateFileHeader();
 
+        /// <inheritdoc/>
+        public abstract NumericalMethodResult BuildLargeDisplacementResult(NumericalMethodResult result);
+
         /// <summary>
         /// This method creates the solution file name.
         /// </summary>
@@ -188,11 +202,44 @@ namespace MudRunner.Suspension.Core.Operations.RunAnalysis.Dynamic
         /// TODO: Tentar usar regex para que não precise criar um método só para isso.
         protected abstract string CreateSolutionFileName(string additionalFileNameInformation);
 
-        /// <inheritdoc/>
-        public abstract NumericalMethodResult BuildLargeDisplacementResult(NumericalMethodResult result);
+        /// <summary>
+        /// This method returns the maximum results between two <see cref="NumericalMethodResult"/>.
+        /// </summary>
+        /// <param name="result1"></param>
+        /// <param name="result2"></param>
+        /// <returns></returns>
+        /// <exception cref="NotImplementedException"></exception>
+        protected NumericalMethodResult GetMaximumResult(NumericalMethodResult result1, NumericalMethodResult result2)
+        {
+            NumericalMethodResult maximumResult = new(this.NumberOfBoundaryConditions);
+
+            for (int i = 0; i < this.NumberOfBoundaryConditions; i++)
+            {
+                maximumResult.Displacement[i] = this.GetMaximumAbsolutValue(result1.Displacement[i], result2.Displacement[i]);
+                maximumResult.Velocity[i] = this.GetMaximumAbsolutValue(result1.Velocity[i], result2.Velocity[i]);
+                maximumResult.Acceleration[i] = this.GetMaximumAbsolutValue(result1.Acceleration[i], result2.Acceleration[i]);
+                maximumResult.EquivalentForce[i] = this.GetMaximumAbsolutValue(result1.EquivalentForce[i], result2.EquivalentForce[i]);
+            }
+
+            return maximumResult;
+        }
 
         /// <summary>
-        /// Asynchronously, this method validates the <see cref="RunDynamicAnalysisRequest"/>.
+        /// This method gets the maximum absulet value between two values.
+        /// </summary>
+        /// <param name="value1"></param>
+        /// <param name="value2"></param>
+        /// <returns></returns>
+        private double GetMaximumAbsolutValue(double value1, double value2)
+        {
+            if (Math.Abs(value1) > Math.Abs(value2))
+                return value1;
+            else
+                return value2;
+        }
+
+        /// <summary>
+        /// Asynchronously, this method validates the <see cref="RunGenericDynamicAnalysisRequest"/>.
         /// </summary>
         /// <param name="request"></param>
         /// <returns></returns>
