@@ -53,19 +53,37 @@ namespace MudRunner.Suspension.Core.Operations.RunAnalysis.Dynamic
             // Step 1 - Build a list of request for operation RunDynamicAnalysis.
             List<TRunDynamicAnalysisRequest> runDynamicAnalysisRequestList = await this.BuildRunDynamicAnalysisRequestListAsync(request).ConfigureAwait(false);
 
-            // Step 2 - Create the solutions file and the folder if they do not exist.
-            if (this.TryCreateSolutionFile(request.AdditionalFileNameInformation, out string solutionFullFileName) == false)
+            // Step 2 - Create the file that will contain the results from numerical model and its folder if they do not exist.
+            // The results written in that file represents the displacement, velocity and acceleration of each boundary condition
+            // in relation to the origin of the system.
+            if (this.TryCreateSolutionFile(request.AdditionalFileNameInformation, out string resultFullFileName) == false)
             {
-                response.SetConflictError($"The file '{solutionFullFileName}' already exist.");
+                response.SetConflictError($"The file '{resultFullFileName}' already exist.");
+                return response;
+            }
+
+            // Step 3 - Create the file that will contain the real results of each boundary condition and at and its
+            // folder if they do not exist.
+            // The results written in that file represents the real deformation, deformation velocity and deformation acceleration
+            // in relation to the origin of the system.
+            // OBS.:
+            //   The deformation velocity is the deformation derivative on time and represents how the deformation varies on time.
+            //   The deformation acceleration is the second deformation derivative on time and represents how the deformation
+            //   velocity varies on time.
+            if (this.TryCreateSolutionFile($"{request.AdditionalFileNameInformation}_Deformation", out string deformationFullFileName) == false)
+            {
+                response.SetConflictError($"The file '{resultFullFileName}' already exist.");
                 return response;
             }
 
             try
             {
-                using (StreamWriter streamWriter = new(solutionFullFileName))
+                using (StreamWriter resultStreamWriter = new(resultFullFileName))
+                using (StreamWriter deformationStreamWriter = new(deformationFullFileName))
                 {
                     // Step 3 - Write the header in the file.
-                    streamWriter.WriteLine(this.CreateFileHeader());
+                    resultStreamWriter.WriteLine(this.CreateResultFileHeader());
+                    deformationStreamWriter.WriteLine(this.CreateDeformationResultFileHeader());
 
                     foreach (TRunDynamicAnalysisRequest runDynamicAnalysisRequest in runDynamicAnalysisRequestList)
                     {
@@ -88,11 +106,10 @@ namespace MudRunner.Suspension.Core.Operations.RunAnalysis.Dynamic
                         }
                         else
                         {
-                            // Stepp 6 - Write the request in a with with the same name returned by RunDynamicAnalysis operation.
-                            string resultFullFileName = runDynamicAnalysisResponse.Data.FullFileNames[0];
-
-                            string fileExtension = Path.GetExtension(resultFullFileName);
-                            string requestFullFileName = resultFullFileName.Replace(fileExtension, ".json");
+                            // Stepp 6 - Write the request in a file with the same name returned by RunDynamicAnalysis operation.
+                            string operationResultFullFileName = runDynamicAnalysisResponse.Data.FullFileNames[0];
+                            string fileExtension = Path.GetExtension(operationResultFullFileName);
+                            string requestFullFileName = operationResultFullFileName.Replace(fileExtension, ".json");
                             File.WriteAllText(requestFullFileName, JToken.FromObject(runDynamicAnalysisRequest).ToString());
 
                             // Step 7 - Map to response the full file name of the request and the full file name returned
@@ -100,8 +117,10 @@ namespace MudRunner.Suspension.Core.Operations.RunAnalysis.Dynamic
                             response.Data.FullFileNames.Add(requestFullFileName);
                             response.Data.FullFileNames.AddRange(runDynamicAnalysisResponse.Data.FullFileNames);
 
-                            // Step 8 - Write the maximum result for the current request of RunDynamicAnalysis operation.
-                            streamWriter.WriteLine($"{requestIndex},{runDynamicAnalysisResponse.Data.MaximumResult}");
+                            // Step 8 - Write the maximum result and maximum deformation result for the current request of
+                            // RunDynamicAnalysis operation.
+                            resultStreamWriter.WriteLine($"{requestIndex},{runDynamicAnalysisResponse.Data.MaximumResult}");
+                            deformationStreamWriter.WriteLine($"{requestIndex},{runDynamicAnalysisResponse.Data.MaximumDeformationResult}");
                         }
                     }
                 }
@@ -128,7 +147,7 @@ namespace MudRunner.Suspension.Core.Operations.RunAnalysis.Dynamic
                 }
 
                 // Step 10 - At the end of the process, map the full name of solution file in the response.
-                response.Data.FullFileNames.Add(solutionFullFileName);
+                response.Data.FullFileNames.Add(resultFullFileName);
             }
 
             return response;
@@ -158,7 +177,10 @@ namespace MudRunner.Suspension.Core.Operations.RunAnalysis.Dynamic
         }
 
         /// <inheritdoc/>
-        public abstract string CreateFileHeader();
+        public abstract string CreateResultFileHeader();
+
+        /// <inheritdoc/>
+        public abstract string CreateDeformationResultFileHeader();
 
         /// <summary>
         /// This method creates the solution file name.

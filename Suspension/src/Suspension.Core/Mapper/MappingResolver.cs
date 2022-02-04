@@ -54,7 +54,7 @@ namespace MudRunner.Suspension.Core.Mapper
                 Displacement = numericalMethodResult.Displacement.Clone() as double[],
                 Velocity = numericalMethodResult.Velocity.Clone() as double[],
                 Acceleration = numericalMethodResult.Acceleration.Clone() as double[],
-                EquivalentForce = numericalMethodResult.EquivalentForce.Clone() as double[]
+                //EquivalentForce = numericalMethodResult.EquivalentForce.Clone() as double[]
             };
         }
     }

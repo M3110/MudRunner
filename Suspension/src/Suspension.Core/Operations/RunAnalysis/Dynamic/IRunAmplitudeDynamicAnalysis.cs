@@ -36,6 +36,12 @@ namespace MudRunner.Suspension.Core.Operations.RunAnalysis.Dynamic
         /// Currently, it is necessary to know what is returned in the <see cref="NumericalMethodResult"/>.
         /// </summary>
         /// <returns></returns>
-        string CreateFileHeader();
+        string CreateResultFileHeader();
+
+        /// <summary>
+        /// This method creates the file header with the deformation results order.
+        /// </summary>
+        /// <returns></returns>
+        string CreateDeformationResultFileHeader();
     }
 }

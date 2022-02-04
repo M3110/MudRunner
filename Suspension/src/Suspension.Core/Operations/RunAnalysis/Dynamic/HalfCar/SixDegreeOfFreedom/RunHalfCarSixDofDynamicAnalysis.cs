@@ -282,6 +282,8 @@ namespace MudRunner.Suspension.Core.Operations.RunAnalysis.Dynamic.HalfCar.SixDe
             double[] baseExcitationAcceleration = this.CalculateBaseExcitationAcceleration(request.BaseExcitation, request.RearDistance + request.FrontDistance, carSpeed, time);
 
             NumericalMethodResult deformationResult = new(this.NumberOfBoundaryConditions);
+            
+            deformationResult.Time = time;
 
             deformationResult.Displacement[0] = this.CalculateEngineMountDeformation(result.Displacement, request.EngineDistance);
             deformationResult.Displacement[1] = this.CalculateSeatDeformation(result.Displacement, request.DriverDistance);

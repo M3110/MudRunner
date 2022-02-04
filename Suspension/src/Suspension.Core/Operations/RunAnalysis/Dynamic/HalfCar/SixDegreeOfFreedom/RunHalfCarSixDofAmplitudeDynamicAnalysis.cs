@@ -1,10 +1,4 @@
-﻿using MudRunner.Commons.Core.ExtensionMethods;
-using MudRunner.Commons.Core.Factory.DifferentialEquationMethod;
-using MudRunner.Commons.Core.Models;
-using MudRunner.Suspension.Core.Mapper;
-using MudRunner.Suspension.Core.Models;
-using MudRunner.Suspension.Core.Models.NumericalMethod;
-using MudRunner.Suspension.Core.Utils;
+﻿using MudRunner.Suspension.Core.Models;
 using MudRunner.Suspension.DataContracts.RunAnalysis.Dynamic.HalfCar.SixDegreeOfFreedom;
 using System;
 using System.Collections.Generic;
@@ -142,7 +136,7 @@ namespace MudRunner.Suspension.Core.Operations.RunAnalysis.Dynamic.HalfCar.SixDe
         }
 
         /// <inheritdoc/>
-        public override string CreateFileHeader()
+        public override string CreateResultFileHeader()
         {
             StringBuilder fileHeader = new("Request Index");
 
@@ -157,6 +151,23 @@ namespace MudRunner.Suspension.Core.Operations.RunAnalysis.Dynamic.HalfCar.SixDe
 
             // Step iv - Add the header for equivalente force.
             fileHeader.Append(",Car equivalente force,Car equivalente torque,Engine equivalente force,Driver equivalente force,Rear equivalente force,Front equivalente force");
+
+            return fileHeader.ToString();
+        }
+
+        /// <inheritdoc/>
+        public override string CreateDeformationResultFileHeader()
+        {
+            StringBuilder fileHeader = new("Request Index");
+
+            // Step i - Add the header for deformation.
+            fileHeader.Append(",Engine mount deformation,Seat deformation,Rear deformation,Front deformation,Rear tire deformation,Front tire deformation");
+
+            // Step ii - Add the header for deformation velocity.
+            fileHeader.Append(",Engine mount deformation velocity,Seat deformation velocity,Rear deformation velocity,Front deformation velocity,Rear tire deformation velocity,Front tire deformation velocity");
+
+            // Step iii - Add the header for deformation acceleration.
+            fileHeader.Append(",Engine mount deformation acceleration,Seat deformation acceleration,Rear deformation acceleration,Front deformation acceleration,Rear tire deformation acceleration,Front tire deformation acceleration");
 
             return fileHeader.ToString();
         }

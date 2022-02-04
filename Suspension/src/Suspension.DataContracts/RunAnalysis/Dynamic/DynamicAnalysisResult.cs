@@ -25,7 +25,7 @@ namespace MudRunner.Suspension.DataContracts.RunAnalysis.Dynamic
         /// <summary>
         /// Unit: N (Newton).
         /// </summary>
-        public double[] EquivalentForce { get; set; }
+        //public double[] EquivalentForce { get; set; }
 
         /// <inheritdoc/>
         public override string ToString()
@@ -34,8 +34,8 @@ namespace MudRunner.Suspension.DataContracts.RunAnalysis.Dynamic
 
             return $"{string.Join(',', this.Displacement)}" +
                 $",{string.Join(',', this.Velocity)}" +
-                $",{string.Join(',', this.Acceleration)}" +
-                $",{string.Join(',', this.EquivalentForce)}";
+                $",{string.Join(',', this.Acceleration)}";
+                //$",{string.Join(',', this.EquivalentForce)}";
         }
     }
 }
