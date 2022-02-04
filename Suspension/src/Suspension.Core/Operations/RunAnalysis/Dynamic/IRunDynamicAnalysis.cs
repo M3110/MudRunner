@@ -12,6 +12,11 @@ namespace MudRunner.Suspension.Core.Operations.RunAnalysis.Dynamic
         where TRequest : RunGenericDynamicAnalysisRequest
     {
         /// <summary>
+        /// The number of files generated for a unique request.
+        /// </summary>
+        uint NumberOfFilesPerRequest { get; }
+
+        /// <summary>
         /// Asynchronously, this method builds the input for numerical method.
         /// </summary>
         /// <param name="request"></param>
@@ -61,7 +66,13 @@ namespace MudRunner.Suspension.Core.Operations.RunAnalysis.Dynamic
         /// Currently, it is necessary to know what is returned in the <see cref="NumericalMethodResult"/>.
         /// </summary>
         /// <returns></returns>
-        string CreateFileHeader();
+        string CreateResultFileHeader();
+
+        /// <summary>
+        /// This method creates the file header with the deformation results order.
+        /// </summary>
+        /// <returns></returns>
+        string CreateDeformationResultFileHeader();
 
         /// <summary>
         /// This method builds the result for large displacements. It is necessary because when considering large displacements,
@@ -71,5 +82,14 @@ namespace MudRunner.Suspension.Core.Operations.RunAnalysis.Dynamic
         /// <param name="result"></param>
         /// <returns></returns>
         NumericalMethodResult BuildLargeDisplacementResult(NumericalMethodResult result);
+
+        /// <summary>
+        /// This method calculates the deformation, deformation velocity and acceleration deformation of the system.
+        /// </summary>
+        /// <param name="request"></param>
+        /// <param name="result"></param>
+        /// <param name="time"></param>
+        /// <returns></returns>
+        NumericalMethodResult CalculateDeformationResult(TRequest request, NumericalMethodResult result, double time);
     }
 }

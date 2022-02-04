@@ -31,6 +31,9 @@ namespace MudRunner.Suspension.Core.Operations.RunAnalysis.Dynamic
         /// </summary>
         protected abstract string SolutionPath { get; }
 
+        /// <inheritdoc/>
+        public uint NumberOfFilesPerRequest => 2;
+
         private IDifferentialEquationMethod _differentialEquationMethod;
 
         private readonly IDifferentialEquationMethodFactory _differentialEquationMethodFactory;
@@ -59,50 +62,81 @@ namespace MudRunner.Suspension.Core.Operations.RunAnalysis.Dynamic
             // Step 1 - Build the input for numerical method.
             NumericalMethodInput input = await this.BuildNumericalMethodInputAsync(request).ConfigureAwait(false);
 
-            // Step 2 - Create the solutions file and the folder if they do not exist.
-            if (this.TryCreateSolutionFile(request.AdditionalFileNameInformation, out string solutionFullFileName) == false)
+            // Step 2 - Create the file that will contain the results from numerical model and its folder if they do not exist.
+            // The results written in that file represents the displacement, velocity and acceleration of each boundary condition
+            // in relation to the origin of the system.
+            if (this.TryCreateSolutionFile(request.AdditionalFileNameInformation, out string resultFullFileName) == false)
             {
-                response.SetConflictError($"The file '{solutionFullFileName}' already exist.");
+                response.SetConflictError($"The file '{resultFullFileName}' already exist.");
                 return response;
             }
 
-            // Step 3 - Instantiate the variable 'maximumResult' that will contains the maximum results for analysis.
+            // Step 3 - Create the file that will contain the real results of each boundary condition and at and its
+            // folder if they do not exist.
+            // The results written in that file represents the real deformation, deformation velocity and deformation acceleration
+            // in relation to the origin of the system.
+            // OBS.:
+            //   The deformation velocity is the deformation derivative on time and represents how the deformation varies on time.
+            //   The deformation acceleration is the second deformation derivative on time and represents how the deformation
+            //   velocity varies on time.
+            if (this.TryCreateSolutionFile($"{request.AdditionalFileNameInformation}_Deformation", out string deformationFullFileName) == false)
+            {
+                response.SetConflictError($"The file '{resultFullFileName}' already exist.");
+                return response;
+            }
+
+            // Step 4 - Instantiate the variable 'maximumResult' that will contains the maximum result for analysis and the variable
+            // 'maximumDeformationResult' that will contain the maximum deformation for analysis.
             NumericalMethodResult maximumResult = new(this.NumberOfBoundaryConditions);
+            NumericalMethodResult maximumDeformationResult = new(this.NumberOfBoundaryConditions);
 
             try
             {
-                using (StreamWriter streamWriter = new(solutionFullFileName))
+                using (StreamWriter resultStreamWriter = new(resultFullFileName))
+                using (StreamWriter deformationStreamWriter = new(deformationFullFileName))
                 {
-                    // Step 4 - Write the header in the file.
-                    streamWriter.WriteLine(this.CreateFileHeader());
+                    // Step 5 - Write the header in the file.
+                    resultStreamWriter.WriteLine(this.CreateResultFileHeader());
+                    deformationStreamWriter.WriteLine(this.CreateDeformationResultFileHeader());
 
-                    // Step 5 - Calculate the result for initial time.
+                    // Step 6 - Calculate the result for initial time.
                     NumericalMethodResult previousResult = this._differentialEquationMethod.CalculateInitialResult(input);
                     maximumResult = previousResult;
+                    maximumDeformationResult = previousResult;
 
                     double time = Constants.InitialTime + request.TimeStep;
                     while (time <= request.FinalTime)
                     {
-                        // Step 6 - Calculate the results and write it in the file.
+                        // Step 7 - Calculate the results and write it in the file.
                         NumericalMethodResult result = await this._differentialEquationMethod.CalculateResultAsync(input, previousResult, time).ConfigureAwait(false);
                         if (request.ConsiderLargeDisplacements == false)
                         {
-                            streamWriter.WriteLine($"{result}");
+                            resultStreamWriter.WriteLine($"{result}");
+
+                            NumericalMethodResult deformationResult = this.CalculateDeformationResult(request, result, time);
+                            deformationStreamWriter.WriteLine($"{deformationResult}");
+
                             maximumResult = this.GetMaximumResult(maximumResult, result);
+                            maximumDeformationResult = this.GetMaximumResult(maximumDeformationResult, deformationResult);
                         }
                         else
                         {
                             NumericalMethodResult largeDisplacementResult = this.BuildLargeDisplacementResult(result);
-                            streamWriter.WriteLine($"{largeDisplacementResult}");
+                            resultStreamWriter.WriteLine($"{largeDisplacementResult}");
+
+                            NumericalMethodResult deformationResult = this.CalculateDeformationResult(request, largeDisplacementResult, time);
+                            deformationStreamWriter.WriteLine($"{deformationResult}");
+
                             maximumResult = this.GetMaximumResult(maximumResult, largeDisplacementResult);
+                            maximumDeformationResult = this.GetMaximumResult(maximumDeformationResult, deformationResult);
                         }
 
-                        // Step 7 - Save the current result in the variable 'previousResult' to be used at next step
+                        // Step 8 - Save the current result in the variable 'previousResult' to be used at next step
                         // and itereta the time.
                         previousResult = result;
                         time += input.TimeStep;
 
-                        // Step 8 - Calculates the equivalent force to be used at next step.
+                        // Step 9 - Calculates the equivalent force to be used at next step.
                         input.EquivalentForce = await this.BuildEquivalentForceVectorAsync(request, time).ConfigureAwait(false);
                     }
                 }
@@ -115,8 +149,10 @@ namespace MudRunner.Suspension.Core.Operations.RunAnalysis.Dynamic
             {
                 // Step 9 - At the end of the process, it maps the full name of solution file and the maximum result to response
                 // and set the success as true and HTTP Status Code as 201 (Created).
-                response.Data.FullFileName = solutionFullFileName;
+                response.Data.FullFileNames.Add(resultFullFileName);
+                response.Data.FullFileNames.Add(deformationFullFileName);
                 response.Data.MaximumResult = this._mappingResolver.MapFrom(maximumResult);
+                response.Data.MaximumDeformationResult = this._mappingResolver.MapFrom(maximumDeformationResult);
                 response.SetSuccessCreated();
             }
 
@@ -189,10 +225,16 @@ namespace MudRunner.Suspension.Core.Operations.RunAnalysis.Dynamic
         }
 
         /// <inheritdoc/>
-        public abstract string CreateFileHeader();
+        public abstract string CreateResultFileHeader();
+
+        /// <inheritdoc/>
+        public abstract string CreateDeformationResultFileHeader();
 
         /// <inheritdoc/>
         public abstract NumericalMethodResult BuildLargeDisplacementResult(NumericalMethodResult result);
+
+        /// <inheritdoc/>
+        public abstract NumericalMethodResult CalculateDeformationResult(TRequest request, NumericalMethodResult result, double time);
 
         /// <summary>
         /// This method creates the solution file name.
@@ -230,7 +272,7 @@ namespace MudRunner.Suspension.Core.Operations.RunAnalysis.Dynamic
         /// <param name="value1"></param>
         /// <param name="value2"></param>
         /// <returns></returns>
-        private double GetMaximumAbsolutValue(double value1, double value2)
+        protected double GetMaximumAbsolutValue(double value1, double value2)
         {
             if (Math.Abs(value1) > Math.Abs(value2))
                 return value1;

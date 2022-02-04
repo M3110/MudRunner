@@ -6,7 +6,7 @@
     public enum CurveType
     {
         /// <summary>
-        /// Equation: f(x) = a_0 + a_1*x + a_2*x^2 + ... + a_n*x^n
+        /// Equation: f(x) = a_0 + a_1 * x + a_2 * x^2 + ... + a_n * x^n
         /// </summary>
         Polinomial = 1,
 

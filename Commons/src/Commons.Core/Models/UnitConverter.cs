@@ -10,7 +10,7 @@
         /// </summary>
         /// <param name="valueInKmh"></param>
         /// <returns></returns>
-        public static double FromKmHToMS(double valueInKmh)
+        public static double FromKmhToMS(double valueInKmh)
         {
             return valueInKmh / 3.6;
         }

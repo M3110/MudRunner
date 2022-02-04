@@ -5,6 +5,7 @@ using MudRunner.Suspension.Core.Mapper;
 using MudRunner.Suspension.Core.Models;
 using MudRunner.Suspension.Core.Models.NumericalMethod;
 using MudRunner.Suspension.Core.Utils;
+using MudRunner.Suspension.DataContracts.Models;
 using MudRunner.Suspension.DataContracts.RunAnalysis.Dynamic.HalfCar.SixDegreeOfFreedom;
 using System;
 using System.Text;
@@ -12,6 +13,16 @@ using System.Threading.Tasks;
 
 namespace MudRunner.Suspension.Core.Operations.RunAnalysis.Dynamic.HalfCar.SixDegreeOfFreedom
 {
+    /*
+     * Indexes:
+     *   0 - car linear displacement/velocity/acceleration
+     *   1 - car angular displacement/velocity/acceleration
+     *   2 - engine linear displacement/velocity/acceleration
+     *   3 - driver linear displacement/velocity/acceleration
+     *   4 - rear linear displacement/velocity/acceleration
+     *   5 - front linear displacement/velocity/acceleration
+     */
+
     /// <summary>
     /// It is responsible to run the dynamic analysis to suspension system considering half car and six degrees of freedom.
     /// </summary>
@@ -166,20 +177,14 @@ namespace MudRunner.Suspension.Core.Operations.RunAnalysis.Dynamic.HalfCar.SixDe
             // because all calculations must be done with the units according to International System of Units.
             double carSpeed = UnitConverter.FromKmHToMS(request.BaseExcitation.CarSpeed);
 
-            double rearBaseExcitation = BaseExcitationUtils.Calculate(request.BaseExcitation, time - (request.RearDistance + request.FrontDistance) / carSpeed);
-            double frontBaseExcitation = BaseExcitationUtils.Calculate(request.BaseExcitation, time);
-
-            double[] baseExcitation = new double[this.NumberOfBoundaryConditions];
-            baseExcitation[4] = rearBaseExcitation;
-            baseExcitation[5] = frontBaseExcitation;
+            double[] baseExcitationDisplacement = this.CalculateBaseExcitationDisplacement(request.BaseExcitation, request.RearDistance + request.FrontDistance, carSpeed, time);
 
             // [Equivalent Force] = [Applied Force] + [Equivalent Stiffness] * [Base Excitation]
-            var a = appliedForce.Sum(equivalentStiffness.Multiply(baseExcitation));
-            return Task.FromResult(a);
+            return Task.FromResult(appliedForce.Sum(equivalentStiffness.Multiply(baseExcitationDisplacement)));
         }
 
         /// <inheritdoc/>
-        public override string CreateFileHeader()
+        public override string CreateResultFileHeader()
         {
             StringBuilder fileHeader = new("Time");
 
@@ -194,6 +199,23 @@ namespace MudRunner.Suspension.Core.Operations.RunAnalysis.Dynamic.HalfCar.SixDe
 
             // Step iv - Add the header for equivalente force.
             fileHeader.Append(",Car equivalente force,Car equivalente torque,Engine equivalente force,Driver equivalente force,Rear equivalente force,Front equivalente force");
+
+            return fileHeader.ToString();
+        }
+
+        /// <inheritdoc/>
+        public override string CreateDeformationResultFileHeader()
+        {
+            StringBuilder fileHeader = new("Time");
+
+            // Step i - Add the header for deformation.
+            fileHeader.Append(",Engine mount deformation,Seat deformation,Rear deformation,Front deformation,Rear tire deformation,Front tire deformation");
+
+            // Step ii - Add the header for deformation velocity.
+            fileHeader.Append(",Engine mount deformation velocity,Seat deformation velocity,Rear deformation velocity,Front deformation velocity,Rear tire deformation velocity,Front tire deformation velocity");
+
+            // Step iii - Add the header for deformation acceleration.
+            fileHeader.Append(",Engine mount deformation acceleration,Seat deformation acceleration,Rear deformation acceleration,Front deformation acceleration,Rear tire deformation acceleration,Front tire deformation acceleration");
 
             return fileHeader.ToString();
         }
@@ -244,5 +266,110 @@ namespace MudRunner.Suspension.Core.Operations.RunAnalysis.Dynamic.HalfCar.SixDe
 
             return largeDisplacementResult;
         }
+
+        /// <inheritdoc/>
+        public override NumericalMethodResult CalculateDeformationResult(RunHalfCarSixDofDynamicAnalysisRequest request, NumericalMethodResult result, double time)
+        {
+            // The speed of the car is in kilometers per hour when recieved in the request and it must be converted to meters per second
+            // because all calculations must be done with the units according to International System of Units.
+            double carSpeed = UnitConverter.FromKmHToMS(request.BaseExcitation.CarSpeed);
+
+            // Calculates the base excitation displacement, velocity and acceleration to be used while calculating the tire deformations.
+            double[] baseExcitationDisplacement = this.CalculateBaseExcitationDisplacement(request.BaseExcitation, request.RearDistance + request.FrontDistance, carSpeed, time);
+            double[] baseExcitationVelocity = this.CalculateBaseExcitationVelocity(request.BaseExcitation, request.RearDistance + request.FrontDistance, carSpeed, time);
+            double[] baseExcitationAcceleration = this.CalculateBaseExcitationAcceleration(request.BaseExcitation, request.RearDistance + request.FrontDistance, carSpeed, time);
+
+            NumericalMethodResult deformationResult = new(this.NumberOfBoundaryConditions);
+
+            deformationResult.Displacement[0] = this.CalculateEngineMountDeformation(result.Displacement, request.EngineDistance);
+            deformationResult.Displacement[1] = this.CalculateSeatDeformation(result.Displacement, request.DriverDistance);
+            deformationResult.Displacement[2] = this.CalculateRearDeformation(result.Displacement, request.RearDistance);
+            deformationResult.Displacement[3] = this.CalculateFrontDeformation(result.Displacement, request.FrontDistance);
+            deformationResult.Displacement[4] = this.CalculateTireDeformation(result.Displacement[4], baseExcitationDisplacement[4]);
+            deformationResult.Displacement[5] = this.CalculateTireDeformation(result.Displacement[5], baseExcitationDisplacement[5]);
+
+            deformationResult.Velocity[0] = this.CalculateEngineMountDeformation(result.Velocity, request.EngineDistance);
+            deformationResult.Velocity[1] = this.CalculateSeatDeformation(result.Velocity, request.DriverDistance);
+            deformationResult.Velocity[2] = this.CalculateRearDeformation(result.Velocity, request.RearDistance);
+            deformationResult.Velocity[3] = this.CalculateFrontDeformation(result.Velocity, request.FrontDistance);
+            deformationResult.Velocity[4] = this.CalculateTireDeformation(result.Velocity[4], baseExcitationVelocity[4]);
+            deformationResult.Velocity[5] = this.CalculateTireDeformation(result.Velocity[5], baseExcitationVelocity[5]);
+
+            deformationResult.Acceleration[0] = this.CalculateEngineMountDeformation(result.Acceleration, request.EngineDistance);
+            deformationResult.Acceleration[1] = this.CalculateSeatDeformation(result.Acceleration, request.DriverDistance);
+            deformationResult.Acceleration[2] = this.CalculateRearDeformation(result.Acceleration, request.RearDistance);
+            deformationResult.Acceleration[3] = this.CalculateFrontDeformation(result.Acceleration, request.FrontDistance);
+            deformationResult.Acceleration[4] = this.CalculateTireDeformation(result.Acceleration[4], baseExcitationAcceleration[4]);
+            deformationResult.Acceleration[5] = this.CalculateTireDeformation(result.Acceleration[5], baseExcitationAcceleration[5]);
+
+            return deformationResult;
+        }
+
+        private double[] CalculateBaseExcitationDisplacement(BaseExcitation baseExcitation, double carSize, double carSpeed, double time)
+        {
+            double[] baseExcitationDisplacement = new double[this.NumberOfBoundaryConditions];
+            baseExcitationDisplacement[4] = BaseExcitationUtils.CalculateDisplacement(baseExcitation, time - carSize / carSpeed);
+            baseExcitationDisplacement[5] = BaseExcitationUtils.CalculateDisplacement(baseExcitation, time);
+
+            return baseExcitationDisplacement;
+        }
+
+        private double[] CalculateBaseExcitationVelocity(BaseExcitation baseExcitation, double carSize, double carSpeed, double time)
+        {
+            double[] baseExcitationVelocity = new double[this.NumberOfBoundaryConditions];
+            baseExcitationVelocity[4] = BaseExcitationUtils.CalculateVelocity(baseExcitation, time - carSize / carSpeed);
+            baseExcitationVelocity[5] = BaseExcitationUtils.CalculateVelocity(baseExcitation, time);
+
+            return baseExcitationVelocity;
+        }
+
+        private double[] CalculateBaseExcitationAcceleration(BaseExcitation baseExcitation, double carSize, double carSpeed, double time)
+        {
+            double[] baseExcitationAcceleration = new double[this.NumberOfBoundaryConditions];
+            baseExcitationAcceleration[4] = BaseExcitationUtils.CalculateAcceleration(baseExcitation, time - carSize / carSpeed);
+            baseExcitationAcceleration[5] = BaseExcitationUtils.CalculateAcceleration(baseExcitation, time);
+
+            return baseExcitationAcceleration;
+        }
+
+        /// <summary>
+        /// This method calculates the engine mount deformation.
+        /// </summary>
+        /// <param name="result"></param>
+        /// <param name="engineDistance"></param>
+        /// <returns></returns>
+        private double CalculateEngineMountDeformation(double[] result, double engineDistance) => result[0] - engineDistance * result[1] - result[2];
+
+        /// <summary>
+        /// This method calculates the seat deformation.
+        /// </summary>
+        /// <param name="result"></param>
+        /// <param name="driverDistance"></param>
+        /// <returns></returns>
+        private double CalculateSeatDeformation(double[] result, double driverDistance) => result[0] + driverDistance * result[1] - result[3];
+
+        /// <summary>
+        /// This method calculates the rear deformation.
+        /// </summary>
+        /// <param name="result"></param>
+        /// <param name="rearDistance"></param>
+        /// <returns></returns>
+        private double CalculateRearDeformation(double[] result, double rearDistance) => result[0] - rearDistance * result[1] - result[4];
+
+        /// <summary>
+        /// This method calculates the front deformation.
+        /// </summary>
+        /// <param name="result"></param>
+        /// <param name="frontDistance"></param>
+        /// <returns></returns>
+        private double CalculateFrontDeformation(double[] result, double frontDistance) => result[0] + frontDistance * result[1] - result[5];
+
+        /// <summary>
+        /// This method calculates the deformation of tire.
+        /// </summary>
+        /// <param name="suspensionResult"></param>
+        /// <param name="baseExcitation"></param>
+        /// <returns></returns>
+        private double CalculateTireDeformation(double suspensionResult, double baseExcitation) => suspensionResult - baseExcitation;
     }
 }
