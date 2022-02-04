@@ -58,7 +58,7 @@
         public T EngineForce { get; set; }
 
         /// <summary>
-        /// Unit: rad/s (radian per second).
+        /// Unit: RPM (revolutions per minute).
         /// </summary>
         public T EngineFrequency { get; set; }
 

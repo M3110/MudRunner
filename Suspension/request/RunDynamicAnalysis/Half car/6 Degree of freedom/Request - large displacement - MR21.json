@@ -28,7 +28,7 @@
   "differentialEquationMethodEnum": "Newmark",
   "baseExcitation": {
     "constants": [
-      1e-1,-1,1
+      3e-1,-1,1
     ],
     "curveType": "Cosine",
     "obstacleWidth": 1,

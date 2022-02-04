@@ -161,10 +161,16 @@ namespace MudRunner.Suspension.Core.Operations.RunAnalysis.Dynamic.HalfCar.SixDe
         /// <inheritdoc/>
         public override Task<double[]> BuildEquivalentForceVectorAsync(RunHalfCarSixDofDynamicAnalysisRequest request, double time)
         {
+            // The engine frequency is in RPM and the speed of the car is in kilometer per hour when recieved in the request
+            // and they must be converted to radian per second and meter per second, respectively, because all calculations
+            // must be done with the units according to International System of Units.
+            double engineFrequency = UnitConverter.FromRpmToRads(request.EngineFrequency);
+            double carSpeed = UnitConverter.FromKmhToMs(request.BaseExcitation.CarSpeed);
+
             double[] appliedForce = new double[this.NumberOfBoundaryConditions];
             appliedForce[0] = -request.CarMass * Constants.GravityAcceleration;
             appliedForce[1] = (request.RearMassDistribution * request.RearDistance - request.FrontMassDistribution * request.FrontDistance) * request.CarMass * Constants.GravityAcceleration;
-            appliedForce[2] = -request.EngineMass * Constants.GravityAcceleration - request.EngineForce * Math.Sin(request.EngineFrequency * time);
+            appliedForce[2] = -request.EngineMass * Constants.GravityAcceleration - request.EngineForce * Math.Sin(engineFrequency * time);
             appliedForce[3] = -request.DriverMass * Constants.GravityAcceleration;
             appliedForce[4] = -request.RearUnsprungMass * Constants.GravityAcceleration;
             appliedForce[5] = -request.FrontUnsprungMass * Constants.GravityAcceleration;
@@ -172,10 +178,6 @@ namespace MudRunner.Suspension.Core.Operations.RunAnalysis.Dynamic.HalfCar.SixDe
             double[,] equivalentStiffness = new double[this.NumberOfBoundaryConditions, this.NumberOfBoundaryConditions];
             equivalentStiffness[4, 4] = request.RearTireStiffness;
             equivalentStiffness[5, 5] = request.FrontTireStiffness;
-
-            // The speed of the car is in kilometers per hour when recieved in the request and it must be converted to meters per second
-            // because all calculations must be done with the units according to International System of Units.
-            double carSpeed = UnitConverter.FromKmHToMS(request.BaseExcitation.CarSpeed);
 
             double[] baseExcitationDisplacement = this.CalculateBaseExcitationDisplacement(request.BaseExcitation, request.RearDistance + request.FrontDistance, carSpeed, time);
 
@@ -272,7 +274,7 @@ namespace MudRunner.Suspension.Core.Operations.RunAnalysis.Dynamic.HalfCar.SixDe
         {
             // The speed of the car is in kilometers per hour when recieved in the request and it must be converted to meters per second
             // because all calculations must be done with the units according to International System of Units.
-            double carSpeed = UnitConverter.FromKmHToMS(request.BaseExcitation.CarSpeed);
+            double carSpeed = UnitConverter.FromKmhToMs(request.BaseExcitation.CarSpeed);
 
             // Calculates the base excitation displacement, velocity and acceleration to be used while calculating the tire deformations.
             double[] baseExcitationDisplacement = this.CalculateBaseExcitationDisplacement(request.BaseExcitation, request.RearDistance + request.FrontDistance, carSpeed, time);

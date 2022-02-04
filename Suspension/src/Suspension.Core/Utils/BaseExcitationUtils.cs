@@ -50,7 +50,7 @@ namespace MudRunner.Suspension.Core.Utils
             {
                 // The speed of the car is in kilometers per hour when recieved in the request and it must be converted to meters per second
                 // because all calculations must be done with the units according to International System of Units.
-                double carSpeed = UnitConverter.FromKmHToMS(baseExcitation.CarSpeed);
+                double carSpeed = UnitConverter.FromKmhToMs(baseExcitation.CarSpeed);
 
                 double frequency = 2 * Math.PI * carSpeed / baseExcitation.ObstacleWidth;
 
@@ -117,7 +117,7 @@ namespace MudRunner.Suspension.Core.Utils
             {
                 // The speed of the car is in kilometers per hour when recieved in the request and it must be converted to meters per second
                 // because all calculations must be done with the units according to International System of Units.
-                double carSpeed = UnitConverter.FromKmHToMS(baseExcitation.CarSpeed);
+                double carSpeed = UnitConverter.FromKmhToMs(baseExcitation.CarSpeed);
 
                 double frequency = 2 * Math.PI * carSpeed / baseExcitation.ObstacleWidth;
 
@@ -184,7 +184,7 @@ namespace MudRunner.Suspension.Core.Utils
             {
                 // The speed of the car is in kilometers per hour when recieved in the request and it must be converted to meters per second
                 // because all calculations must be done with the units according to International System of Units.
-                double carSpeed = UnitConverter.FromKmHToMS(baseExcitation.CarSpeed);
+                double carSpeed = UnitConverter.FromKmhToMs(baseExcitation.CarSpeed);
 
                 double frequency = 2 * Math.PI * carSpeed / baseExcitation.ObstacleWidth;
 
