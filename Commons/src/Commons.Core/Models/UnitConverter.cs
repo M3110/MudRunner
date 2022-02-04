@@ -10,9 +10,13 @@
         /// </summary>
         /// <param name="valueInKmh"></param>
         /// <returns></returns>
-        public static double FromKmhToMS(double valueInKmh)
-        {
-            return valueInKmh / 3.6;
-        }
+        public static double FromKmhToMs(double valueInKmh) => valueInKmh / 3.6;
+
+        /// <summary>
+        /// This method converts a frequency from revolutions per minute to radian per second.
+        /// </summary>
+        /// <param name="valueInRpm"></param>
+        /// <returns></returns>
+        public static double FromRpmToRads(double valueInRpm) => valueInRpm * Math.PI / 30;
     }
 }
