@@ -132,7 +132,7 @@ namespace MudRunner.Suspension.Core.Operations.RunAnalysis.Dynamic
                         }
 
                         // Step 8 - Save the current result in the variable 'previousResult' to be used at next step
-                        // and itereta the time.
+                        // and iterate the time.
                         previousResult = result;
                         time += input.TimeStep;
 
@@ -207,6 +207,7 @@ namespace MudRunner.Suspension.Core.Operations.RunAnalysis.Dynamic
         /// <inheritdoc/>
         public bool TryCreateSolutionFile(string additionalFileNameInformation, out string fullFileName)
         {
+            // TODO: Criar interface para checar se arquivo existe e criar arquivo
             FileInfo fileInfo = new(Path.Combine(
                 this.SolutionPath,
                 this.CreateSolutionFileName(additionalFileNameInformation)));
