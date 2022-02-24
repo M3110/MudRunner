@@ -91,6 +91,7 @@ namespace MudRunner.Suspension.Core.Operations.CalculateReactions
         protected override Task<CalculateReactionsResponse> ValidateOperationAsync(CalculateReactionsRequest request)
         {
             CalculateReactionsResponse response = new();
+            response.SetSuccessOk();
 
             if (Vector3D.Create(request.AppliedForce).IsZero())
             {

@@ -12,7 +12,7 @@ namespace MudRunner.Commons.DataContracts.Operation
         /// </summary>
         public OperationResponseBase()
         {
-            this.Errors = new List<string>();
+            this.Reports = new List<string>();
         }
 
         /// <summary>
@@ -26,43 +26,63 @@ namespace MudRunner.Commons.DataContracts.Operation
         public HttpStatusCode HttpStatusCode { get; protected set; }
 
         /// <summary>
-        /// The list of errors.
+        /// The list of report.
         /// </summary>
-        public List<string> Errors { get; protected set; }
+        public List<string> Reports { get; protected set; }
 
         /// <summary>
-        /// This method adds the operation errors to the error list.
+        /// This method adds report to the report list.
+        /// </summary>
+        /// <param name="report"></param>
+        /// <param name="httpStatusCode"></param>
+        /// <param name="success"></param>
+        public void AddReport(string? report, HttpStatusCode httpStatusCode = HttpStatusCode.BadRequest, bool success = false)
+        {
+            if (string.IsNullOrWhiteSpace(report))
+                throw new ArgumentNullException(nameof(report), $"The '{nameof(report)}' cannot be null or white space.");
+
+            this.Reports.Add(report);
+            this.HttpStatusCode = httpStatusCode;
+            this.Success = success;
+        }
+
+        /// <summary>
+        /// This method adds the operation reports to the report list.
         /// </summary>
         /// <param name="response"></param>
-        public void AddErrors(OperationResponseBase response)
+        public void AddReports(OperationResponseBase response)
         {
             if (response == null)
                 throw new ArgumentNullException(nameof(response), "Response cannot be null.");
 
-            if (response.Errors == null)
-                throw new ArgumentNullException(nameof(response.Errors), $"The '{nameof(response.Errors)}' cannot be null in the response.");
+            if (response.Reports == null)
+                throw new ArgumentNullException(nameof(response.Reports), $"The '{nameof(response.Reports)}' cannot be null in the response.");
 
-            if (response.Errors.Count <= 0)
-                throw new ArgumentOutOfRangeException(nameof(response.Errors), $"It must contains at least one error in '{nameof(response.Errors)}'.");
+            if (response.Reports.Count <= 0)
+                throw new ArgumentOutOfRangeException(nameof(response.Reports), $"It must contains at least one report in '{nameof(response.Reports)}'.");
 
-            if (this.IsSuccessHttpStatusCode(response.HttpStatusCode) == false)
-                throw new ArgumentOutOfRangeException(nameof(response.HttpStatusCode), $"The '{nameof(response.HttpStatusCode)}' indicates success and cannot be used in method '{nameof(AddErrors)}'.");
-
-            this.Errors.AddRange(response.Errors);
+            this.Reports.AddRange(response.Reports);
             this.HttpStatusCode = response.HttpStatusCode;
-            this.Success = false;
+            this.Success = response.Success;
         }
 
         /// <summary>
-        /// This method adds errors to the error list.
+        /// This method adds reports to the report list.
         /// </summary>
-        /// <param name="errors"></param>
+        /// <param name="reports"></param>
         /// <param name="httpStatusCode"></param>
-        public void AddErrors(List<string> errors, HttpStatusCode httpStatusCode = HttpStatusCode.BadRequest)
+        /// <param name="success"></param>
+        public void AddReports(List<string> reports, HttpStatusCode httpStatusCode = HttpStatusCode.BadRequest, bool success = false)
         {
-            this.Errors.AddRange(errors);
+            if (reports == null)
+                throw new ArgumentNullException(nameof(reports), $"The '{nameof(reports)}' cannot be null or white space.");
+
+            if (reports.Count <= 0)
+                throw new ArgumentOutOfRangeException(nameof(reports), $"It must contains at least one report in '{nameof(reports)}'.");
+
+            this.Reports.AddRange(reports);
             this.HttpStatusCode = httpStatusCode;
-            this.Success = false;
+            this.Success = success;
         }
 
         /// <summary>
@@ -81,46 +101,69 @@ namespace MudRunner.Commons.DataContracts.Operation
         public void SetSuccessAccepted() => this.SetSuccess(HttpStatusCode.Accepted);
 
         /// <summary>
+        /// This method sets Success to true and the HttpStatusCode to 206 (PartialContent).
+        /// </summary>
+        public void SetSuccessPartialContent() => this.SetSuccess(HttpStatusCode.PartialContent);
+
+        /// <summary>
         /// This method sets Success to false and the HttpStatusCode to 400 (BadRequest).
         /// </summary>
-        /// <param name="error"></param>
-        public void SetBadRequestError(string error = null) => this.SetError(HttpStatusCode.BadRequest, error);
+        /// <param name="report"></param>
+        public void SetBadRequestError(string? report = null) => this.SetError(HttpStatusCode.BadRequest, report);
 
         /// <summary>
         /// This method sets Success to false and the HttpStatusCode to 401 (Unauthorized).
         /// </summary>
-        /// <param name="error"></param>
-        public void SetUnauthorizedError(string error = null) => this.SetError(HttpStatusCode.Unauthorized, error);
+        /// <param name="report"></param>
+        public void SetUnauthorizedError(string? report = null) => this.SetError(HttpStatusCode.Unauthorized, report);
+
+        /// <summary>
+        /// This method sets Success to false and the HttpStatusCode to 404 (NotFound).
+        /// </summary>
+        /// <param name="report"></param>
+        public void SetNotFoundError(string? report = null) => this.SetError(HttpStatusCode.NotFound, report);
 
         /// <summary>
         /// This method sets Success to false and the HttpStatusCode to 409 (Conflict).
         /// </summary>
-        /// <param name="error"></param>
-        public void SetConflictError(string error = null) => this.SetError(HttpStatusCode.Conflict, error);
+        /// <param name="report"></param>
+        public void SetConflictError(string? report = null) => this.SetError(HttpStatusCode.Conflict, report);
+
+        /// <summary>
+        /// This method sets Success to false and the HttpStatusCode to 417 (ExpectationFailed).
+        /// </summary>
+        /// <param name="report"></param>
+        public void SetExpectationFailedError(string? report = null) => this.SetError(HttpStatusCode.ExpectationFailed, report);
+
+        /// <summary>
+        /// This method sets Success to false and the HttpStatusCode to 422 (UnprocessableEntity).
+        /// </summary>
+        /// <param name="report"></param>
+        public void SetUnprocessableEntityError(string? report = null) => this.SetError(HttpStatusCode.UnprocessableEntity, report);
+
+        /// <summary>
+        /// This method sets Success to false and the HttpStatusCode to 423 (Locked).
+        /// </summary>
+        /// <param name="report"></param>
+        public void SetLockedError(string? report = null) => this.SetError(HttpStatusCode.Locked, report);
+
+        /// <summary>
+        /// This method sets Success to false and the HttpStatusCode to 429 (TooManyRequests).
+        /// </summary>
+        /// <param name="report"></param>
+        public void SetTooManyRequestsError(string? report = null) => this.SetError(HttpStatusCode.TooManyRequests, report);
 
         /// <summary>
         /// This method sets Success to false and the HttpStatusCode to 500 (InternalServerError).
         /// </summary>
-        /// <param name="error"></param>
-        public void SetInternalServerError(string error = null) => this.SetError(HttpStatusCode.InternalServerError, error);
+        /// <param name="report"></param>
+        public void SetInternalServerError(string? report = null) => this.SetError(HttpStatusCode.InternalServerError, report);
 
         /// <summary>
         /// This method sets Success to false and the HttpStatusCode to 501 (NotImplemented).
         /// </summary>
-        /// <param name="error"></param>
-        public void SetNotImplementedError(string error = null) => this.SetError(HttpStatusCode.NotImplemented, error);
-
-        /// <summary>
-        /// This method adds error on list of errors.
-        /// </summary>
-        /// <param name="error"></param>
-        /// <param name="httpStatusCode"></param>
-        protected void AddError(string error, HttpStatusCode httpStatusCode = HttpStatusCode.BadRequest)
-        {
-            this.Errors.Add(error);
-            this.HttpStatusCode = httpStatusCode;
-            this.Success = false;
-        }
+        /// <param name="report"></param>
+        public void SetNotImplementedError(string? report = null) => this.SetError(HttpStatusCode.NotImplemented, report);
 
         /// <summary>
         /// This method sets Sucess to true.
@@ -136,11 +179,11 @@ namespace MudRunner.Commons.DataContracts.Operation
         /// This method sets Success to false.
         /// </summary>
         /// <param name="httpStatusCode"></param>
-        /// <param name="error"></param>
-        protected void SetError(HttpStatusCode httpStatusCode, string error = null)
+        /// <param name="report"></param>
+        protected void SetError(HttpStatusCode httpStatusCode, string? report = null)
         {
-            if (error != null)
-                this.Errors.Add(error);
+            if (report != null)
+                this.Reports.Add(report);
 
             this.HttpStatusCode = httpStatusCode;
             this.Success = false;
@@ -175,7 +218,7 @@ namespace MudRunner.Commons.DataContracts.Operation
         /// </summary>
         public OperationResponseBase()
         {
-            this.Errors = new List<string>();
+            this.Reports = new List<string>();
             this.Data = new TResponseData();
         }
 

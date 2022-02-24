@@ -4,6 +4,22 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
+## UNRELEASED
+### Fixed
+ - RunDynamicAnalysis operation that was not building correctly the equivalent force vector.
+### Changed
+ - RunDynamicAnalysis operations to calculate the system deformation.
+ - Nuget package MudRunner.Commons.Core to 1.3.0.
+ - Nuget package MudRunner.Commons.DataContracts to 1.3.0.
+### Added
+ - Enum CurveType.
+ - Class BaseExcitation.
+ - Class DynamicAnalysisResult.
+ - Properties 'ConsiderLargeDisplacements', 'BaseExcitation' and 'CarSpeed' on class RunDynamicAnalysisRequest.
+ - Properties 'MaximumResult' and 'MaximumDeformationResult' on class RunDynamicAnalysisResponseData.
+ - Operations RunAmplitudeDynamicAnalysis, RunHalfCarSixDofDynamicAnalysis and RunHalfCarSixDofAmplitudeDynamicAnalysis.
+ - Nuget package MudRunner.Commons.Application to 1.3.0.
+
 ## [1.2.0] - 2022-01-13
 ### Changed
  - Framework to NET6.0.

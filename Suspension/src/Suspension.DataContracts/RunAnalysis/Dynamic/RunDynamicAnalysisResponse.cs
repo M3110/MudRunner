@@ -3,7 +3,7 @@
 namespace MudRunner.Suspension.DataContracts.RunAnalysis.Dynamic
 {
     /// <summary>
-    /// It represents the response content of RunStaticAnalysis operation.
+    /// It represents the response content of RunDynamicAnalysis operation.
     /// </summary>
     public class RunDynamicAnalysisResponse : OperationResponseBase<RunDynamicAnalysisResponseData> { }
 }

@@ -1,10 +1,29 @@
-﻿namespace MudRunner.Suspension.Core.Models.NumericalMethod
+﻿using System.Globalization;
+
+namespace MudRunner.Suspension.Core.Models.NumericalMethod
 {
     /// <summary>
     /// It contains the finite element analysis results to a specific time.
     /// </summary>
     public class NumericalMethodResult
     {
+        /// <summary>
+        /// Basic constructor.
+        /// </summary>
+        public NumericalMethodResult() { }
+
+        /// <summary>
+        /// Class constructor.
+        /// </summary>
+        /// <param name="numberOfBoundaryConditions"></param>
+        public NumericalMethodResult(uint numberOfBoundaryConditions)
+        {
+            this.Displacement = new double[numberOfBoundaryConditions];
+            this.Velocity = new double[numberOfBoundaryConditions];
+            this.Acceleration = new double[numberOfBoundaryConditions];
+            this.EquivalentForce = new double[numberOfBoundaryConditions];
+        }
+
         /// <summary>
         /// Unit: s (second).
         /// </summary>
@@ -33,6 +52,8 @@
         /// <inheritdoc/>
         public override string ToString()
         {
+            CultureInfo.CurrentCulture = CultureInfo.InvariantCulture;
+
             return $"{this.Time}," +
                 $"{string.Join(",", this.Displacement)}," +
                 $"{string.Join(",", this.Velocity)}," +

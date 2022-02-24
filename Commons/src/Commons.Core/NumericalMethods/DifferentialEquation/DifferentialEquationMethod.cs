@@ -5,23 +5,28 @@ namespace MudRunner.Suspension.Core.NumericalMethods.DifferentialEquation
     /// <summary>
     /// It is responsible to execute numerical method to solve Differential Equation.
     /// </summary>
-    /// <typeparam name="TInput"></typeparam>
-    public abstract class DifferentialEquationMethod<TInput> : IDifferentialEquationMethod<TInput>
-        where TInput : NumericalMethodInput
+    public abstract class DifferentialEquationMethod : IDifferentialEquationMethod
     {
+        /// <summary>
+        /// Dimensionless.
+        /// </summary>
+        protected abstract double Gama { get; }
+
+        /// <summary>
+        /// Dimensionless.
+        /// </summary>
+        protected abstract double Beta { get; }
+
         /// <inheritdoc/>
-        public virtual NumericalMethodResult CalculateInitialResult(TInput input)
+        public virtual NumericalMethodResult CalculateInitialResult(NumericalMethodInput input)
         {
-            return new NumericalMethodResult
+            return new(input.NumberOfBoundaryConditions)
             {
-                Displacement = new double[input.NumberOfBoundaryConditions],
-                Velocity = new double[input.NumberOfBoundaryConditions],
-                Acceleration = new double[input.NumberOfBoundaryConditions],
                 EquivalentForce = input.EquivalentForce
             };
         }
 
         /// <inheritdoc/>
-        public abstract Task<NumericalMethodResult> CalculateResultAsync(TInput input, NumericalMethodResult previousResult, double time);
+        public abstract Task<NumericalMethodResult> CalculateResultAsync(NumericalMethodInput input, NumericalMethodResult previousResult, double time);
     }
 }

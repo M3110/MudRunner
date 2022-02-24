@@ -1,4 +1,5 @@
 ﻿using MudRunner.Commons.DataContracts.Operation;
+using System.Globalization;
 
 namespace MudRunner.Commons.Core.Operation
 {
@@ -11,6 +12,14 @@ namespace MudRunner.Commons.Core.Operation
         where TRequest : OperationRequestBase
         where TResponse : OperationResponseBase, new()
     {
+        /// <summary>
+        /// Class constructor.
+        /// </summary>
+        //protected OperationBase()
+        //{
+        //    CultureInfo.CurrentCulture = CultureInfo.InvariantCulture;
+        //}
+
         /// <summary>
         /// Asynchronously, this method validates the request sent to operation.
         /// </summary>
@@ -51,11 +60,11 @@ namespace MudRunner.Commons.Core.Operation
                 TResponse validationResponse = await ValidateAsync(request).ConfigureAwait(false);
                 if (validationResponse.Success == false)
                 {
-                    response.AddErrors(validationResponse);
+                    response.AddReports(validationResponse);
                     return response;
                 }
 
-                validationResponse = await ProcessOperationAsync(request).ConfigureAwait(false);
+                response = await ProcessOperationAsync(request).ConfigureAwait(false);
             }
             catch (Exception ex)
             {

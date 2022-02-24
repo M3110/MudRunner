@@ -21,5 +21,11 @@
         /// Unit: m/s² (meter per squared second).
         /// </summary>
         public static double GravityAcceleration => 9.80665;
+
+        /// <summary>
+        /// The initial time that must be used in all analyzes and operations.
+        /// Unit: s (second).
+        /// </summary>
+        public static double InitialTime => 0;
     }
 }

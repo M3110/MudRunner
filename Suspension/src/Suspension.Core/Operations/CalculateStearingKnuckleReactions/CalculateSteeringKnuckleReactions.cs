@@ -110,6 +110,7 @@ namespace MudRunner.Suspension.Core.Operations.CalculateStearingKnuckleReactions
         protected override Task<CalculateSteeringKnuckleReactionsResponse> ValidateOperationAsync(CalculateSteeringKnuckleReactionsRequest request)
         {
             CalculateSteeringKnuckleReactionsResponse response = new();
+            response.SetSuccessOk();
 
             if (request.CalculateReactionsRequest == null && request.CalculateReactionsResponseData == null)
             {

@@ -3,13 +3,8 @@
     /// <summary>
     /// It contains the input data for a numerical method.
     /// </summary>
-    public abstract class NumericalMethodInput
+    public class NumericalMethodInput
     {
-        /// <summary>
-        /// Unit: s (second).
-        /// </summary>
-        public double InitialTime => 0;
-
         /// <summary>
         /// Unit: s (second).
         /// </summary>
@@ -39,15 +34,5 @@
         /// Dimensionless.
         /// </summary>
         public uint NumberOfBoundaryConditions { get; set; }
-
-        /// <summary>
-        /// Dimensionless.
-        /// </summary>
-        public abstract double Gama { get; }
-
-        /// <summary>
-        /// Dimensionless.
-        /// </summary>
-        public abstract double Beta { get; }
     }
 }

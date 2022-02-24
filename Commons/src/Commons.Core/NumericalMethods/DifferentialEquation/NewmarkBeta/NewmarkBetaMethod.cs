@@ -1,16 +1,21 @@
 ﻿using MudRunner.Commons.Core.ExtensionMethods;
 using MudRunner.Suspension.Core.Models.NumericalMethod;
-using MudRunner.Suspension.Core.Models.NumericalMethod.NewmarkBeta;
 
 namespace MudRunner.Suspension.Core.NumericalMethods.DifferentialEquation.NewmarkBeta
 {
     /// <summary>
     /// It is responsible to execute the Newmark-Beta numerical method to solve Differential Equation.
     /// </summary>
-    public class NewmarkBetaMethod : DifferentialEquationMethod<NewmarkBetaMethodInput>, INewmarkBetaMethod
+    public class NewmarkBetaMethod : DifferentialEquationMethod, INewmarkBetaMethod
     {
         /// <inheritdoc/>
-        public override async Task<NumericalMethodResult> CalculateResultAsync(NewmarkBetaMethodInput input, NumericalMethodResult previousResult, double time)
+        protected override double Gama => (double)1 / 2;
+
+        /// <inheritdoc/>
+        protected override double Beta => (double)1 / 6;
+
+        /// <inheritdoc/>
+        public override async Task<NumericalMethodResult> CalculateResultAsync(NumericalMethodInput input, NumericalMethodResult previousResult, double time)
         {
             if (time < 0)
                 throw new ArgumentOutOfRangeException(nameof(time), "The time cannot be negative.");
@@ -19,7 +24,7 @@ namespace MudRunner.Suspension.Core.NumericalMethods.DifferentialEquation.Newmar
                 return this.CalculateInitialResult(input);
 
             #region Step 1 - Asynchronously, calculates the equivalent stiffness and equivalent force.
-            var tasks = new List<Task>();
+            List<Task> tasks = new();
 
             double[,] inversedEquivalentStiffness = null;
             tasks.Add(Task.Run(() => inversedEquivalentStiffness = this.CalculateEquivalentStiffness(input).InverseMatrix()));
@@ -30,36 +35,47 @@ namespace MudRunner.Suspension.Core.NumericalMethods.DifferentialEquation.Newmar
             await Task.WhenAll(tasks).ConfigureAwait(false);
             #endregion
 
-            #region Step 2 - Calculates the delta displacement.
+            #region Step 2 - Calculates the displacement.
             double[] deltaDisplacement = inversedEquivalentStiffness.Multiply(equivalentForce);
+            double[] displacement = previousResult.Displacement.Sum(deltaDisplacement);
             #endregion
 
-            #region Step 3 - Calculates the delta velocity and delta acceleration.
-            double[] deltaVelocity = new double[input.NumberOfBoundaryConditions];
-            double[] deltaAcceleration = new double[input.NumberOfBoundaryConditions];
+            #region Step 3 - Calculates the velocity.
+            double[] velocity = new double[input.NumberOfBoundaryConditions];
             for (int i = 0; i < input.NumberOfBoundaryConditions; i++)
             {
-                deltaAcceleration[i] = input.A0 * deltaDisplacement[i] - input.A2 * previousResult.Velocity[i] - input.A4 * previousResult.Acceleration[i];
-                deltaVelocity[i] = input.A1 * deltaDisplacement[i] - input.A3 * previousResult.Velocity[i] - input.A5 * previousResult.Acceleration[i];
+                velocity[i] = GetA1(input.TimeStep) * deltaDisplacement[i] + (1 - GetA3()) * previousResult.Velocity[i] - GetA5(input.TimeStep) * previousResult.Acceleration[i];
             }
             #endregion
 
-            #region Step 4 - Calculates the displacement, velocity and acceleration.
-            var resultTasks = new List<Task>();
+            #region Step 4 - Calculates the acceleration.
+            List<Task> accelerationTasks1 = new();
 
-            double[] displacement = null;
-            resultTasks.Add(Task.Run(() => displacement = previousResult.Displacement.Sum(deltaDisplacement)));
+            double[] damping_velocity = null;
+            accelerationTasks1.Add(Task.Run(() => damping_velocity = input.Damping.Multiply(velocity)));
 
-            double[] velocity = null;
-            resultTasks.Add(Task.Run(() => velocity = previousResult.Velocity.Sum(deltaVelocity)));
+            double[] stiffness_displacement = null;
+            accelerationTasks1.Add(Task.Run(() => stiffness_displacement = input.Stiffness.Multiply(displacement)));
 
-            double[] acceleration = null;
-            resultTasks.Add(Task.Run(() => acceleration = previousResult.Acceleration.Sum(deltaAcceleration)));
+            await Task.WhenAll(accelerationTasks1).ConfigureAwait(false);
 
-            await Task.WhenAll(resultTasks).ConfigureAwait(false);
+            List<Task> accelerationTasks2 = new();
+
+            double[] systemEquivalentForce = null;
+            accelerationTasks2.Add(Task.Run(() => systemEquivalentForce = input.EquivalentForce.Subtract(damping_velocity).Subtract(stiffness_displacement)));
+
+            double[,] inversedMass = null;
+            accelerationTasks2.Add(Task.Run(() => inversedMass = input.Mass.InverseMatrix()));
+
+            await Task.WhenAll(accelerationTasks2).ConfigureAwait(false);
+
+            // [Acceleration] = -inv([M]) * [System Equivalent Force]
+            //    [System Equivalent Force] = [Equivalent Force] - [Stiffness] * [Diplacement] - [Damping] * [Velocity]
+            double[] acceleration = inversedMass.Multiply(systemEquivalentForce);
+
             #endregion
 
-            return new NumericalMethodResult
+            return new()
             {
                 Time = time,
                 Displacement = displacement,
@@ -74,14 +90,14 @@ namespace MudRunner.Suspension.Core.NumericalMethods.DifferentialEquation.Newmar
         /// </summary>
         /// <param name="input"></param>
         /// <returns></returns>
-        private double[,] CalculateEquivalentStiffness(NewmarkBetaMethodInput input)
+        private double[,] CalculateEquivalentStiffness(NumericalMethodInput input)
         {
             double[,] equivalentStiffness = new double[input.NumberOfBoundaryConditions, input.NumberOfBoundaryConditions];
             for (int i = 0; i < input.NumberOfBoundaryConditions; i++)
             {
                 for (int j = 0; j < input.NumberOfBoundaryConditions; j++)
                 {
-                    equivalentStiffness[i, j] = input.A0 * input.Mass[i, j] + input.A1 * input.Damping[i, j] + input.Stiffness[i, j];
+                    equivalentStiffness[i, j] = GetA0(input.TimeStep) * input.Mass[i, j] + GetA1(input.TimeStep) * input.Damping[i, j] + input.Stiffness[i, j];
                 }
             }
 
@@ -95,10 +111,10 @@ namespace MudRunner.Suspension.Core.NumericalMethods.DifferentialEquation.Newmar
         /// <param name="previousResult"></param>
         /// <param name="time"></param>
         /// <returns></returns>
-        private async Task<double[]> CalculateEquivalentForceAsync(NewmarkBetaMethodInput input, NumericalMethodResult previousResult, double time)
+        private async Task<double[]> CalculateEquivalentForceAsync(NumericalMethodInput input, NumericalMethodResult previousResult, double time)
         {
             #region Calculates the equivalent damping and equivalent mass.
-            var tasks = new List<Task>();
+            List<Task> tasks = new();
 
             double[,] equivalentDamping = null;
             tasks.Add(Task.Run(() => equivalentDamping = this.CalculateEquivalentDamping(input)));
@@ -113,10 +129,10 @@ namespace MudRunner.Suspension.Core.NumericalMethods.DifferentialEquation.Newmar
             List<Task> forceTasks = new();
 
             double[] equivalentDampingForce = null;
-            tasks.Add(Task.Run(() => equivalentDampingForce = equivalentDamping.Multiply(previousResult.Velocity)));
+            forceTasks.Add(Task.Run(() => equivalentDampingForce = equivalentDamping.Multiply(previousResult.Velocity)));
 
             double[] equivalentDynamicForce = null;
-            tasks.Add(Task.Run(() => equivalentDynamicForce = equivalentMass.Multiply(previousResult.Acceleration)));
+            forceTasks.Add(Task.Run(() => equivalentDynamicForce = equivalentMass.Multiply(previousResult.Acceleration)));
 
             await Task.WhenAll(forceTasks).ConfigureAwait(false);
             #endregion
@@ -131,14 +147,14 @@ namespace MudRunner.Suspension.Core.NumericalMethods.DifferentialEquation.Newmar
         /// </summary>
         /// <param name="input"></param>
         /// <returns></returns>
-        private double[,] CalculateEquivalentDamping(NewmarkBetaMethodInput input)
+        private double[,] CalculateEquivalentDamping(NumericalMethodInput input)
         {
             double[,] equivalentDamping = new double[input.NumberOfBoundaryConditions, input.NumberOfBoundaryConditions];
             for (int i = 0; i < input.NumberOfBoundaryConditions; i++)
             {
                 for (int j = 0; j < input.NumberOfBoundaryConditions; j++)
                 {
-                    equivalentDamping[i, j] = input.A2 * input.Mass[i, j] + input.A3 * input.Damping[i, j];
+                    equivalentDamping[i, j] = GetA2(input.TimeStep) * input.Mass[i, j] + GetA3() * input.Damping[i, j];
                 }
             }
 
@@ -150,18 +166,34 @@ namespace MudRunner.Suspension.Core.NumericalMethods.DifferentialEquation.Newmar
         /// </summary>
         /// <param name="input"></param>
         /// <returns></returns>
-        private double[,] CalculateEquivalentMass(NewmarkBetaMethodInput input)
+        private double[,] CalculateEquivalentMass(NumericalMethodInput input)
         {
             double[,] equivalentMass = new double[input.NumberOfBoundaryConditions, input.NumberOfBoundaryConditions];
             for (int i = 0; i < input.NumberOfBoundaryConditions; i++)
             {
                 for (int j = 0; j < input.NumberOfBoundaryConditions; j++)
                 {
-                    equivalentMass[i, j] = input.A4 * input.Mass[i, j] + input.A5 * input.Damping[i, j];
+                    equivalentMass[i, j] = GetA4() * input.Mass[i, j] + GetA5(input.TimeStep) * input.Damping[i, j];
                 }
             }
 
             return equivalentMass;
         }
+
+        #region Integration Constants
+
+        private double GetA0(double timeStep) => 1 / (this.Beta * Math.Pow(timeStep, 2));
+
+        private double GetA1(double timeStep) => this.Gama / (this.Beta * timeStep);
+
+        private double GetA2(double timeStep) => 1 / (this.Beta * timeStep);
+
+        private double GetA3() => this.Gama / this.Beta;
+
+        private double GetA4() => 1 / (2 * this.Beta);
+
+        private double GetA5(double timeStep) => -timeStep * (1 - this.Gama / (2 * this.Beta));
+
+        #endregion
     }
 }
