@@ -36,7 +36,7 @@ namespace MudRunner.Commons.DataContracts.Operation
         /// <param name="report"></param>
         /// <param name="httpStatusCode"></param>
         /// <param name="success"></param>
-        public void AddReport(string? report, HttpStatusCode httpStatusCode = HttpStatusCode.BadRequest, bool success = false)
+        public void AddReport(string report, HttpStatusCode httpStatusCode = HttpStatusCode.BadRequest, bool success = false)
         {
             if (string.IsNullOrWhiteSpace(report))
                 throw new ArgumentNullException(nameof(report), $"The '{nameof(report)}' cannot be null or white space.");
@@ -109,61 +109,61 @@ namespace MudRunner.Commons.DataContracts.Operation
         /// This method sets Success to false and the HttpStatusCode to 400 (BadRequest).
         /// </summary>
         /// <param name="report"></param>
-        public void SetBadRequestError(string? report = null) => this.SetError(HttpStatusCode.BadRequest, report);
+        public void SetBadRequestError(string report = null) => this.SetError(HttpStatusCode.BadRequest, report);
 
         /// <summary>
         /// This method sets Success to false and the HttpStatusCode to 401 (Unauthorized).
         /// </summary>
         /// <param name="report"></param>
-        public void SetUnauthorizedError(string? report = null) => this.SetError(HttpStatusCode.Unauthorized, report);
+        public void SetUnauthorizedError(string report = null) => this.SetError(HttpStatusCode.Unauthorized, report);
 
         /// <summary>
         /// This method sets Success to false and the HttpStatusCode to 404 (NotFound).
         /// </summary>
         /// <param name="report"></param>
-        public void SetNotFoundError(string? report = null) => this.SetError(HttpStatusCode.NotFound, report);
+        public void SetNotFoundError(string report = null) => this.SetError(HttpStatusCode.NotFound, report);
 
         /// <summary>
         /// This method sets Success to false and the HttpStatusCode to 409 (Conflict).
         /// </summary>
         /// <param name="report"></param>
-        public void SetConflictError(string? report = null) => this.SetError(HttpStatusCode.Conflict, report);
+        public void SetConflictError(string report = null) => this.SetError(HttpStatusCode.Conflict, report);
 
         /// <summary>
         /// This method sets Success to false and the HttpStatusCode to 417 (ExpectationFailed).
         /// </summary>
         /// <param name="report"></param>
-        public void SetExpectationFailedError(string? report = null) => this.SetError(HttpStatusCode.ExpectationFailed, report);
+        public void SetExpectationFailedError(string report = null) => this.SetError(HttpStatusCode.ExpectationFailed, report);
 
         /// <summary>
         /// This method sets Success to false and the HttpStatusCode to 422 (UnprocessableEntity).
         /// </summary>
         /// <param name="report"></param>
-        public void SetUnprocessableEntityError(string? report = null) => this.SetError(HttpStatusCode.UnprocessableEntity, report);
+        public void SetUnprocessableEntityError(string report = null) => this.SetError(HttpStatusCode.UnprocessableEntity, report);
 
         /// <summary>
         /// This method sets Success to false and the HttpStatusCode to 423 (Locked).
         /// </summary>
         /// <param name="report"></param>
-        public void SetLockedError(string? report = null) => this.SetError(HttpStatusCode.Locked, report);
+        public void SetLockedError(string report = null) => this.SetError(HttpStatusCode.Locked, report);
 
         /// <summary>
         /// This method sets Success to false and the HttpStatusCode to 429 (TooManyRequests).
         /// </summary>
         /// <param name="report"></param>
-        public void SetTooManyRequestsError(string? report = null) => this.SetError(HttpStatusCode.TooManyRequests, report);
+        public void SetTooManyRequestsError(string report = null) => this.SetError(HttpStatusCode.TooManyRequests, report);
 
         /// <summary>
         /// This method sets Success to false and the HttpStatusCode to 500 (InternalServerError).
         /// </summary>
         /// <param name="report"></param>
-        public void SetInternalServerError(string? report = null) => this.SetError(HttpStatusCode.InternalServerError, report);
+        public void SetInternalServerError(string report = null) => this.SetError(HttpStatusCode.InternalServerError, report);
 
         /// <summary>
         /// This method sets Success to false and the HttpStatusCode to 501 (NotImplemented).
         /// </summary>
         /// <param name="report"></param>
-        public void SetNotImplementedError(string? report = null) => this.SetError(HttpStatusCode.NotImplemented, report);
+        public void SetNotImplementedError(string report = null) => this.SetError(HttpStatusCode.NotImplemented, report);
 
         /// <summary>
         /// This method sets Sucess to true.
@@ -180,7 +180,7 @@ namespace MudRunner.Commons.DataContracts.Operation
         /// </summary>
         /// <param name="httpStatusCode"></param>
         /// <param name="report"></param>
-        protected void SetError(HttpStatusCode httpStatusCode, string? report = null)
+        protected void SetError(HttpStatusCode httpStatusCode, string report = null)
         {
             if (report != null)
                 this.Reports.Add(report);

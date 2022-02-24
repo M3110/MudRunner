@@ -159,6 +159,7 @@
         /// This method do a mathematic operation for two vectors.
         /// </summary>
         /// <param name="vector1"></param>
+        /// <param name="func"></param>
         /// <param name="vector2"></param>
         /// <returns></returns>
         public static double[] MathOperation(this double[] vector1, Func<double, double, double> func, double[] vector2)
