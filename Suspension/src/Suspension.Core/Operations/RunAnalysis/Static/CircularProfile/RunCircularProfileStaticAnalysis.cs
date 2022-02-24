@@ -2,6 +2,8 @@
 using MudRunner.Commons.Core.GeometricProperties.CircularProfile;
 using MudRunner.Suspension.Core.Mapper;
 using MudRunner.Suspension.Core.Operations.CalculateReactions;
+using MudRunner.Suspension.DataContracts.RunAnalysis.Static;
+using System.Threading.Tasks;
 using DataContract = MudRunner.Commons.DataContracts.Models.Profiles;
 
 namespace MudRunner.Suspension.Core.Operations.RunAnalysis.Static.CircularProfile
@@ -25,5 +27,18 @@ namespace MudRunner.Suspension.Core.Operations.RunAnalysis.Static.CircularProfil
             IMappingResolver mappingResolver)
             : base(calculateReactions, mechanicsOfMaterials, geometricProperty, mappingResolver)
         { }
+
+        /// <summary>
+        /// Asynchronously, this method validates the <see cref="RunStaticAnalysisRequest{CircularProfile}"/>.
+        /// </summary>
+        /// <param name="request"></param>
+        /// <returns></returns>
+        protected override Task<RunStaticAnalysisResponse> ValidateOperationAsync(RunStaticAnalysisRequest<DataContract.CircularProfile> request)
+        {
+            RunStaticAnalysisResponse response = new();
+            response.SetSuccessOk();
+
+            return Task.FromResult(response);
+        }
     }
 }

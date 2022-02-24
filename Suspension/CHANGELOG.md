@@ -4,11 +4,27 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
+## [1.3.0] - 2022-02-24
+### Fixed
+ - RunDynamicAnalysis operation that was not building correctly the equivalent force vector.
+### Changed
+ - RunDynamicAnalysis operations to calculate the system deformation.
+ - Nuget package MudRunner.Commons.Core to 1.4.0.
+ - Nuget package MudRunner.Commons.DataContracts to 1.4.0.
+### Added
+ - Enum CurveType.
+ - Class BaseExcitation.
+ - Class DynamicAnalysisResult.
+ - Properties 'ConsiderLargeDisplacements', 'BaseExcitation' and 'CarSpeed' on class RunDynamicAnalysisRequest.
+ - Properties 'MaximumResult' and 'MaximumDeformationResult' on class RunDynamicAnalysisResponseData.
+ - Operations RunAmplitudeDynamicAnalysis, RunHalfCarSixDofDynamicAnalysis and RunHalfCarSixDofAmplitudeDynamicAnalysis.
+ - Nuget package MudRunner.Commons.Application to 1.4.0.
+
 ## [1.2.0] - 2022-01-13
 ### Changed
  - Framework to NET6.0.
- - Nuget package MudRunner.Commons.Core to 1.1.0.
- - Nuget package MudRunner.Commons.DataContracts to 1.1.0.
+ - Nuget package MudRunner.Commons.Core to 1.2.0.
+ - Nuget package MudRunner.Commons.DataContracts to 1.2.0.
  - Renamed suspension A-Arm to wishbone in all application.  
  - Renamed PivotPoint1 to FrontPivot in all application.
  - Renamed PivotPoint2 to RearPivot in all application.
@@ -17,6 +33,8 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
  - Codes that was in MudRunner.Commons.
 ### Added
  - Operation CalculateSteeringKnuckleReactions. 
+ - Operation RunDynamicAnalysis.
+ - Class BasePaths with the base paths for application.
 
 ## [1.1.0] - 2021-12-20
 ### Added

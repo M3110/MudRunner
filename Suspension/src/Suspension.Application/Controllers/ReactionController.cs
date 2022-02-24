@@ -32,6 +32,7 @@ namespace MudRunner.Suspension.Application.Controllers
             [FromBody] CalculateReactionsRequest request)
         {
             CalculateReactionsResponse response = await operation.ProcessAsync(request).ConfigureAwait(false);
+            //return response;
             return response.BuildHttpResponse();
         }
 

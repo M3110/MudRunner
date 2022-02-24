@@ -88,20 +88,17 @@ namespace MudRunner.Suspension.Core.Operations.CalculateReactions
         /// </summary>
         /// <param name="request"></param>
         /// <returns></returns>
-        public override async Task<CalculateReactionsResponse> ValidateOperationAsync(CalculateReactionsRequest request)
+        protected override Task<CalculateReactionsResponse> ValidateOperationAsync(CalculateReactionsRequest request)
         {
-            var response = await base.ValidateOperationAsync(request).ConfigureAwait(false);
-            if (response.Success == false)
-            {
-                return response;
-            }
+            CalculateReactionsResponse response = new();
+            response.SetSuccessOk();
 
             if (Vector3D.Create(request.AppliedForce).IsZero())
             {
                 response.SetBadRequestError("The applied force must have at least one coordinate different than zero.");
             }
 
-            return response;
+            return Task.FromResult(response);
         }
 
         /// <summary>

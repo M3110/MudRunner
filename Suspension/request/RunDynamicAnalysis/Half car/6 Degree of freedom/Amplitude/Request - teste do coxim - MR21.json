@@ -1,0 +1,38 @@
+{
+  "frontMassDistribution": [ 0.45 ],
+  "rearMassDistribution": [ 0.55 ],
+  "carMass": [ 105 ],
+  "carMomentOfInertia": [ 38.85 ],
+  "engineMass": [ 12 ],
+  "engineMountStiffness": [ 1.39e05, 2.57e05, 4.39e05, 7.03e05, 1.07e06, 1.11e06, 1.57e06, 2.05e06, 2.22e06, 3.05e06, 3.49e06, 4.10e06, 5.40e06, 5.59e06, 6.99e06, 8.50e06, 8.90e06, 1.12e07, 1.24e07, 1.39e07, 1.70e07, 1.75e07, 2.41e07, 3.23e07, 4.24e07, 5.48e07, 6.95e07, 8.71e07, 1.08e08, 1.32e08 ],
+  "engineDistance": [ 0.285 ],
+  "engineForce": [ 118 ],
+  "engineFrequency": [ 0 ],
+  "rearDamping": [ 500 ],
+  "rearStiffness": [ 31600 ],
+  "rearTireStiffness": [ 100000 ],
+  "rearDistance": [ 0.64 ],
+  "frontDamping": [ 500 ],
+  "frontStiffness": [ 31600 ],
+  "frontTireStiffness": [ 100000 ],
+  "frontDistance": [ 0.8 ],
+  "rearUnsprungMass": [ 5 ],
+  "frontUnsprungMass": [ 5 ],
+  "driverMass": [ 40 ],
+  "seatStiffness": [ 320000 ],
+  "driverDistance": [ 0.08 ],
+  "considerLargeDisplacements": true,
+  "timeStep": 0.1,
+  "finalTime": 100,
+  "additionalFileNameInformation": "Teste do coxim do motor",
+  "differentialEquationMethodEnum": "Newmark",
+  "baseExcitation": {
+    "constants": [
+      3e-1,-1,1
+    ],
+    "curveType": "Cosine",
+    "obstacleWidth": 1,
+    "carSpeed": 30
+  }
+}
+// Bibliografia coxim: http://www.civil.ist.utl.pt/~luisg/textos/borrachaAbr03.pdf

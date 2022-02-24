@@ -23,10 +23,10 @@ namespace MudRunner.Suspension.Core.Operations.RunAnalysis
     public abstract class RunStaticAnalysis<TProfile> : OperationBase<RunStaticAnalysisRequest<TProfile>, RunStaticAnalysisResponse>, IRunStaticAnalysis<TProfile>
         where TProfile : Profile
     {
-        protected readonly ICalculateReactions _calculateReactions;
-        protected readonly IMechanicsOfMaterials _mechanicsOfMaterials;
-        protected readonly IGeometricProperty<TProfile> _geometricProperty;
-        protected readonly IMappingResolver _mappingResolver;
+        private readonly ICalculateReactions _calculateReactions;
+        private readonly IMechanicsOfMaterials _mechanicsOfMaterials;
+        private readonly IGeometricProperty<TProfile> _geometricProperty;
+        private readonly IMappingResolver _mappingResolver;
 
         /// <summary>
         /// Class constructor.

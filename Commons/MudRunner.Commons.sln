@@ -16,6 +16,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MudRunner.Commons.DataContr
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MudRunner.Commons.Core", "src\Commons.Core\MudRunner.Commons.Core.csproj", "{84DDD8A3-44DB-4EDE-AD3C-4FBB484D23E1}"
 EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MudRunner.Commons.Application", "src\Commons.Application\MudRunner.Commons.Application.csproj", "{0FAB9766-89A6-4A7B-8AA8-B955D856934F}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -30,6 +32,10 @@ Global
 		{84DDD8A3-44DB-4EDE-AD3C-4FBB484D23E1}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{84DDD8A3-44DB-4EDE-AD3C-4FBB484D23E1}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{84DDD8A3-44DB-4EDE-AD3C-4FBB484D23E1}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0FAB9766-89A6-4A7B-8AA8-B955D856934F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0FAB9766-89A6-4A7B-8AA8-B955D856934F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0FAB9766-89A6-4A7B-8AA8-B955D856934F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0FAB9766-89A6-4A7B-8AA8-B955D856934F}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -37,6 +43,7 @@ Global
 	GlobalSection(NestedProjects) = preSolution
 		{F89C1288-E810-4640-9564-E9C52BBAEB05} = {A0414828-3FE3-4E7D-A8A3-F7AE0EE92BE2}
 		{84DDD8A3-44DB-4EDE-AD3C-4FBB484D23E1} = {A0414828-3FE3-4E7D-A8A3-F7AE0EE92BE2}
+		{0FAB9766-89A6-4A7B-8AA8-B955D856934F} = {A0414828-3FE3-4E7D-A8A3-F7AE0EE92BE2}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {F22D61C8-36C1-4BA7-90BC-59ADBB5740B2}

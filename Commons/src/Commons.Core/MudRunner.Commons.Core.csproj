@@ -6,6 +6,7 @@
 		<Nullable>enable</Nullable>
 		<GeneratePackageOnBuild>True</GeneratePackageOnBuild>
 		<PackageReadmeFile>README.md</PackageReadmeFile>
+		<GenerateDocumentationFile>True</GenerateDocumentationFile>
 	</PropertyGroup>
 
 	<ItemGroup>
@@ -16,7 +17,7 @@
 	</ItemGroup>
 
 	<ItemGroup>
-		<ProjectReference Include="..\Commons.DataContracts\MudRunner.Commons.DataContracts.csproj" />
+	  <ProjectReference Include="..\Commons.DataContracts\MudRunner.Commons.DataContracts.csproj" />
 	</ItemGroup>
 
 </Project>

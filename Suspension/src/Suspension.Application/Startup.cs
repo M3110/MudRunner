@@ -2,6 +2,7 @@ using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using MudRunner.Commons.Application.Extensions;
 using MudRunner.Commons.Core.ConstitutiveEquations.Fatigue;
 using MudRunner.Commons.Core.ConstitutiveEquations.MechanicsOfMaterials;
 using MudRunner.Commons.Core.GeometricProperties.CircularProfile;
@@ -9,7 +10,9 @@ using MudRunner.Commons.Core.GeometricProperties.RectangularProfile;
 using MudRunner.Commons.DataContracts.Models.Profiles;
 using MudRunner.Suspension.Application.Extensions;
 using MudRunner.Suspension.Core.Mapper;
+using MudRunner.Suspension.Core.NumericalMethods.DifferentialEquation.Newmark;
 using MudRunner.Suspension.Core.Operations.CalculateReactions;
+using MudRunner.Suspension.Core.Operations.RunAnalysis.Dynamic.HalfCar.SixDegreeOfFreedom;
 using MudRunner.Suspension.Core.Operations.RunAnalysis.Fatigue.CircularProfile;
 using MudRunner.Suspension.Core.Operations.RunAnalysis.Fatigue.RectangularProfile;
 using MudRunner.Suspension.Core.Operations.RunAnalysis.Static.CircularProfile;
@@ -30,6 +33,9 @@ namespace MudRunner.Suspension.Application
         /// <param name="services"></param>
         public void ConfigureServices(IServiceCollection services)
         {
+            // Register MudRunner.Commons sevices.
+            services.AddMudRunnerCommonsServices();
+
             // Register Constitutive Equations
             services.AddScoped<IMechanicsOfMaterials, MechanicsOfMaterials>();
             services.AddScoped<IFatigue<CircularProfile>, Fatigue<CircularProfile>>();
@@ -42,18 +48,25 @@ namespace MudRunner.Suspension.Application
             // Register Mapper
             services.AddScoped<IMappingResolver, MappingResolver>();
 
+            // Register numerical methods
+            services.AddScoped<INewmarkMethod, NewmarkMethod>();
+
             // Register operations.
             services.AddScoped<ICalculateReactions, CalculateReactions>();
             services.AddScoped<IRunCircularProfileStaticAnalysis, RunCircularProfileStaticAnalysis>();
             services.AddScoped<IRunRectangularProfileStaticAnalysis, RunRectangularProfileStaticAnalysis>();
             services.AddScoped<IRunCircularProfileFatigueAnalysis, RunCircularProfileFatigueAnalysis>();
             services.AddScoped<IRunRectangularProfileFatigueAnalysis, RunRectangularProfileFatigueAnalysis>();
+            services.AddScoped<IRunHalfCarSixDofDynamicAnalysis, RunHalfCarSixDofDynamicAnalysis>();
+            services.AddScoped<IRunHalfCarSixDofAmplitudeDynamicAnalysis, RunHalfCarSixDofAmplitudeDynamicAnalysis>();
 
             services
                 .AddControllers()
                 .AddNewtonsoftJson(options => options.SerializerSettings.Converters.Add(new StringEnumConverter()));
 
-            services.AddSwaggerDocs();
+            services.AddSwaggerDocs(
+                applicationFileName:"MudRunner.Suspension.Application.xml", 
+                dataContractFileName: "MudRunner.Suspension.DataContracts.xml");
         }
 
         /// <summary>
