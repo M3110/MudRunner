@@ -60,7 +60,7 @@ namespace MudRunner.Commons.Core.Operation
                 TResponse validationResponse = await ValidateAsync(request).ConfigureAwait(false);
                 if (validationResponse.Success == false)
                 {
-                    response.AddErrors(validationResponse);
+                    response.AddReports(validationResponse);
                     return response;
                 }
 
