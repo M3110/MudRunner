@@ -53,6 +53,14 @@ namespace MudRunner.Suspension.Core.Operations.RunAnalysis.Dynamic
         Task<double[]> BuildEquivalentForceVectorAsync(TRequest request, double time);
 
         /// <summary>
+        /// This method creates the files that will contains the numerical model result and deformation of each boundary condition.
+        /// </summary>
+        /// <param name="additionalFileNameInformation"></param>
+        /// <param name="response"></param>
+        /// <returns></returns>
+        public (string ResultFullFileName, string DeformationFullFileName) CreateResultAndDeformationFullFileNames(string additionalFileNameInformation, RunDynamicAnalysisResponse response);
+
+        /// <summary>
         /// This method creates the solution file.
         /// </summary>
         /// <param name="additionalFileNameInformation"></param>
