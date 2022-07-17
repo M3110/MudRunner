@@ -5,7 +5,6 @@ namespace MudRunner.Suspension.Core.NumericalMethods.DifferentialEquation
     /// <summary>
     /// It is responsible to execute numerical method to solve Differential Equation
     /// </summary>
-    /// <typeparam name="TInput"></typeparam>
     public interface IDifferentialEquationMethod
     {
         /// <summary>
