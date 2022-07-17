@@ -28,7 +28,7 @@ namespace MudRunner.Suspension.Core.Operations.RunAnalysis.Dynamic.HalfCar.SixDe
         protected override uint NumberOfBoundaryConditions => 6;
 
         /// <inheritdoc/>
-        protected override string SolutionPath => BasePaths.HalfCarSixDofAmplitudeAnalysis;
+        protected override string SolutionPath => SuspensionBasePath.HalfCarSixDofAmplitudeAnalysis;
 
         /// <inheritdoc/>
         public override Task<List<RunHalfCarSixDofDynamicAnalysisRequest>> BuildRunDynamicAnalysisRequestListAsync(RunHalfCarSixDofAmplitudeDynamicAnalysisRequest request)

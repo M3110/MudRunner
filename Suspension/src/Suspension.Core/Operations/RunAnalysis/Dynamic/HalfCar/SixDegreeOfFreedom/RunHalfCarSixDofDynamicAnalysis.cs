@@ -42,7 +42,7 @@ namespace MudRunner.Suspension.Core.Operations.RunAnalysis.Dynamic.HalfCar.SixDe
         protected override uint NumberOfBoundaryConditions => 6;
 
         /// <inheritdoc/>
-        protected override string SolutionPath => BasePaths.HalfCarSixDofAnalysis;
+        protected override string SolutionPath => SuspensionBasePath.HalfCarSixDofAnalysis;
 
         /// <inheritdoc/>
         public override Task<double[,]> BuildMassMatrixAsync(RunHalfCarSixDofDynamicAnalysisRequest request)
@@ -230,7 +230,7 @@ namespace MudRunner.Suspension.Core.Operations.RunAnalysis.Dynamic.HalfCar.SixDe
             if (string.IsNullOrWhiteSpace(additionalFileNameInformation) == false)
                 fileName.Append($"{additionalFileNameInformation}_");
 
-            fileName.Append($"{DateTime.UtcNow:yyyyMMddHHmmss}.csv");
+            fileName.Append($"{base.ExecutionDateTime:yyyyMMddHHmmss}.csv");
 
             return fileName.ToString();
         }

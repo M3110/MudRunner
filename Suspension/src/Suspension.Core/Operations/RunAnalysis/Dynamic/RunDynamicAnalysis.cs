@@ -3,6 +3,7 @@ using MudRunner.Commons.Core.Models;
 using MudRunner.Commons.Core.Operation;
 using MudRunner.Suspension.Core.ExtensionMethods;
 using MudRunner.Suspension.Core.Mapper;
+using MudRunner.Suspension.Core.Models;
 using MudRunner.Suspension.Core.Models.NumericalMethod;
 using MudRunner.Suspension.Core.NumericalMethods.DifferentialEquation;
 using MudRunner.Suspension.DataContracts.Models.Enums;
@@ -31,6 +32,11 @@ namespace MudRunner.Suspension.Core.Operations.RunAnalysis.Dynamic
         /// </summary>
         protected abstract string SolutionPath { get; }
 
+        /// <summary>
+        /// The date and time the operation is instantiated.
+        /// </summary>
+        protected DateTime ExecutionDateTime { get; set; }
+
         /// <inheritdoc/>
         public uint NumberOfFilesPerRequest => 2;
 
@@ -48,6 +54,7 @@ namespace MudRunner.Suspension.Core.Operations.RunAnalysis.Dynamic
         {
             this._differentialEquationMethodFactory = differentialEquationMethodFactory;
             this._mappingResolver = mappingResolver;
+            this.ExecutionDateTime = DateTime.Now;
         }
 
         /// <summary>
@@ -62,31 +69,13 @@ namespace MudRunner.Suspension.Core.Operations.RunAnalysis.Dynamic
             // Step 1 - Build the input for numerical method.
             NumericalMethodInput input = await this.BuildNumericalMethodInputAsync(request).ConfigureAwait(false);
 
-            // Step 2 - Create the file that will contain the results from numerical model and its folder if they do not exist.
-            // The results written in that file represents the displacement, velocity and acceleration of each boundary condition
-            // in relation to the origin of the system.
-            if (this.TryCreateSolutionFile(request.AdditionalFileNameInformation, out string resultFullFileName) == false)
-            {
-                response.SetConflictError($"The file '{resultFullFileName}' already exist.");
+            // Step 2 - Create the full file name for the following files:
+            //      Result file that will contain the results from numerical model.
+            //      Deformation file that will contain the real results of each boundary condition.
+            (string resultFullFileName, string deformationFullFileName) = this.CreateResultAndDeformationFullFileNames(request.AdditionalFileNameInformation, response);
+            if (!response.Success)
                 return response;
-            }
 
-            // Step 3 - Create the file that will contain the real results of each boundary condition and at and its
-            // folder if they do not exist.
-            // The results written in that file represents the real deformation, deformation velocity and deformation acceleration
-            // in relation to the origin of the system.
-            // OBS.:
-            //   The deformation velocity is the deformation derivative on time and represents how the deformation varies on time.
-            //   The deformation acceleration is the second deformation derivative on time and represents how the deformation
-            //   velocity varies on time.
-            if (this.TryCreateSolutionFile($"{request.AdditionalFileNameInformation}_Deformation", out string deformationFullFileName) == false)
-            {
-                response.SetConflictError($"The file '{resultFullFileName}' already exist.");
-                return response;
-            }
-
-            // Step 4 - Instantiate the variable 'maximumResult' that will contains the maximum result for analysis and the variable
-            // 'maximumDeformationResult' that will contain the maximum deformation for analysis.
             NumericalMethodResult maximumResult = new(this.NumberOfBoundaryConditions);
             NumericalMethodResult maximumDeformationResult = new(this.NumberOfBoundaryConditions);
 
@@ -95,11 +84,11 @@ namespace MudRunner.Suspension.Core.Operations.RunAnalysis.Dynamic
                 using (StreamWriter resultStreamWriter = new(resultFullFileName))
                 using (StreamWriter deformationStreamWriter = new(deformationFullFileName))
                 {
-                    // Step 5 - Write the header in the file.
+                    // Step 3 - Write the header in the files.
                     resultStreamWriter.WriteLine(this.CreateResultFileHeader());
                     deformationStreamWriter.WriteLine(this.CreateDeformationResultFileHeader());
 
-                    // Step 6 - Calculate the result for initial time.
+                    // Step 4 - Calculate the result for initial time.
                     NumericalMethodResult previousResult = this._differentialEquationMethod.CalculateInitialResult(input);
                     maximumResult = previousResult;
                     maximumDeformationResult = previousResult;
@@ -107,7 +96,7 @@ namespace MudRunner.Suspension.Core.Operations.RunAnalysis.Dynamic
                     double time = Constants.InitialTime + request.TimeStep;
                     while (time <= request.FinalTime)
                     {
-                        // Step 7 - Calculate the results and write it in the file.
+                        // Step 5 - Calculate the results and write it in the file.
                         NumericalMethodResult result = await this._differentialEquationMethod.CalculateResultAsync(input, previousResult, time).ConfigureAwait(false);
                         if (request.ConsiderLargeDisplacements == false)
                         {
@@ -131,23 +120,23 @@ namespace MudRunner.Suspension.Core.Operations.RunAnalysis.Dynamic
                             maximumDeformationResult = this.GetMaximumResult(maximumDeformationResult, deformationResult);
                         }
 
-                        // Step 8 - Save the current result in the variable 'previousResult' to be used at next step
+                        // Step 6 - Save the current result in the variable 'previousResult' to be used at next step
                         // and iterate the time.
                         previousResult = result;
                         time += input.TimeStep;
 
-                        // Step 9 - Calculates the equivalent force to be used at next step.
+                        // Step 7 - Calculates the equivalent force to be used at next step.
                         input.EquivalentForce = await this.BuildEquivalentForceVectorAsync(request, time).ConfigureAwait(false);
                     }
                 }
             }
             catch (Exception ex)
             {
-                response.SetInternalServerError($"Error trying to calculate and write the result in file. {ex}.");
+                response.SetUnprocessableEntityError($"Error trying to calculate and write the result in file. {ex}.");
             }
             finally
             {
-                // Step 9 - At the end of the process, it maps the full name of solution file and the maximum result to response
+                // Step 8 - At the end of the process, it maps the full name of solution file and the maximum result to response
                 // and set the success as true and HTTP Status Code as 201 (Created).
                 response.Data.FullFileNames.Add(resultFullFileName);
                 response.Data.FullFileNames.Add(deformationFullFileName);
@@ -203,6 +192,33 @@ namespace MudRunner.Suspension.Core.Operations.RunAnalysis.Dynamic
 
         /// <inheritdoc/>
         public abstract Task<double[]> BuildEquivalentForceVectorAsync(TRequest request, double time);
+
+        /// <inheritdoc/>
+        public (string ResultFullFileName, string DeformationFullFileName) CreateResultAndDeformationFullFileNames(string additionalFileNameInformation, RunDynamicAnalysisResponse response)
+        {
+            // SStep i - Create the file that will contain the results from numerical model and its folder if they do not exist.
+            // The results written in that file represents the displacement, velocity and acceleration of each boundary condition
+            // in relation to the origin of the system.
+            if (this.TryCreateSolutionFile(additionalFileNameInformation, out string resultFullFileName) == false)
+            {
+                response.SetConflictError($"The file '{resultFullFileName}' already exist.");
+            }
+
+            // Step ii - Create the file that will contain the real results of each boundary condition and at and its
+            // folder if they do not exist.
+            // The results written in that file represents the real deformation, deformation velocity and deformation acceleration
+            // in relation to the origin of the system.
+            // OBS.:
+            //   The deformation velocity is the deformation derivative on time and represents how the deformation varies on time.
+            //   The deformation acceleration is the second deformation derivative on time and represents how the deformation
+            //   velocity varies on time.
+            if (this.TryCreateSolutionFile($"{additionalFileNameInformation}_Deformation", out string deformationFullFileName) == false)
+            {
+                response.SetConflictError($"The file '{deformationFullFileName}' already exist.");
+            }
+
+            return (resultFullFileName, deformationFullFileName);
+        }
 
         /// <inheritdoc/>
         public bool TryCreateSolutionFile(string additionalFileNameInformation, out string fullFileName)

@@ -101,8 +101,8 @@ namespace MudRunner.Suspension.Core.Operations.RunAnalysis.Dynamic
                         if (runDynamicAnalysisResponse.Success == false)
                         {
                             // TODO: adicionar propriedade Warning e salvar esses erros como warning.
-                            response.Errors.Add($"Ocurred error while processing the request index '{requestIndex}' for RunDynamicAnalysis operation.");
-                            response.AddErrors(runDynamicAnalysisResponse);
+                            response.AddReport($"Ocurred error while processing the request index '{requestIndex}' for RunDynamicAnalysis operation.");
+                            response.AddReports(runDynamicAnalysisResponse);
                         }
                         else
                         {

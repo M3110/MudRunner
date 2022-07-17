@@ -32,8 +32,9 @@ namespace MudRunner.Commons.DataContracts.Models
         /// Class constructor.
         /// </summary>
         /// <param name="youngModulus"></param>
-        /// <param name="specificMass"></param>
         /// <param name="yieldStrength"></param>
+        /// <param name="tensileStress"></param>
+        /// <param name="specificMass"></param>
         private Material(double youngModulus, double yieldStrength, double tensileStress, double specificMass)
         {
             this.YoungModulus = youngModulus;
