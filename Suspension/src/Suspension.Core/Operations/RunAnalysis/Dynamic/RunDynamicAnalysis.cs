@@ -3,7 +3,6 @@ using MudRunner.Commons.Core.Models;
 using MudRunner.Commons.Core.Operation;
 using MudRunner.Suspension.Core.ExtensionMethods;
 using MudRunner.Suspension.Core.Mapper;
-using MudRunner.Suspension.Core.Models;
 using MudRunner.Suspension.Core.Models.NumericalMethod;
 using MudRunner.Suspension.Core.NumericalMethods.DifferentialEquation;
 using MudRunner.Suspension.DataContracts.Models.Enums;

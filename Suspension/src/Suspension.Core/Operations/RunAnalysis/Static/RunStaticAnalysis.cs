@@ -62,7 +62,7 @@ namespace MudRunner.Suspension.Core.Operations.RunAnalysis
             if (calculateReactionsResponse.Success == false)
             {
                 response.SetInternalServerError("Occurred error while calculating the reactions to suspension system.");
-                response.AddErrors(calculateReactionsResponse.Errors, calculateReactionsResponse.HttpStatusCode);
+                response.AddReports(calculateReactionsResponse.Reports, calculateReactionsResponse.HttpStatusCode);
 
                 return response;
             }

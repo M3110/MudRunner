@@ -10,6 +10,7 @@ using System.Threading.Tasks;
 
 namespace MudRunner.Suspension.Core.Operations.CalculateReactions
 {
+    // TODO: para formula SAE precisa pensar melhor como fazer no caso da traseira já que o eixo pode ser estrutural.
     /// <summary>
     /// It is responsible to calculate the reactions to suspension system.
     /// </summary>

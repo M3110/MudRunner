@@ -59,7 +59,7 @@ namespace MudRunner.Suspension.UnitTest.Core.Operations.CalculateReactions
             response.Should().NotBeNull();
             response.Success.Should().BeFalse();
             response.HttpStatusCode.Should().Be(HttpStatusCode.BadRequest);
-            response.Errors.Should().HaveCountGreaterOrEqualTo(1);
+            response.Reports.Should().HaveCountGreaterOrEqualTo(1);
         }
 
         [Fact(DisplayName = "Feature: ValidateAsync | Given: Invalid parameters. | When: Call method. | Should: Return a failure for a bad request.")]
@@ -72,7 +72,7 @@ namespace MudRunner.Suspension.UnitTest.Core.Operations.CalculateReactions
             response.Should().NotBeNull();
             response.Success.Should().BeFalse();
             response.HttpStatusCode.Should().Be(HttpStatusCode.BadRequest);
-            response.Errors.Should().HaveCountGreaterOrEqualTo(1);
+            response.Reports.Should().HaveCountGreaterOrEqualTo(1);
         }
 
         [Fact(DisplayName = "Feature: BuildDisplacementMatrix | Given: Valid parameters. | When: Call method. | Should: Return a valid displacement matrix.")]
@@ -158,7 +158,7 @@ namespace MudRunner.Suspension.UnitTest.Core.Operations.CalculateReactions
             response.Should().NotBeNull();
             response.HttpStatusCode.Should().Be(this._expectedResponse.HttpStatusCode);
             response.Success.Should().Be(this._expectedResponse.Success);
-            response.Errors.Should().BeEquivalentTo(this._expectedResponse.Errors);
+            response.Reports.Should().BeEquivalentTo(this._expectedResponse.Reports);
             response.Data.Should().NotBeNull();
             response.Data.LowerWishboneReaction1.AbsolutValue.Should().BeApproximately(this._expectedResponse.Data.LowerWishboneReaction1.AbsolutValue, precision);
             response.Data.LowerWishboneReaction2.AbsolutValue.Should().BeApproximately(this._expectedResponse.Data.LowerWishboneReaction2.AbsolutValue, precision);
