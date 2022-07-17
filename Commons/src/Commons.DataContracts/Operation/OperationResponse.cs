@@ -256,13 +256,13 @@ namespace MudRunner.Commons.DataContracts.Operation
     /// Response content for all operations.
     /// </summary>
     /// <typeparam name="TResponseData"></typeparam>
-    public sealed class OperationResponseBase<TResponseData> : OperationResponse
-        where TResponseData : OperationResponseData, new()
+    public sealed class OperationResponse<TResponseData> : OperationResponse
+        where TResponseData : class, new()
     {
         /// <summary>
         /// Class constructor.
         /// </summary>
-        public OperationResponseBase() : base()
+        public OperationResponse() : base()
         {
             this.Data = new TResponseData();
         }
