@@ -61,7 +61,7 @@ namespace MudRunner.Commons.Core.ConstitutiveEquations.Fatigue
         {
             (double a, double b) = surfaceFinish switch
             {
-                SurfaceFinish.Retified => (1.58, -0.085),
+                SurfaceFinish.Rectified => (1.58, -0.085),
                 SurfaceFinish.Machined => (4.51, -0.265),
                 SurfaceFinish.ColdRolled => (4.51, -0.265),
                 SurfaceFinish.HotRolled => (57.7, -0.718),
@@ -77,6 +77,7 @@ namespace MudRunner.Commons.Core.ConstitutiveEquations.Fatigue
         /// </summary>
         /// <param name="profile"></param>
         /// <param name="loadingType"></param>
+        /// <param name="isRotativeSection"></param>
         /// <returns></returns>
         private double CalculateSizeFactor(TProfile profile, LoadingType loadingType, bool isRotativeSection)
         {
@@ -106,7 +107,7 @@ namespace MudRunner.Commons.Core.ConstitutiveEquations.Fatigue
                 return 1.51 * Math.Pow(equivalentDiameter, -0.157);
             }
 
-            throw new ArgumentOutOfRangeException(nameof(equivalentDiameter));
+            throw new ArgumentOutOfRangeException(nameof(profile));
         }
 
         /// <summary>
