@@ -15,7 +15,7 @@ namespace MudRunner.Suspension.Application.Extensions
         /// <typeparam name="TResponseData"></typeparam>
         /// <param name="response"></param>
         /// <returns></returns>
-        public static JsonResult BuildHttpResponse<TResponseData>(this OperationResponseBase<TResponseData> response)
+        public static JsonResult BuildHttpResponse<TResponseData>(this OperationResponse<TResponseData> response)
             where TResponseData : OperationResponseData, new()
         {
             return new JsonResult(response)
