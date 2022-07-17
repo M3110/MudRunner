@@ -1,6 +1,7 @@
 ﻿using MudRunner.Commons.Core.ExtensionMethods;
 using MudRunner.Commons.Core.Operation;
 using MudRunner.Commons.DataContracts.Models;
+using MudRunner.Commons.DataContracts.Operation;
 using MudRunner.Suspension.Core.ExtensionMethods;
 using MudRunner.Suspension.Core.Mapper;
 using MudRunner.Suspension.Core.Models.SuspensionComponents;
@@ -14,7 +15,7 @@ namespace MudRunner.Suspension.Core.Operations.CalculateReactions
     /// <summary>
     /// It is responsible to calculate the reactions to suspension system.
     /// </summary>
-    public class CalculateReactions : OperationBase<CalculateReactionsRequest, CalculateReactionsResponse>, ICalculateReactions
+    public class CalculateReactions : OperationBase<CalculateReactionsRequest, OperationResponseBase<CalculateReactionsResponseData>>, ICalculateReactions
     {
         private readonly double _precision = 1e-3;
         private readonly IMappingResolver _mappingResolver;
