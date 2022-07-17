@@ -4,38 +4,39 @@ using System.Globalization;
 namespace MudRunner.Commons.Core.Operation
 {
     /// <summary>
-    /// It represents the base for all operations in the application.
+    /// Base for all operations.
     /// </summary>
     /// <typeparam name="TRequest"></typeparam>
     /// <typeparam name="TResponse"></typeparam>
+    // TODO: Adicionar log.
     public abstract class OperationBase<TRequest, TResponse> : IOperationBase<TRequest, TResponse>
         where TRequest : OperationRequestBase
-        where TResponse : OperationResponseBase, new()
+        where TResponse : OperationResponse, new()
     {
         /// <summary>
         /// Class constructor.
         /// </summary>
-        //protected OperationBase()
-        //{
-        //    CultureInfo.CurrentCulture = CultureInfo.InvariantCulture;
-        //}
+        protected OperationBase()
+        {
+            CultureInfo.CurrentCulture = CultureInfo.InvariantCulture;
+        }
 
         /// <summary>
-        /// Asynchronously, this method validates the request sent to operation.
+        /// Asynchronously, validates the request sent to operation.
         /// </summary>
         /// <param name="request"></param>
         /// <returns></returns>
         protected abstract Task<TResponse> ValidateOperationAsync(TRequest request);
 
         /// <summary>
-        /// Asynchronously, this method processes the operation.
+        /// Asynchronously, processes the operation.
         /// </summary>
         /// <param name="request"></param>
         /// <returns></returns>
         protected abstract Task<TResponse> ProcessOperationAsync(TRequest request);
 
         /// <inheritdoc/>
-        public virtual async Task<TResponse> ValidateAsync(TRequest request)
+        public async Task<TResponse> ValidateAsync(TRequest request)
         {
             var response = new TResponse();
             response.SetSuccessOk();
@@ -58,9 +59,9 @@ namespace MudRunner.Commons.Core.Operation
             try
             {
                 TResponse validationResponse = await ValidateAsync(request).ConfigureAwait(false);
-                if (validationResponse.Success == false)
+                if (!validationResponse.Success)
                 {
-                    response.AddReports(validationResponse);
+                    response.AddMessages(validationResponse);
                     return response;
                 }
 

@@ -3,16 +3,16 @@
 namespace MudRunner.Commons.Core.Operation
 {
     /// <summary>
-    /// It represents the base for all operations in the application.
+    /// Base for all operations in the application.
     /// </summary>
     /// <typeparam name="TRequest"></typeparam>
     /// <typeparam name="TResponse"></typeparam>
     public interface IOperationBase<TRequest, TResponse>
         where TRequest : OperationRequestBase
-        where TResponse : OperationResponseBase, new()
+        where TResponse : OperationResponse, new()
     {
         /// <summary>
-        /// Asynchronously, this method validates the operation.
+        /// Asynchronously, validates the operation.
         /// </summary>
         /// <param name="request"></param>
         /// <returns></returns>
@@ -20,7 +20,7 @@ namespace MudRunner.Commons.Core.Operation
 
         /// <summary>
         /// The main method of all operations.
-        /// Asynchronously, this method orchestrates the operation.
+        /// Asynchronously, orchestrates the operation.
         /// </summary>
         /// <param name="request"></param>
         /// <returns></returns>

@@ -100,7 +100,7 @@
         /// <summary>
         /// This method subtracts two forces.
         /// </summary>
-        /// <param name="force"></param>
+        /// <param name="value"></param>
         /// <returns></returns>
         public Force Divide(int value)
         {

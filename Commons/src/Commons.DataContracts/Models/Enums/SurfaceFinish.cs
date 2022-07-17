@@ -5,7 +5,7 @@
     /// </summary>
     public enum SurfaceFinish
     {
-        Retified,
+        Rectified,
 
         Machined,
 
