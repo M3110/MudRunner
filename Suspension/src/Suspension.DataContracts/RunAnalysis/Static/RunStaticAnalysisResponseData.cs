@@ -1,5 +1,4 @@
 ﻿using MudRunner.Commons.DataContracts.Models;
-using MudRunner.Commons.DataContracts.Operation;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -8,7 +7,7 @@ namespace MudRunner.Suspension.DataContracts.RunAnalysis.Static
     /// <summary>
     /// It represents the 'data' content of RunStaticAnalysis operation response.
     /// </summary>
-    public class RunStaticAnalysisResponseData : OperationResponseData
+    public class RunStaticAnalysisResponseData
     {
         /// <summary>
         /// True, if analysis failed. False, otherwise.

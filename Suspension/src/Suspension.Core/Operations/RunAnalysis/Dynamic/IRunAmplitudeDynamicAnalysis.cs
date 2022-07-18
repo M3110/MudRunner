@@ -1,4 +1,5 @@
 ﻿using MudRunner.Commons.Core.Operation;
+using MudRunner.Commons.DataContracts.Operation;
 using MudRunner.Suspension.Core.Models.NumericalMethod;
 using MudRunner.Suspension.DataContracts.RunAnalysis.Dynamic;
 using System.Collections.Generic;
@@ -10,7 +11,7 @@ namespace MudRunner.Suspension.Core.Operations.RunAnalysis.Dynamic
     /// It is responsible to run the dynamic analysis to suspension system focusing in the amplitude of the system.
     /// </summary>
     public interface IRunAmplitudeDynamicAnalysis<TRunAmplitudeDynamicAnalysisRequest, TRunDynamicAnalysisRequest> : 
-        IOperationBase<TRunAmplitudeDynamicAnalysisRequest, RunAmplitudeDynamicAnalysisResponse>
+        IOperationBase<TRunAmplitudeDynamicAnalysisRequest, OperationResponse<RunAmplitudeDynamicAnalysisResponseData>>
         where TRunAmplitudeDynamicAnalysisRequest : RunGenericDynamicAnalysisRequest
         where TRunDynamicAnalysisRequest : RunGenericDynamicAnalysisRequest
     {

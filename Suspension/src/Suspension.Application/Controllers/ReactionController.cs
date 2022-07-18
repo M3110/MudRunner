@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using MudRunner.Commons.DataContracts.Operation;
 using MudRunner.Suspension.Application.Extensions;
 using MudRunner.Suspension.Core.Operations.CalculateReactions;
 using MudRunner.Suspension.Core.Operations.CalculateStearingKnuckleReactions;
@@ -27,12 +28,11 @@ namespace MudRunner.Suspension.Application.Controllers
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         [ProducesResponseType(StatusCodes.Status501NotImplemented)]
         [HttpPost("calculate")]
-        public async Task<ActionResult<CalculateReactionsResponse>> CalculateReactions(
+        public async Task<ActionResult<OperationResponse<CalculateSteeringKnuckleReactionsResponseData>>> CalculateReactions(
             [FromServices] ICalculateReactions operation,
             [FromBody] CalculateReactionsRequest request)
         {
-            CalculateReactionsResponse response = await operation.ProcessAsync(request).ConfigureAwait(false);
-            //return response;
+            var response = await operation.ProcessAsync(request).ConfigureAwait(false);
             return response.BuildHttpResponse();
         }
 
@@ -51,11 +51,11 @@ namespace MudRunner.Suspension.Application.Controllers
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         [ProducesResponseType(StatusCodes.Status501NotImplemented)]
         [HttpPost("steering-knuckle/calculate")]
-        public async Task<ActionResult<CalculateSteeringKnuckleReactionsResponse>> CalculateSteeringKnuckleReactions(
+        public async Task<ActionResult<OperationResponse<CalculateSteeringKnuckleReactionsResponseData>>> CalculateSteeringKnuckleReactions(
             [FromServices] ICalculateSteeringKnuckleReactions operation,
             [FromBody] CalculateSteeringKnuckleReactionsRequest request)
         {
-            CalculateSteeringKnuckleReactionsResponse response = await operation.ProcessAsync(request).ConfigureAwait(false);
+            var response = await operation.ProcessAsync(request).ConfigureAwait(false);
             return response.BuildHttpResponse();
         }
     }

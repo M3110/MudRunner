@@ -1,6 +1,7 @@
 ﻿using MudRunner.Commons.Core.ExtensionMethods;
 using MudRunner.Commons.Core.Operation;
 using MudRunner.Commons.DataContracts.Models;
+using MudRunner.Commons.DataContracts.Operation;
 using MudRunner.Suspension.Core.Models.SuspensionComponents;
 using MudRunner.Suspension.Core.Models.SuspensionComponents.SteeringKnuckle;
 using MudRunner.Suspension.Core.Operations.CalculateReactions;
@@ -14,7 +15,7 @@ namespace MudRunner.Suspension.Core.Operations.CalculateStearingKnuckleReactions
     /// <summary>
     /// It is responsible to calculate the reactions to steering knuckle. 
     /// </summary>
-    public class CalculateSteeringKnuckleReactions : OperationBase<CalculateSteeringKnuckleReactionsRequest, CalculateSteeringKnuckleReactionsResponse>, ICalculateSteeringKnuckleReactions
+    public class CalculateSteeringKnuckleReactions : OperationBase<CalculateSteeringKnuckleReactionsRequest, OperationResponse<CalculateSteeringKnuckleReactionsResponseData>>, ICalculateSteeringKnuckleReactions
     {
         private readonly ICalculateReactions _calculateReactions;
 
@@ -75,9 +76,9 @@ namespace MudRunner.Suspension.Core.Operations.CalculateStearingKnuckleReactions
             return (new Force(result[0], result[1], result[2]), new Force(result[3], result[4], result[5]));
         }
 
-        protected override async Task<CalculateSteeringKnuckleReactionsResponse> ProcessOperationAsync(CalculateSteeringKnuckleReactionsRequest request)
+        protected override async Task<OperationResponse<CalculateSteeringKnuckleReactionsResponseData>> ProcessOperationAsync(CalculateSteeringKnuckleReactionsRequest request)
         {
-            var response = new CalculateSteeringKnuckleReactionsResponse();
+            OperationResponse<CalculateSteeringKnuckleReactionsResponseData> response = new();
 
             CalculateReactionsResponseData suspensionSystemEfforts;
             if (request.CalculateReactionsResponseData != null)
@@ -89,7 +90,7 @@ namespace MudRunner.Suspension.Core.Operations.CalculateStearingKnuckleReactions
                 var calculateReactionsResponse = await this._calculateReactions.ProcessAsync(request.CalculateReactionsRequest).ConfigureAwait(false);
                 if (calculateReactionsResponse.Success == false)
                 {
-                    response.AddErrors(calculateReactionsResponse.Errors);
+                    response.AddMessages(calculateReactionsResponse.Messages);
                     response.SetInternalServerError("Occurred error while calculating reactions on suspension system.");
                     return response;
                 }
@@ -107,9 +108,9 @@ namespace MudRunner.Suspension.Core.Operations.CalculateStearingKnuckleReactions
             return response;
         }
 
-        protected override Task<CalculateSteeringKnuckleReactionsResponse> ValidateOperationAsync(CalculateSteeringKnuckleReactionsRequest request)
+        protected override Task<OperationResponse<CalculateSteeringKnuckleReactionsResponseData>> ValidateOperationAsync(CalculateSteeringKnuckleReactionsRequest request)
         {
-            CalculateSteeringKnuckleReactionsResponse response = new();
+            OperationResponse<CalculateSteeringKnuckleReactionsResponseData> response = new();
             response.SetSuccessOk();
 
             if (request.CalculateReactionsRequest == null && request.CalculateReactionsResponseData == null)

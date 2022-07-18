@@ -2,6 +2,7 @@
 using MudRunner.Commons.Core.ConstitutiveEquations.MechanicsOfMaterials;
 using MudRunner.Commons.Core.GeometricProperties.CircularProfile;
 using MudRunner.Commons.DataContracts.Models;
+using MudRunner.Commons.DataContracts.Operation;
 using MudRunner.Suspension.Core.Mapper;
 using MudRunner.Suspension.Core.Operations.CalculateReactions;
 using MudRunner.Suspension.Core.Operations.RunAnalysis.Static.CircularProfile;
@@ -32,7 +33,7 @@ namespace MudRunner.Suspension.UnitTest.Core.Operations.RunAnalysis.CircularProf
                 .Setup(cr => cr.ProcessAsync(It.IsAny<CalculateReactionsRequest>()))
                 .ReturnsAsync(() =>
                 {
-                    var response = new CalculateReactionsResponse
+                    var response = new OperationResponse<CalculateReactionsResponseData>
                     {
                         Data = new CalculateReactionsResponseData
                         {

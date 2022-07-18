@@ -1,5 +1,4 @@
-﻿using MudRunner.Commons.DataContracts.Operation;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 
 namespace MudRunner.Suspension.DataContracts.RunAnalysis.Fatigue
@@ -7,7 +6,7 @@ namespace MudRunner.Suspension.DataContracts.RunAnalysis.Fatigue
     /// <summary>
     /// It represents the 'data' content of RunFatigueAnalysis operation response.
     /// </summary>
-    public class RunFatigueAnalysisResponseData : OperationResponseData
+    public class RunFatigueAnalysisResponseData
     {
         /// <summary>
         /// True, if analysis failed. False, otherwise.
@@ -17,9 +16,9 @@ namespace MudRunner.Suspension.DataContracts.RunAnalysis.Fatigue
         /// <summary>
         /// The safety factor.
         /// </summary>
-        public double SafetyFactor => new List<double> 
-        { 
-            (UpperWishboneResult?.SafetyFactor).GetValueOrDefault(), 
+        public double SafetyFactor => new List<double>
+        {
+            (UpperWishboneResult?.SafetyFactor).GetValueOrDefault(),
             (LowerWishboneResult?.SafetyFactor).GetValueOrDefault(),
             (TieRodResult?.SafetyFactor).GetValueOrDefault()
         }.Min();

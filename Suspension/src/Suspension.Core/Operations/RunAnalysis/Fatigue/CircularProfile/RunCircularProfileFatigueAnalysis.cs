@@ -1,4 +1,5 @@
 ﻿using MudRunner.Commons.Core.ConstitutiveEquations.Fatigue;
+using MudRunner.Commons.DataContracts.Operation;
 using MudRunner.Suspension.Core.Operations.RunAnalysis.Static.CircularProfile;
 using MudRunner.Suspension.DataContracts.RunAnalysis.Fatigue;
 using System.Threading.Tasks;
@@ -27,9 +28,9 @@ namespace MudRunner.Suspension.Core.Operations.RunAnalysis.Fatigue.CircularProfi
         /// </summary>
         /// <param name="request"></param>
         /// <returns></returns>
-        protected override Task<RunFatigueAnalysisResponse> ValidateOperationAsync(RunFatigueAnalysisRequest<DataContract.CircularProfile> request)
+        protected override Task<OperationResponse<RunFatigueAnalysisResponseData>> ValidateOperationAsync(RunFatigueAnalysisRequest<DataContract.CircularProfile> request)
         {
-            RunFatigueAnalysisResponse response = new();
+            OperationResponse<RunFatigueAnalysisResponseData> response = new();
             response.SetSuccessOk();
 
             return Task.FromResult(response);
