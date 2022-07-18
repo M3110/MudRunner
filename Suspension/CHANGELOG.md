@@ -7,9 +7,9 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 ## UNRELEASED
 ### Changed
  - Renamed BasePaths to SuspensionBasePath.
- - Nuget package MudRunner.Commons.Application to 1.6.0.
- - Nuget package MudRunner.Commons.Core to 1.6.0.
- - Nuget package MudRunner.Commons.DataContracts to 1.6.0.
+ - Nuget package MudRunner.Commons.Application to 1.6.2.
+ - Nuget package MudRunner.Commons.Core to 1.6.2.
+ - Nuget package MudRunner.Commons.DataContracts to 1.6.2.
 ### Added
  - Property ExecutionDateTime on class RunDynamicAnalysis.
  - Improves on operation RunDynamicAnalysis.

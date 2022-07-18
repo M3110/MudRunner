@@ -1,6 +1,7 @@
 ﻿using FluentAssertions;
 using Moq;
 using MudRunner.Commons.DataContracts.Models;
+using MudRunner.Commons.DataContracts.Operation;
 using MudRunner.Suspension.Core.Mapper;
 using MudRunner.Suspension.Core.Models.SuspensionComponents;
 using MudRunner.Suspension.DataContracts.CalculateReactions;
@@ -19,7 +20,7 @@ namespace MudRunner.Suspension.UnitTest.Core.Operations.CalculateReactions
         private readonly Mock<IMappingResolver> _mappingResolverMock;
 
         private readonly CalculateReactionsRequest _requestStub;
-        private readonly CalculateReactionsResponse _expectedResponse;
+        private readonly OperationResponse<CalculateReactionsResponseData> _expectedResponse;
         private readonly SuspensionSystem _suspensionSystem;
         private readonly double[] _reactions;
         private readonly Operation.CalculateReactions _operation;
@@ -53,26 +54,26 @@ namespace MudRunner.Suspension.UnitTest.Core.Operations.CalculateReactions
             this._requestStub.AppliedForce = invalidForce;
 
             // Act
-            CalculateReactionsResponse response = await this._operation.ValidateAsync(this._requestStub).ConfigureAwait(false);
+            var response = await this._operation.ValidateAsync(this._requestStub).ConfigureAwait(false);
 
             // Assert
             response.Should().NotBeNull();
             response.Success.Should().BeFalse();
             response.HttpStatusCode.Should().Be(HttpStatusCode.BadRequest);
-            response.Reports.Should().HaveCountGreaterOrEqualTo(1);
+            response.Messages.Should().HaveCountGreaterOrEqualTo(1);
         }
 
         [Fact(DisplayName = "Feature: ValidateAsync | Given: Invalid parameters. | When: Call method. | Should: Return a failure for a bad request.")]
         public async Task ValidateAsync_NullRequest_Should_ReturnBadRequest()
         {
             // Act
-            CalculateReactionsResponse response = await this._operation.ValidateAsync(null).ConfigureAwait(false);
+            var response = await this._operation.ValidateAsync(null).ConfigureAwait(false);
 
             // Assert
             response.Should().NotBeNull();
             response.Success.Should().BeFalse();
             response.HttpStatusCode.Should().Be(HttpStatusCode.BadRequest);
-            response.Reports.Should().HaveCountGreaterOrEqualTo(1);
+            response.Messages.Should().HaveCountGreaterOrEqualTo(1);
         }
 
         [Fact(DisplayName = "Feature: BuildDisplacementMatrix | Given: Valid parameters. | When: Call method. | Should: Return a valid displacement matrix.")]
@@ -152,13 +153,13 @@ namespace MudRunner.Suspension.UnitTest.Core.Operations.CalculateReactions
             double precision = 1e-6;
 
             // Act
-            CalculateReactionsResponse response = await this._operation.ProcessAsync(this._requestStub).ConfigureAwait(false);
+            var response = await this._operation.ProcessAsync(this._requestStub).ConfigureAwait(false);
 
             //Assert
             response.Should().NotBeNull();
             response.HttpStatusCode.Should().Be(this._expectedResponse.HttpStatusCode);
             response.Success.Should().Be(this._expectedResponse.Success);
-            response.Reports.Should().BeEquivalentTo(this._expectedResponse.Reports);
+            response.Messages.Should().BeEquivalentTo(this._expectedResponse.Messages);
             response.Data.Should().NotBeNull();
             response.Data.LowerWishboneReaction1.AbsolutValue.Should().BeApproximately(this._expectedResponse.Data.LowerWishboneReaction1.AbsolutValue, precision);
             response.Data.LowerWishboneReaction2.AbsolutValue.Should().BeApproximately(this._expectedResponse.Data.LowerWishboneReaction2.AbsolutValue, precision);

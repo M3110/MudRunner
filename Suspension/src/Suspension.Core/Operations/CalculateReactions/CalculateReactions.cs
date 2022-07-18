@@ -15,7 +15,7 @@ namespace MudRunner.Suspension.Core.Operations.CalculateReactions
     /// <summary>
     /// It is responsible to calculate the reactions to suspension system.
     /// </summary>
-    public class CalculateReactions : OperationBase<CalculateReactionsRequest, OperationResponseBase<CalculateReactionsResponseData>>, ICalculateReactions
+    public class CalculateReactions : OperationBase<CalculateReactionsRequest, OperationResponse<CalculateReactionsResponseData>>, ICalculateReactions
     {
         private readonly double _precision = 1e-3;
         private readonly IMappingResolver _mappingResolver;
@@ -34,9 +34,9 @@ namespace MudRunner.Suspension.Core.Operations.CalculateReactions
         /// </summary>
         /// <param name="request"></param>
         /// <returns></returns>
-        protected override Task<CalculateReactionsResponse> ProcessOperationAsync(CalculateReactionsRequest request)
+        protected override Task<OperationResponse<CalculateReactionsResponseData>> ProcessOperationAsync(CalculateReactionsRequest request)
         {
-            var response = new CalculateReactionsResponse { Data = new CalculateReactionsResponseData() };
+            OperationResponse<CalculateReactionsResponseData> response = new();
             response.SetSuccessOk();
 
             // Step 1 - Creates the necessary informations about the coordinates of the suspension system components.
@@ -90,9 +90,9 @@ namespace MudRunner.Suspension.Core.Operations.CalculateReactions
         /// </summary>
         /// <param name="request"></param>
         /// <returns></returns>
-        protected override Task<CalculateReactionsResponse> ValidateOperationAsync(CalculateReactionsRequest request)
+        protected override Task<OperationResponse<CalculateReactionsResponseData>> ValidateOperationAsync(CalculateReactionsRequest request)
         {
-            CalculateReactionsResponse response = new();
+            OperationResponse<CalculateReactionsResponseData> response = new();
             response.SetSuccessOk();
 
             if (Vector3D.Create(request.AppliedForce).IsZero())
@@ -164,7 +164,7 @@ namespace MudRunner.Suspension.Core.Operations.CalculateReactions
                 TieRodReaction = Force.Create(-result[5], suspensionSystem.TieRod.NormalizedDirection)
             };
 
-            return shouldRoundResults == false ? responseData : responseData.Round(decimals.Value);
+            return shouldRoundResults ? responseData.Round(decimals.Value) : responseData;
         }
 
         /// <summary>
@@ -172,7 +172,7 @@ namespace MudRunner.Suspension.Core.Operations.CalculateReactions
         /// </summary>
         /// <param name="response"></param>
         /// <param name="appliedForce"></param>
-        public void CheckForceAndMomentSum(CalculateReactionsResponse response, Vector3D appliedForce)
+        public void CheckForceAndMomentSum(OperationResponse<CalculateReactionsResponseData> response, Vector3D appliedForce)
         {
             if (Math.Abs(response.Data.CalculateForceXSum(appliedForce.X)) > this._precision)
             {

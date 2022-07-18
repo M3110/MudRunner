@@ -3,6 +3,7 @@ using MudRunner.Commons.Core.GeometricProperties;
 using MudRunner.Commons.Core.Operation;
 using MudRunner.Commons.DataContracts.Models;
 using MudRunner.Commons.DataContracts.Models.Profiles;
+using MudRunner.Commons.DataContracts.Operation;
 using MudRunner.Suspension.Core.Mapper;
 using MudRunner.Suspension.Core.Models.SuspensionComponents;
 using MudRunner.Suspension.Core.Operations.CalculateReactions;
@@ -20,7 +21,7 @@ namespace MudRunner.Suspension.Core.Operations.RunAnalysis
     /// It is responsible to run the static analysis to suspension system.
     /// </summary>
     /// <typeparam name="TProfile"></typeparam>
-    public abstract class RunStaticAnalysis<TProfile> : OperationBase<RunStaticAnalysisRequest<TProfile>, RunStaticAnalysisResponse>, IRunStaticAnalysis<TProfile>
+    public abstract class RunStaticAnalysis<TProfile> : OperationBase<RunStaticAnalysisRequest<TProfile>, OperationResponse<RunStaticAnalysisResponseData>>, IRunStaticAnalysis<TProfile>
         where TProfile : Profile
     {
         private readonly ICalculateReactions _calculateReactions;
@@ -35,7 +36,7 @@ namespace MudRunner.Suspension.Core.Operations.RunAnalysis
         /// <param name="mechanicsOfMaterials"></param>
         /// <param name="geometricProperty"></param>
         /// <param name="mappingResolver"></param>
-        public RunStaticAnalysis(
+        protected RunStaticAnalysis(
             ICalculateReactions calculateReactions,
             IMechanicsOfMaterials mechanicsOfMaterials,
             IGeometricProperty<TProfile> geometricProperty,
@@ -52,17 +53,17 @@ namespace MudRunner.Suspension.Core.Operations.RunAnalysis
         /// </summary>
         /// <param name="request"></param>
         /// <returns></returns>
-        protected override async Task<RunStaticAnalysisResponse> ProcessOperationAsync(RunStaticAnalysisRequest<TProfile> request)
+        protected override async Task<OperationResponse<RunStaticAnalysisResponseData>> ProcessOperationAsync(RunStaticAnalysisRequest<TProfile> request)
         {
-            var response = new RunStaticAnalysisResponse();
+            OperationResponse<RunStaticAnalysisResponseData> response = new();
             response.SetSuccessOk();
 
             // Step 1 - Calculates the reactions at suspension system for the applied force.
-            CalculateReactionsResponse calculateReactionsResponse = await this._calculateReactions.ProcessAsync(this.BuildCalculateReactionsRequest(request)).ConfigureAwait(false);
-            if (calculateReactionsResponse.Success == false)
+            OperationResponse<CalculateReactionsResponseData> calculateReactionsResponse = await this._calculateReactions.ProcessAsync(this.BuildCalculateReactionsRequest(request)).ConfigureAwait(false);
+            if (!calculateReactionsResponse.Success)
             {
                 response.SetInternalServerError("Occurred error while calculating the reactions to suspension system.");
-                response.AddReports(calculateReactionsResponse.Reports, calculateReactionsResponse.HttpStatusCode);
+                response.AddMessages(calculateReactionsResponse.Messages, calculateReactionsResponse.HttpStatusCode);
 
                 return response;
             }
@@ -206,7 +207,7 @@ namespace MudRunner.Suspension.Core.Operations.RunAnalysis
                 result.EquivalentStress = Math.Round(result.EquivalentStress, decimals);
                 result.StressSafetyFactor = Math.Round(result.StressSafetyFactor, decimals);
             }
-            
+
             return Task.FromResult(result);
         }
     }

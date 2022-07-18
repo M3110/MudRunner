@@ -1,6 +1,7 @@
 ﻿using MudRunner.Commons.Core.Factory.DifferentialEquationMethod;
 using MudRunner.Commons.Core.Models;
 using MudRunner.Commons.Core.Operation;
+using MudRunner.Commons.DataContracts.Operation;
 using MudRunner.Suspension.Core.ExtensionMethods;
 using MudRunner.Suspension.Core.Mapper;
 using MudRunner.Suspension.Core.Models.NumericalMethod;
@@ -17,7 +18,7 @@ namespace MudRunner.Suspension.Core.Operations.RunAnalysis.Dynamic
     /// <summary>
     /// It is responsible to run the dynamic analysis to suspension system.
     /// </summary>
-    public abstract class RunDynamicAnalysis<TRequest> : OperationBase<TRequest, RunDynamicAnalysisResponse>, IRunDynamicAnalysis<TRequest>
+    public abstract class RunDynamicAnalysis<TRequest> : OperationBase<TRequest, OperationResponse<RunDynamicAnalysisResponseData>>, IRunDynamicAnalysis<TRequest>
         where TRequest : RunGenericDynamicAnalysisRequest
     {
         /// <summary>
@@ -61,9 +62,9 @@ namespace MudRunner.Suspension.Core.Operations.RunAnalysis.Dynamic
         /// </summary>
         /// <param name="request"></param>
         /// <returns></returns>
-        protected async override Task<RunDynamicAnalysisResponse> ProcessOperationAsync(TRequest request)
+        protected async override Task<OperationResponse<RunDynamicAnalysisResponseData>> ProcessOperationAsync(TRequest request)
         {
-            RunDynamicAnalysisResponse response = new();
+            OperationResponse<RunDynamicAnalysisResponseData> response = new();
 
             // Step 1 - Build the input for numerical method.
             NumericalMethodInput input = await this.BuildNumericalMethodInputAsync(request).ConfigureAwait(false);
@@ -97,7 +98,7 @@ namespace MudRunner.Suspension.Core.Operations.RunAnalysis.Dynamic
                     {
                         // Step 5 - Calculate the results and write it in the file.
                         NumericalMethodResult result = await this._differentialEquationMethod.CalculateResultAsync(input, previousResult, time).ConfigureAwait(false);
-                        if (request.ConsiderLargeDisplacements == false)
+                        if (!request.ConsiderLargeDisplacements)
                         {
                             resultStreamWriter.WriteLine($"{result}");
 
@@ -193,12 +194,12 @@ namespace MudRunner.Suspension.Core.Operations.RunAnalysis.Dynamic
         public abstract Task<double[]> BuildEquivalentForceVectorAsync(TRequest request, double time);
 
         /// <inheritdoc/>
-        public (string ResultFullFileName, string DeformationFullFileName) CreateResultAndDeformationFullFileNames(string additionalFileNameInformation, RunDynamicAnalysisResponse response)
+        public (string ResultFullFileName, string DeformationFullFileName) CreateResultAndDeformationFullFileNames(string additionalFileNameInformation, OperationResponse<RunDynamicAnalysisResponseData> response)
         {
             // SStep i - Create the file that will contain the results from numerical model and its folder if they do not exist.
             // The results written in that file represents the displacement, velocity and acceleration of each boundary condition
             // in relation to the origin of the system.
-            if (this.TryCreateSolutionFile(additionalFileNameInformation, out string resultFullFileName) == false)
+            if (!this.TryCreateSolutionFile(additionalFileNameInformation, out string resultFullFileName))
             {
                 response.SetConflictError($"The file '{resultFullFileName}' already exist.");
             }
@@ -211,7 +212,7 @@ namespace MudRunner.Suspension.Core.Operations.RunAnalysis.Dynamic
             //   The deformation velocity is the deformation derivative on time and represents how the deformation varies on time.
             //   The deformation acceleration is the second deformation derivative on time and represents how the deformation
             //   velocity varies on time.
-            if (this.TryCreateSolutionFile($"{additionalFileNameInformation}_Deformation", out string deformationFullFileName) == false)
+            if (!this.TryCreateSolutionFile($"{additionalFileNameInformation}_Deformation", out string deformationFullFileName))
             {
                 response.SetConflictError($"The file '{deformationFullFileName}' already exist.");
             }
@@ -257,7 +258,7 @@ namespace MudRunner.Suspension.Core.Operations.RunAnalysis.Dynamic
         /// </summary>
         /// <param name="additionalFileNameInformation"></param>
         /// <returns></returns>
-        /// TODO: Tentar usar regex para que não precise criar um método só para isso.
+        // TODO: Tentar usar regex para que não precise criar um método só para isso.
         protected abstract string CreateSolutionFileName(string additionalFileNameInformation);
 
         /// <summary>
@@ -302,9 +303,9 @@ namespace MudRunner.Suspension.Core.Operations.RunAnalysis.Dynamic
         /// <param name="request"></param>
         /// <returns></returns>
         /// <exception cref="NotImplementedException"></exception>
-        protected override Task<RunDynamicAnalysisResponse> ValidateOperationAsync(TRequest request)
+        protected override Task<OperationResponse<RunDynamicAnalysisResponseData>> ValidateOperationAsync(TRequest request)
         {
-            RunDynamicAnalysisResponse response = new();
+            OperationResponse<RunDynamicAnalysisResponseData> response = new();
             response.SetSuccessOk();
 
             if (request.TimeStep < 0)
@@ -316,7 +317,7 @@ namespace MudRunner.Suspension.Core.Operations.RunAnalysis.Dynamic
             if (request.TimeStep >= request.FinalTime)
                 response.SetBadRequestError($"The time step: '{request.TimeStep}' must be smaller than final time: '{request.FinalTime}'.");
 
-            if (Enum.IsDefined(request.DifferentialEquationMethodEnum) == false)
+            if (!Enum.IsDefined(request.DifferentialEquationMethodEnum))
                 response.SetBadRequestError($"Invalid {nameof(request.DifferentialEquationMethodEnum)}: '{request.DifferentialEquationMethodEnum}'.");
 
             this._differentialEquationMethod = this._differentialEquationMethodFactory.Get(request.DifferentialEquationMethodEnum);
@@ -328,7 +329,7 @@ namespace MudRunner.Suspension.Core.Operations.RunAnalysis.Dynamic
                 if (request.BaseExcitation.Constants.IsNullOrEmpty())
                     response.SetBadRequestError($"'{nameof(request.BaseExcitation.Constants)}' cannot be null or empty.");
 
-                if (Enum.IsDefined(request.BaseExcitation.CurveType) == false)
+                if (!Enum.IsDefined(request.BaseExcitation.CurveType))
                     response.SetBadRequestError($"Invalid curve type: '{request.BaseExcitation.CurveType}'.");
 
                 if (request.BaseExcitation.CurveType == CurveType.Cosine)
