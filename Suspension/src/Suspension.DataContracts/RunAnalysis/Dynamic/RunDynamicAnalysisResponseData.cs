@@ -1,12 +1,11 @@
-﻿using MudRunner.Commons.DataContracts.Operation;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 
 namespace MudRunner.Suspension.DataContracts.RunAnalysis.Dynamic
 {
     /// <summary>
     /// It represents the 'data' content of RunDynamicAnalysis operation response.
     /// </summary>
-    public class RunDynamicAnalysisResponseData : OperationResponseData
+    public class RunDynamicAnalysisResponseData
     {
         /// <summary>
         /// Class constructor.

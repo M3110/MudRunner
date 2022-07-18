@@ -1,5 +1,6 @@
 ﻿using MudRunner.Commons.Core.Operation;
 using MudRunner.Commons.DataContracts.Models;
+using MudRunner.Commons.DataContracts.Operation;
 using MudRunner.Suspension.Core.Models.SuspensionComponents;
 using MudRunner.Suspension.DataContracts.CalculateReactions;
 
@@ -8,7 +9,7 @@ namespace MudRunner.Suspension.Core.Operations.CalculateReactions
     /// <summary>
     /// It is responsible to calculate the reactions to suspension system.
     /// </summary>
-    public interface ICalculateReactions : IOperationBase<CalculateReactionsRequest, CalculateReactionsResponse> 
+    public interface ICalculateReactions : IOperationBase<CalculateReactionsRequest, OperationResponse<CalculateReactionsResponseData>> 
     {
         /// <summary>
         /// This method builds the reactions vector.

@@ -1,12 +1,11 @@
 ﻿using MudRunner.Commons.DataContracts.Models;
-using MudRunner.Commons.DataContracts.Operation;
 
 namespace MudRunner.Suspension.DataContracts.CalculateSteeringKnuckleReactions
 {
     /// <summary>
     /// It represents the 'data' content of operation CalculateSteeringKnuckleReactions response.
     /// </summary>
-    public class CalculateSteeringKnuckleReactionsResponseData : OperationResponseData
+    public class CalculateSteeringKnuckleReactionsResponseData
     {
         /// <summary>
         /// The reaction from suspension upper wishbone.

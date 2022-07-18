@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using MudRunner.Commons.DataContracts.Models.Profiles;
+using MudRunner.Commons.DataContracts.Operation;
 using MudRunner.Suspension.Application.Extensions;
 using MudRunner.Suspension.Core.Operations.RunAnalysis.Static.CircularProfile;
 using MudRunner.Suspension.Core.Operations.RunAnalysis.Static.RectangularProfile;
@@ -27,11 +28,11 @@ namespace MudRunner.Suspension.Application.Controllers
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         [ProducesResponseType(StatusCodes.Status501NotImplemented)]
         [HttpPost("circular-profile/run")]
-        public async Task<ActionResult<RunStaticAnalysisResponse>> RunAnalysis(
+        public async Task<ActionResult<OperationResponse<RunStaticAnalysisResponseData>>> RunAnalysis(
             [FromServices] IRunCircularProfileStaticAnalysis operation,
             [FromBody] RunStaticAnalysisRequest<CircularProfile> request)
         {
-            RunStaticAnalysisResponse response = await operation.ProcessAsync(request).ConfigureAwait(false);
+            var response = await operation.ProcessAsync(request).ConfigureAwait(false);
             return response.BuildHttpResponse();
         }
 
@@ -50,11 +51,11 @@ namespace MudRunner.Suspension.Application.Controllers
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         [ProducesResponseType(StatusCodes.Status501NotImplemented)]
         [HttpPost("rectangular-profile/run")]
-        public async Task<ActionResult<RunStaticAnalysisResponse>> RunAnalysis(
+        public async Task<ActionResult<OperationResponse<RunStaticAnalysisResponseData>>> RunAnalysis(
             [FromServices] IRunRectangularProfileStaticAnalysis operation,
             [FromQuery] RunStaticAnalysisRequest<RectangularProfile> request)
         {
-            RunStaticAnalysisResponse response = await operation.ProcessAsync(request).ConfigureAwait(false);
+            var response = await operation.ProcessAsync(request).ConfigureAwait(false);
             return response.BuildHttpResponse();
         }
     }

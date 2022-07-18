@@ -1,4 +1,5 @@
 ﻿using MudRunner.Commons.DataContracts.Models;
+using MudRunner.Commons.DataContracts.Operation;
 using MudRunner.Suspension.Core.Models.SuspensionComponents;
 using MudRunner.Suspension.DataContracts.CalculateReactions;
 using MudRunner.Suspension.DataContracts.Models.SuspensionComponents;
@@ -134,9 +135,9 @@ namespace MudRunner.Suspension.UnitTest.Helper
                 ]");
         }
 
-        public static CalculateReactionsResponse CreateResponse()
+        public static OperationResponse<CalculateReactionsResponseData> CreateResponse()
         {
-            var response = new CalculateReactionsResponse { Data = CreateResponseData() };
+            OperationResponse<CalculateReactionsResponseData> response = new() { Data = CreateResponseData() };
             response.SetSuccessOk();
 
             return response;

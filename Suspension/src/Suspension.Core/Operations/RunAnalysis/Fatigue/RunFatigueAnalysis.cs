@@ -4,6 +4,7 @@ using MudRunner.Commons.Core.Models.Fatigue;
 using MudRunner.Commons.Core.Operation;
 using MudRunner.Commons.DataContracts.Models;
 using MudRunner.Commons.DataContracts.Models.Profiles;
+using MudRunner.Commons.DataContracts.Operation;
 using MudRunner.Suspension.DataContracts.RunAnalysis.Fatigue;
 using MudRunner.Suspension.DataContracts.RunAnalysis.Static;
 using System;
@@ -15,7 +16,7 @@ namespace MudRunner.Suspension.Core.Operations.RunAnalysis.Fatigue
     /// <summary>
     /// It is responsible to run the fatigue analysis to suspension system.
     /// </summary>
-    public abstract class RunFatigueAnalysis<TProfile> : OperationBase<RunFatigueAnalysisRequest<TProfile>, RunFatigueAnalysisResponse>, IRunFatigueAnalysis<TProfile>
+    public abstract class RunFatigueAnalysis<TProfile> : OperationBase<RunFatigueAnalysisRequest<TProfile>, OperationResponse<RunFatigueAnalysisResponseData>>, IRunFatigueAnalysis<TProfile>
         where TProfile : Profile
     {
         private readonly IRunStaticAnalysis<TProfile> _runStaticAnalysis;
@@ -37,14 +38,14 @@ namespace MudRunner.Suspension.Core.Operations.RunAnalysis.Fatigue
         /// </summary>
         /// <param name="request"></param>
         /// <returns></returns>
-        protected override async Task<RunFatigueAnalysisResponse> ProcessOperationAsync(RunFatigueAnalysisRequest<TProfile> request)
+        protected override async Task<OperationResponse<RunFatigueAnalysisResponseData>> ProcessOperationAsync(RunFatigueAnalysisRequest<TProfile> request)
         {
-            RunFatigueAnalysisResponse response = new();
+            OperationResponse<RunFatigueAnalysisResponseData> response = new();
             response.SetSuccessOk();
 
             // Step 1 - Run static analysis for the minimum and maximum force.
             var result = await RunStaticAnalyses(request, response).ConfigureAwait(false);
-            
+
             // If some error occurred while running the static analysis, the errors will be added in response and the success will
             // be set as false.
             if (response.Success == false)
@@ -102,10 +103,10 @@ namespace MudRunner.Suspension.Core.Operations.RunAnalysis.Fatigue
         /// <param name="request"></param>
         /// <param name="response"></param>
         /// <returns></returns>
-        public async Task<(RunStaticAnalysisResponseData RunMaximumStaticAnalysisResponseData, RunStaticAnalysisResponseData RunMinimumStaticAnalysisResponseData)> RunStaticAnalyses(RunFatigueAnalysisRequest<TProfile> request, RunFatigueAnalysisResponse response)
+        public async Task<(RunStaticAnalysisResponseData RunMaximumStaticAnalysisResponseData, RunStaticAnalysisResponseData RunMinimumStaticAnalysisResponseData)> RunStaticAnalyses(RunFatigueAnalysisRequest<TProfile> request, OperationResponse<RunFatigueAnalysisResponseData> response)
         {
-            RunStaticAnalysisResponse runMaximumStaticAnalysisResponse = new();
-            RunStaticAnalysisResponse runMinimumStaticAnalysisResponse = new();
+            OperationResponse<RunStaticAnalysisResponseData>  runMaximumStaticAnalysisResponse = new();
+            OperationResponse<RunStaticAnalysisResponseData> runMinimumStaticAnalysisResponse = new();
 
             List<Task> tasks = new();
             tasks.Add(Task.Run(async () =>
@@ -143,13 +144,13 @@ namespace MudRunner.Suspension.Core.Operations.RunAnalysis.Fatigue
             if (runMaximumStaticAnalysisResponse.Success == false)
             {
                 response.SetInternalServerError("Occurred error durring the static analysis to suspension system considering the maximum force.");
-                response.AddErrors(runMaximumStaticAnalysisResponse.Errors, runMaximumStaticAnalysisResponse.HttpStatusCode);
+                response.AddMessages(runMaximumStaticAnalysisResponse.Messages, runMaximumStaticAnalysisResponse.HttpStatusCode);
             }
 
             if (runMinimumStaticAnalysisResponse.Success == false)
             {
                 response.SetInternalServerError("Occurred error durring the static analysis to suspension system considering the minimum force.");
-                response.AddErrors(runMinimumStaticAnalysisResponse.Errors, runMinimumStaticAnalysisResponse.HttpStatusCode);
+                response.AddMessages(runMinimumStaticAnalysisResponse.Messages, runMinimumStaticAnalysisResponse.HttpStatusCode);
             }
 
             return (runMaximumStaticAnalysisResponse.Data, runMinimumStaticAnalysisResponse.Data);

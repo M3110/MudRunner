@@ -1,6 +1,7 @@
 ﻿using MudRunner.Commons.Core.Operation;
 using MudRunner.Commons.DataContracts.Models;
 using MudRunner.Commons.DataContracts.Models.Profiles;
+using MudRunner.Commons.DataContracts.Operation;
 using MudRunner.Suspension.Core.Models.SuspensionComponents;
 using MudRunner.Suspension.DataContracts.CalculateReactions;
 using MudRunner.Suspension.DataContracts.RunAnalysis.Static;
@@ -12,7 +13,7 @@ namespace MudRunner.Suspension.Core.Operations.RunAnalysis
     /// It is responsible to run the static analysis to suspension system.
     /// </summary>
     /// <typeparam name="TProfile"></typeparam>
-    public interface IRunStaticAnalysis<TProfile> : IOperationBase<RunStaticAnalysisRequest<TProfile>, RunStaticAnalysisResponse> 
+    public interface IRunStaticAnalysis<TProfile> : IOperationBase<RunStaticAnalysisRequest<TProfile>, OperationResponse<RunStaticAnalysisResponseData>>
         where TProfile : Profile
     {
         /// <summary>

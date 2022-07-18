@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using MudRunner.Commons.DataContracts.Operation;
 using MudRunner.Suspension.Application.Extensions;
 using MudRunner.Suspension.Core.Operations.RunAnalysis.Dynamic.HalfCar.SixDegreeOfFreedom;
 using MudRunner.Suspension.DataContracts.RunAnalysis.Dynamic;
@@ -26,11 +27,11 @@ namespace MudRunner.Suspension.Application.Controllers
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         [ProducesResponseType(StatusCodes.Status501NotImplemented)]
         [HttpPost("half-car/six-degrees-of-freedom")]
-        public async Task<ActionResult<RunDynamicAnalysisResponse>> RunAnalysis(
+        public async Task<ActionResult<OperationResponse<RunDynamicAnalysisResponseData>>> RunAnalysis(
             [FromServices] IRunHalfCarSixDofDynamicAnalysis operation,
             [FromBody] RunHalfCarSixDofDynamicAnalysisRequest request)
         {
-            RunDynamicAnalysisResponse response = await operation.ProcessAsync(request).ConfigureAwait(false);
+            var response = await operation.ProcessAsync(request).ConfigureAwait(false);
             return response.BuildHttpResponse();
         }
 
@@ -50,11 +51,11 @@ namespace MudRunner.Suspension.Application.Controllers
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         [ProducesResponseType(StatusCodes.Status501NotImplemented)]
         [HttpPost("half-car/six-degrees-of-freedom/amplitude")]
-        public async Task<ActionResult<RunAmplitudeDynamicAnalysisResponse>> RunAmplitudeAnalysis(
+        public async Task<ActionResult<OperationResponse<RunDynamicAnalysisResponseData>>> RunAmplitudeAnalysis(
             [FromServices] IRunHalfCarSixDofAmplitudeDynamicAnalysis operation,
             [FromBody] RunHalfCarSixDofAmplitudeDynamicAnalysisRequest request)
         {
-            RunAmplitudeDynamicAnalysisResponse response = await operation.ProcessAsync(request).ConfigureAwait(false);
+            var response = await operation.ProcessAsync(request).ConfigureAwait(false);
             return response.BuildHttpResponse();
         }
     }

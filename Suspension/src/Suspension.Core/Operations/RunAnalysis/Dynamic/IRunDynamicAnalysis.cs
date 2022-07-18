@@ -1,4 +1,5 @@
 ﻿using MudRunner.Commons.Core.Operation;
+using MudRunner.Commons.DataContracts.Operation;
 using MudRunner.Suspension.Core.Models.NumericalMethod;
 using MudRunner.Suspension.DataContracts.RunAnalysis.Dynamic;
 using System.Threading.Tasks;
@@ -8,7 +9,7 @@ namespace MudRunner.Suspension.Core.Operations.RunAnalysis.Dynamic
     /// <summary>
     /// It is responsible to run the dynamic analysis to suspension system.
     /// </summary>
-    public interface IRunDynamicAnalysis<TRequest> : IOperationBase<TRequest, RunDynamicAnalysisResponse>
+    public interface IRunDynamicAnalysis<TRequest> : IOperationBase<TRequest, OperationResponse<RunDynamicAnalysisResponseData>>
         where TRequest : RunGenericDynamicAnalysisRequest
     {
         /// <summary>
@@ -58,7 +59,7 @@ namespace MudRunner.Suspension.Core.Operations.RunAnalysis.Dynamic
         /// <param name="additionalFileNameInformation"></param>
         /// <param name="response"></param>
         /// <returns></returns>
-        public (string ResultFullFileName, string DeformationFullFileName) CreateResultAndDeformationFullFileNames(string additionalFileNameInformation, RunDynamicAnalysisResponse response);
+        public (string ResultFullFileName, string DeformationFullFileName) CreateResultAndDeformationFullFileNames(string additionalFileNameInformation, OperationResponse<RunDynamicAnalysisResponseData> response);
 
         /// <summary>
         /// This method creates the solution file.

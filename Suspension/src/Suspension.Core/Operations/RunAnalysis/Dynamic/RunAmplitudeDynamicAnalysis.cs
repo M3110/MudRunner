@@ -1,4 +1,5 @@
 ﻿using MudRunner.Commons.Core.Operation;
+using MudRunner.Commons.DataContracts.Operation;
 using MudRunner.Suspension.Core.ExtensionMethods;
 using MudRunner.Suspension.DataContracts.Models.Enums;
 using MudRunner.Suspension.DataContracts.RunAnalysis.Dynamic;
@@ -14,7 +15,7 @@ namespace MudRunner.Suspension.Core.Operations.RunAnalysis.Dynamic
     /// It is responsible to run the dynamic analysis to suspension system focusing in the amplitude of the system.
     /// </summary>
     public abstract class RunAmplitudeDynamicAnalysis<TRunAmplitudeDynamicAnalysisRequest, TRunDynamicAnalysisRequest> :
-        OperationBase<TRunAmplitudeDynamicAnalysisRequest, RunAmplitudeDynamicAnalysisResponse>,
+        OperationBase<TRunAmplitudeDynamicAnalysisRequest, OperationResponse<RunAmplitudeDynamicAnalysisResponseData>>,
         IRunAmplitudeDynamicAnalysis<TRunAmplitudeDynamicAnalysisRequest, TRunDynamicAnalysisRequest>
         where TRunAmplitudeDynamicAnalysisRequest : RunGenericDynamicAnalysisRequest
         where TRunDynamicAnalysisRequest : RunGenericDynamicAnalysisRequest
@@ -46,9 +47,9 @@ namespace MudRunner.Suspension.Core.Operations.RunAnalysis.Dynamic
         /// </summary>
         /// <param name="request"></param>
         /// <returns></returns>
-        protected async override Task<RunAmplitudeDynamicAnalysisResponse> ProcessOperationAsync(TRunAmplitudeDynamicAnalysisRequest request)
+        protected async override Task<OperationResponse<RunAmplitudeDynamicAnalysisResponseData>> ProcessOperationAsync(TRunAmplitudeDynamicAnalysisRequest request)
         {
-            RunAmplitudeDynamicAnalysisResponse response = new();
+            OperationResponse<RunAmplitudeDynamicAnalysisResponseData> response = new();
 
             // Step 1 - Build a list of request for operation RunDynamicAnalysis.
             List<TRunDynamicAnalysisRequest> runDynamicAnalysisRequestList = await this.BuildRunDynamicAnalysisRequestListAsync(request).ConfigureAwait(false);
@@ -91,18 +92,15 @@ namespace MudRunner.Suspension.Core.Operations.RunAnalysis.Dynamic
                         runDynamicAnalysisRequest.AdditionalFileNameInformation = $"{request.AdditionalFileNameInformation}_Index-{requestIndex}";
 
                         // Step 4 - Executes the RunDynamicAnalysis operation for a single request.
-                        RunDynamicAnalysisResponse runDynamicAnalysisResponse = await this._runDynamicAnalysis
-                            .ProcessAsync(runDynamicAnalysisRequest)
-                            .ConfigureAwait(false);
+                        var runDynamicAnalysisResponse = await this._runDynamicAnalysis.ProcessAsync(runDynamicAnalysisRequest).ConfigureAwait(false);
 
                         // Step 5 - If the RunDynamicAnalysis operation failed, save the erros in the response.
                         // OBS.: The main operation must not end if the RunDynamicAnalysis operation failed, it must tries to proces the 
                         // next RunDynamicAnalysisRequest.
                         if (runDynamicAnalysisResponse.Success == false)
                         {
-                            // TODO: adicionar propriedade Warning e salvar esses erros como warning.
-                            response.AddReport($"Ocurred error while processing the request index '{requestIndex}' for RunDynamicAnalysis operation.");
-                            response.AddReports(runDynamicAnalysisResponse);
+                            response.AddWarning("MESSAGECODE_NOTIMPLEMENTED", $"Ocurred error while processing the request index '{requestIndex}' for RunDynamicAnalysis operation.");
+                            response.AddMessages(runDynamicAnalysisResponse.Messages);
                         }
                         else
                         {
@@ -196,9 +194,9 @@ namespace MudRunner.Suspension.Core.Operations.RunAnalysis.Dynamic
         /// <param name="request"></param>
         /// <returns></returns>
         /// <exception cref="NotImplementedException"></exception>
-        protected override Task<RunAmplitudeDynamicAnalysisResponse> ValidateOperationAsync(TRunAmplitudeDynamicAnalysisRequest request)
+        protected override Task<OperationResponse<RunAmplitudeDynamicAnalysisResponseData>> ValidateOperationAsync(TRunAmplitudeDynamicAnalysisRequest request)
         {
-            RunAmplitudeDynamicAnalysisResponse response = new();
+            OperationResponse<RunAmplitudeDynamicAnalysisResponseData> response = new();
             response.SetSuccessOk();
 
             if (request.TimeStep < 0)
