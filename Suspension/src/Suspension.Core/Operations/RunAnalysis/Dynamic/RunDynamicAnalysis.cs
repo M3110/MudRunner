@@ -65,6 +65,7 @@ namespace MudRunner.Suspension.Core.Operations.RunAnalysis.Dynamic
         protected async override Task<OperationResponse<RunDynamicAnalysisResponseData>> ProcessOperationAsync(TRequest request)
         {
             OperationResponse<RunDynamicAnalysisResponseData> response = new();
+            response.SetSuccessCreated();
 
             // Step 1 - Build the input for numerical method.
             NumericalMethodInput input = await this.BuildNumericalMethodInputAsync(request).ConfigureAwait(false);
@@ -142,7 +143,6 @@ namespace MudRunner.Suspension.Core.Operations.RunAnalysis.Dynamic
                 response.Data.FullFileNames.Add(deformationFullFileName);
                 response.Data.MaximumResult = this._mappingResolver.MapFrom(maximumResult);
                 response.Data.MaximumDeformationResult = this._mappingResolver.MapFrom(maximumDeformationResult);
-                response.SetSuccessCreated();
             }
 
             return response;
