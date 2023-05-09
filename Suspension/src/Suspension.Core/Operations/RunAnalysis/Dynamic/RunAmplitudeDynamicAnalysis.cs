@@ -130,7 +130,7 @@ namespace MudRunner.Suspension.Core.Operations.RunAnalysis.Dynamic
             finally
             {
                 // Step 9 - Set the success as true and the HTTP Status Code as:
-                //    Created (202) - If the number of full file names in response divided by the number of files per request of 
+                //    Created (201) - If the number of full file names in response divided by the number of files per request of 
                 //    RunDynamicAnalysis operation plus 1 is equal to the number of requests to process.
                 //    Partial Content (206) - Otherwise.
                 // OBS.: It has the "divided by" because for each request it must have more than one files: one with the all request
