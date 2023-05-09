@@ -171,6 +171,13 @@ namespace MudRunner.Commons.DataContracts.Operation
         public void SetConflictError(string messageCode = null, string messageContent = null) => this.SetError(HttpStatusCode.Conflict, messageCode, messageContent);
 
         /// <summary>
+        /// This method sets Success to false and the HttpStatusCode to 413 (RequestEntityTooLarge).
+        /// </summary>
+        /// <param name="messageCode"></param>
+        /// <param name="messageContent"></param>
+        public void SetRequestEntityTooLargeError(string messageCode = null, string messageContent = null) => SetError(HttpStatusCode.RequestEntityTooLarge, messageCode, messageContent);
+
+        /// <summary>
         /// Sets Success to false and the HttpStatusCode to 417 (ExpectationFailed).
         /// </summary>
         /// <param name="messageCode"></param>
