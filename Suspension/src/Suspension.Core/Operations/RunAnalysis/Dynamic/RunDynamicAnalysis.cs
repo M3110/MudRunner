@@ -11,6 +11,7 @@ using MudRunner.Suspension.DataContracts.RunAnalysis.Dynamic;
 using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Text;
 using System.Threading.Tasks;
 
 namespace MudRunner.Suspension.Core.Operations.RunAnalysis.Dynamic
@@ -33,9 +34,14 @@ namespace MudRunner.Suspension.Core.Operations.RunAnalysis.Dynamic
         protected abstract string SolutionPath { get; }
 
         /// <summary>
+        /// The type of analysis. It can be: quarter car, half car, one car, and more.
+        /// </summary>
+        protected abstract string AnalysisType { get; }
+
+        /// <summary>
         /// The date and time the operation is instantiated.
         /// </summary>
-        protected DateTime ExecutionDateTime { get; set; }
+        protected DateTime ExecutionDateTime { get; }
 
         /// <inheritdoc/>
         public uint NumberOfFilesPerRequest => 2;
@@ -258,8 +264,17 @@ namespace MudRunner.Suspension.Core.Operations.RunAnalysis.Dynamic
         /// </summary>
         /// <param name="additionalFileNameInformation"></param>
         /// <returns></returns>
-        // TODO: Tentar usar regex para que não precise criar um método só para isso.
-        protected abstract string CreateSolutionFileName(string additionalFileNameInformation);
+        protected string CreateSolutionFileName(string additionalFileNameInformation)
+        {
+            StringBuilder fileName = new($"{this.AnalysisType}_DOF-{this.NumberOfBoundaryConditions}_");
+
+            if (string.IsNullOrWhiteSpace(additionalFileNameInformation) == false)
+                fileName.Append($"{additionalFileNameInformation}_");
+
+            fileName.Append($"{this.ExecutionDateTime:yyyyMMddHHmmss}.csv");
+
+            return fileName.ToString();
+        }
 
         /// <summary>
         /// This method returns the maximum results between two <see cref="NumericalMethodResult"/>.

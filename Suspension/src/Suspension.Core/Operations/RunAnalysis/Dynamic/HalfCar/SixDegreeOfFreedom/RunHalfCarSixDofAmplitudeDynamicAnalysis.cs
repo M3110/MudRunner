@@ -31,6 +31,9 @@ namespace MudRunner.Suspension.Core.Operations.RunAnalysis.Dynamic.HalfCar.SixDe
         protected override string SolutionPath => SuspensionBasePath.HalfCarSixDofAmplitudeAnalysis;
 
         /// <inheritdoc/>
+        protected override string AnalysisType => DinamicAnalysisTypeName.HalfCar;
+
+        /// <inheritdoc/>
         public override Task<List<RunHalfCarSixDofDynamicAnalysisRequest>> BuildRunDynamicAnalysisRequestListAsync(RunHalfCarSixDofAmplitudeDynamicAnalysisRequest request)
         {
             List<RunHalfCarSixDofDynamicAnalysisRequest> list = new();
@@ -170,19 +173,6 @@ namespace MudRunner.Suspension.Core.Operations.RunAnalysis.Dynamic.HalfCar.SixDe
             fileHeader.Append(",Engine mount deformation acceleration,Seat deformation acceleration,Rear deformation acceleration,Front deformation acceleration,Rear tire deformation acceleration,Front tire deformation acceleration");
 
             return fileHeader.ToString();
-        }
-
-        /// <inheritdoc/>
-        protected override string CreateSolutionFileName(string additionalFileNameInformation)
-        {
-            StringBuilder fileName = new($"HalfCar_Amplitude_DOF-{this.NumberOfBoundaryConditions}_");
-
-            if (string.IsNullOrWhiteSpace(additionalFileNameInformation) == false)
-                fileName.Append($"{additionalFileNameInformation}_");
-
-            fileName.Append($"{DateTime.UtcNow:yyyyMMddHHmmss}.csv");
-
-            return fileName.ToString();
         }
     }
 }
