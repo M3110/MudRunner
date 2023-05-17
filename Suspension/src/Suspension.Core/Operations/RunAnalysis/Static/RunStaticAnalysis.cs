@@ -15,7 +15,7 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 using CoreModels = MudRunner.Suspension.Core.Models.SuspensionComponents;
 
-namespace MudRunner.Suspension.Core.Operations.RunAnalysis
+namespace MudRunner.Suspension.Core.Operations.RunAnalysis.Static
 {
     /// <summary>
     /// It is responsible to run the static analysis to suspension system.
@@ -42,10 +42,10 @@ namespace MudRunner.Suspension.Core.Operations.RunAnalysis
             IGeometricProperty<TProfile> geometricProperty,
             IMappingResolver mappingResolver)
         {
-            this._calculateReactions = calculateReactions;
-            this._mechanicsOfMaterials = mechanicsOfMaterials;
-            this._geometricProperty = geometricProperty;
-            this._mappingResolver = mappingResolver;
+            _calculateReactions = calculateReactions;
+            _mechanicsOfMaterials = mechanicsOfMaterials;
+            _geometricProperty = geometricProperty;
+            _mappingResolver = mappingResolver;
         }
 
         /// <summary>
@@ -59,7 +59,7 @@ namespace MudRunner.Suspension.Core.Operations.RunAnalysis
             response.SetSuccessOk();
 
             // Step 1 - Calculates the reactions at suspension system for the applied force.
-            OperationResponse<CalculateReactionsResponseData> calculateReactionsResponse = await this._calculateReactions.ProcessAsync(this.BuildCalculateReactionsRequest(request)).ConfigureAwait(false);
+            OperationResponse<CalculateReactionsResponseData> calculateReactionsResponse = await _calculateReactions.ProcessAsync(BuildCalculateReactionsRequest(request)).ConfigureAwait(false);
             if (!calculateReactionsResponse.Success)
             {
                 response.SetInternalServerError("Occurred error while calculating the reactions to suspension system.");
@@ -70,29 +70,29 @@ namespace MudRunner.Suspension.Core.Operations.RunAnalysis
 
             // Step 2 - Builds the suspension system based on CalculateReaction operation response and request.
             // Here is built the main information to be used at analysis.
-            SuspensionSystem<TProfile> suspensionSystem = this._mappingResolver.MapFrom(request, calculateReactionsResponse.Data);
+            SuspensionSystem<TProfile> suspensionSystem = _mappingResolver.MapFrom(request, calculateReactionsResponse.Data);
 
             // Step 3 - Generate the result and maps to response.
             List<Task> tasks = new();
 
             tasks.Add(Task.Run(async () =>
             {
-                response.Data.ShockAbsorberResult = await this.GenerateShockAbsorberResultAsync(calculateReactionsResponse.Data.ShockAbsorberReaction, request.ShouldRoundResults, request.NumberOfDecimalsToRound.GetValueOrDefault()).ConfigureAwait(false);
+                response.Data.ShockAbsorberResult = await GenerateShockAbsorberResultAsync(calculateReactionsResponse.Data.ShockAbsorberReaction, request.ShouldRoundResults, request.NumberOfDecimalsToRound.GetValueOrDefault()).ConfigureAwait(false);
             }));
 
             tasks.Add(Task.Run(async () =>
             {
-                response.Data.LowerWishboneResult = await this.GenerateWishboneResultAsync(suspensionSystem.LowerWishbone, request.ShouldRoundResults, request.NumberOfDecimalsToRound.GetValueOrDefault()).ConfigureAwait(false);
+                response.Data.LowerWishboneResult = await GenerateWishboneResultAsync(suspensionSystem.LowerWishbone, request.ShouldRoundResults, request.NumberOfDecimalsToRound.GetValueOrDefault()).ConfigureAwait(false);
             }));
 
             tasks.Add(Task.Run(async () =>
             {
-                response.Data.UpperWishboneResult = await this.GenerateWishboneResultAsync(suspensionSystem.UpperWishbone, request.ShouldRoundResults, request.NumberOfDecimalsToRound.GetValueOrDefault()).ConfigureAwait(false);
+                response.Data.UpperWishboneResult = await GenerateWishboneResultAsync(suspensionSystem.UpperWishbone, request.ShouldRoundResults, request.NumberOfDecimalsToRound.GetValueOrDefault()).ConfigureAwait(false);
             }));
 
             tasks.Add(Task.Run(async () =>
             {
-                response.Data.TieRodResult = await this.GenerateSingleComponentResultAsync(suspensionSystem.TieRod, request.ShouldRoundResults, request.NumberOfDecimalsToRound.GetValueOrDefault());
+                response.Data.TieRodResult = await GenerateSingleComponentResultAsync(suspensionSystem.TieRod, request.ShouldRoundResults, request.NumberOfDecimalsToRound.GetValueOrDefault());
             }));
 
             await Task.WhenAll(tasks);
@@ -180,15 +180,15 @@ namespace MudRunner.Suspension.Core.Operations.RunAnalysis
                 throw new ArgumentNullException(nameof(component), "The object tie rod cannot be null to calculate the results.");
 
             // Step i - Calculates the geometric properties.
-            double area = this._geometricProperty.CalculateArea(component.Profile);
-            double momentOfInertia = this._geometricProperty.CalculateMomentOfInertia(component.Profile);
+            double area = _geometricProperty.CalculateArea(component.Profile);
+            double momentOfInertia = _geometricProperty.CalculateMomentOfInertia(component.Profile);
 
             // Step ii - Calculates the equivalent stress.
             // For that case, just is considered the normal stress because the applied force is at same axis of geometry.
-            double equivalentStress = this._mechanicsOfMaterials.CalculateNormalStress(component.AppliedForce, area);
+            double equivalentStress = _mechanicsOfMaterials.CalculateNormalStress(component.AppliedForce, area);
 
             // Step iii - Calculates the critical buckling force.
-            double criticalBucklingForce = this._mechanicsOfMaterials.CalculateCriticalBucklingForce(component.Material.YoungModulus, momentOfInertia, component.Length);
+            double criticalBucklingForce = _mechanicsOfMaterials.CalculateCriticalBucklingForce(component.Material.YoungModulus, momentOfInertia, component.Length);
 
             // Step iv - Builds the analysis result.
             SingleComponentStaticAnalysisResult result = new()

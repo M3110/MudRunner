@@ -15,8 +15,4 @@
 	  <ProjectReference Include="..\Suspension.DataContracts\MudRunner.Suspension.DataContracts.csproj" />
 	</ItemGroup>
 
-	<ItemGroup>
-	  <Folder Include="Operations\RunAnalysis\Dynamic\QuarterCar\OneDegreeOfFreedom\" />
-	</ItemGroup>
-
 </Project>

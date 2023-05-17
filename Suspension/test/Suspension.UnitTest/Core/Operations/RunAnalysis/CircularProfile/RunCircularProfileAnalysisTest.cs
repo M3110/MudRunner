@@ -8,7 +8,7 @@ using MudRunner.Suspension.Core.Operations.CalculateReactions;
 using MudRunner.Suspension.Core.Operations.RunAnalysis.Static.CircularProfile;
 using MudRunner.Suspension.DataContracts.CalculateReactions;
 using MudRunner.Suspension.DataContracts.RunAnalysis.Static;
-using MudRunner.Suspension.UnitTest.Helper.DataContracts;
+using MudRunner.Suspension.UnitTest.Helper;
 using System;
 using DataContract = MudRunner.Commons.DataContracts.Models.Profiles;
 

@@ -5,6 +5,7 @@ using MudRunner.Commons.Core.Operation;
 using MudRunner.Commons.DataContracts.Models;
 using MudRunner.Commons.DataContracts.Models.Profiles;
 using MudRunner.Commons.DataContracts.Operation;
+using MudRunner.Suspension.Core.Operations.RunAnalysis.Static;
 using MudRunner.Suspension.DataContracts.RunAnalysis.Fatigue;
 using MudRunner.Suspension.DataContracts.RunAnalysis.Static;
 using System;

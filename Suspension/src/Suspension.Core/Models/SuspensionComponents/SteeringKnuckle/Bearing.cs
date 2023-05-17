@@ -1,7 +1,7 @@
 ﻿using MudRunner.Suspension.DataContracts.Models.Enums;
 using System;
 
-namespace MudRunner.Suspension.Core.Models.SuspensionComponents
+namespace MudRunner.Suspension.Core.Models.SuspensionComponents.SteeringKnuckle
 {
     /// <summary>
     /// It contains the necessary information about whatever bearing.

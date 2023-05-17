@@ -3,7 +3,7 @@ using MudRunner.Commons.DataContracts.Models.Profiles;
 using MudRunner.Suspension.DataContracts.Models.SuspensionComponents;
 using MudRunner.Suspension.DataContracts.RunAnalysis.Static;
 
-namespace MudRunner.Suspension.UnitTest.Helper.DataContracts
+namespace MudRunner.Suspension.UnitTest.Helper
 {
     /// <summary>
     /// It contains method and properties to help the testing the RunAnalysis operation.

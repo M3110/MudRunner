@@ -2,7 +2,6 @@
 using MudRunner.Commons.Core.Operation;
 using MudRunner.Commons.DataContracts.Models;
 using MudRunner.Commons.DataContracts.Operation;
-using MudRunner.Suspension.Core.Models.SuspensionComponents;
 using MudRunner.Suspension.Core.Models.SuspensionComponents.SteeringKnuckle;
 using MudRunner.Suspension.Core.Operations.CalculateReactions;
 using MudRunner.Suspension.DataContracts.CalculateReactions;

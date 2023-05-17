@@ -7,7 +7,7 @@ using MudRunner.Suspension.DataContracts.CalculateReactions;
 using MudRunner.Suspension.DataContracts.RunAnalysis.Static;
 using System.Threading.Tasks;
 
-namespace MudRunner.Suspension.Core.Operations.RunAnalysis
+namespace MudRunner.Suspension.Core.Operations.RunAnalysis.Static
 {
     /// <summary>
     /// It is responsible to run the static analysis to suspension system.
