@@ -1,9 +1,9 @@
 ﻿using System.Collections.Generic;
 
-namespace MudRunner.Suspension.DataContracts.RunAnalysis.Dynamic.HalfCar.SixDegreeOfFreedom
+namespace MudRunner.Suspension.DataContracts.RunAnalysis.Dynamic.QuarterCar.OneDegreeOfFreedom
 {
     /// <summary>
     /// It represents the request content of RunQuarterCarOneDofAmplitudeDynamicAnalysis operation.
     /// </summary>
-    public class RunQuarterCarOneDofAmplitudeDynamicAnalysisRequest : RunHalfCarSixDofGenericDynamicAnalysisRequest<List<double>> { }
+    public class RunQuarterCarOneDofAmplitudeDynamicAnalysisRequest : RunQuarterCarOneDofGenericDynamicAnalysisRequest<List<double>> { }
 }

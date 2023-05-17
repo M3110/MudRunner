@@ -1,4 +1,4 @@
-﻿namespace MudRunner.Suspension.DataContracts.RunAnalysis.Dynamic.HalfCar.SixDegreeOfFreedom
+﻿namespace MudRunner.Suspension.DataContracts.RunAnalysis.Dynamic.QuarterCar.OneDegreeOfFreedom
 {
     /// <summary>
     /// It represents the generic request content of quarter car dynamic analysis with 1 degree of freedom operation.
