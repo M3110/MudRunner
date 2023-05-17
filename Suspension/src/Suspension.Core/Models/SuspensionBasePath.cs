@@ -41,5 +41,15 @@ namespace MudRunner.Suspension.Core.Models
         /// The base path to response files of dynamic amplitude analysis operations that considers half car and six degrees of freedom.
         /// </summary>
         public static string HalfCarSixDofAmplitudeAnalysis => Path.Combine(SuspensionBasePath.HalfCarSixDofAnalysis, "Amplitude");
+
+        /// <summary>
+        /// The base path to response files of dynamic analysis operations that considers quarter car and one degree of freedom.
+        /// </summary>
+        public static string QuarterCarOneDofAnalysis => Path.Combine(SuspensionBasePath.HalfCarAnalysis, "1 Degree of Freedom");
+
+        /// <summary>
+        /// The base path to response files of dynamic amplitude analysis operations that considers quarter car and one degree of freedom.
+        /// </summary>
+        public static string QuarterCarOneDofAmplitudeAnalysis => Path.Combine(SuspensionBasePath.QuarterCarOneDofAnalysis, "Amplitude");
     }
 }

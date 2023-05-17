@@ -1,6 +1,5 @@
 ﻿using MudRunner.Suspension.Core.Models;
 using MudRunner.Suspension.DataContracts.RunAnalysis.Dynamic.HalfCar.SixDegreeOfFreedom;
-using System;
 using System.Collections.Generic;
 using System.Text;
 using System.Threading.Tasks;
